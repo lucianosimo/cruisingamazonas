@@ -31,6 +31,8 @@ import org.andengine.util.level.simple.SimpleLevelEntityLoaderData;
 import org.andengine.util.level.simple.SimpleLevelLoader;
 import org.xml.sax.Attributes;
 
+import android.util.Log;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -142,8 +144,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 		createBackground();
 		createHud();
 		createPhysics();
+		Log.e("amazonas", "next level " + MapScene.getNextLevel());
 		//Log.e("amazonas", "gamescene level " + level);
-		loadLevel();
+		loadLevel(MapScene.getNextLevel());
 		createGameOverText();
 		levelCompleteWindow = new LevelCompleteWindow(vbom);
 		setOnSceneTouchListener(this);
@@ -273,7 +276,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	}
 	
 	//Parse level from XML file
-	private void loadLevel () {
+	private void loadLevel (int level) {
 		final SimpleLevelLoader levelLoader = new SimpleLevelLoader(vbom);
 		final FixtureDef FIXTURE_DEF= PhysicsFactory.createFixtureDef(0, 0f, 0.5f);
 		levelLoader.registerEntityLoader(new EntityLoader<SimpleLevelEntityLoaderData>(LevelConstants.TAG_LEVEL) {
@@ -319,7 +322,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER)) {
 					venusFlyTraper = new VenusFlyTraper(x, y, vbom, camera, physicsWorld);
 					venusFlyTraper.setAnimation();
-					//animatedSpriteList.add(venusFlyTraper);
+					addToAnimatedSpriteList(venusFlyTraper);
 					levelObject = venusFlyTraper;
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SNAKE)) {
 					snake = new Snake(x, y, vbom, camera, physicsWorld, resourcesManager.snake_region.deepCopy()) {
@@ -331,7 +334,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 							}
 						};
 					};
-					//animatedSpriteList.add(snake);
+					addToAnimatedSpriteList(snake);
 					levelObject = snake;
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DIAMONDBLUE)) {
 					levelObject = new Sprite(x, y, resourcesManager.diamondBlue_region, vbom) {
@@ -410,8 +413,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 							    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 							    		if (pSceneTouchEvent.isActionDown()) {
 								    		resourcesManager.gameMusic.stop();
-								    		SceneManager.getInstance().loadMapScene(engine);
-								    		//goToNextLevel();
+								    		//SceneManager.getInstance().loadMapScene(engine);
+								    		goToNextLevel();
 							    		}
 							    		return true;
 							    	};
@@ -443,8 +446,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 				return levelObject;
 			}
 		});
-		//levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + level + ".xml");
-		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/1.xml");
+		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + level + ".xml");
+		//levelLoader.loadLevelFromAsset(activity.getAssets(), "level/1.xml");
 	}
 	
 	private ContactListener contactListener() {
@@ -523,10 +526,14 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
         	
         	@Override
             public void run() {
-        		//myGarbageCollection();
+        		myGarbageCollection();
         		SceneManager.getInstance().loadMapScene(engine);
             }
         });
+	}
+	
+	private void addToAnimatedSpriteList(AnimatedSprite animatedSprite) {
+		animatedSpriteList.add(animatedSprite);
 	}
 	
 	private void myGarbageCollection() {

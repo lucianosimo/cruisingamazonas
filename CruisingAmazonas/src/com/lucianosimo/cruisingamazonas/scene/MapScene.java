@@ -16,8 +16,9 @@ import com.lucianosimo.cruisingamazonas.manager.SceneManager.SceneType;
 public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	
 	private MenuScene menuChildScene;
-	private final int LEVEL_ONE = 0;
-	private final int LEVEL_TWO = 1;
+	private final int LEVEL_ONE = 1;
+	private final int LEVEL_TWO = 2;
+	private static int nextLevel = 0;
 
 	@Override
 	public void createScene() {
@@ -74,15 +75,21 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 		menuChildScene.setOnMenuItemClickListener(this);
 		setChildScene(menuChildScene);
 	}
+	
+	public static int getNextLevel() {
+		return nextLevel;
+	}
 
 	@Override
 	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,	float pMenuItemLocalX, float pMenuItemLocalY) {
 		resourcesManager.menuMusic.stop();
 		switch (pMenuItem.getID()) {
 			case LEVEL_ONE:
+				nextLevel = LEVEL_ONE;
 				SceneManager.getInstance().loadGameScene(engine);
 				return true;
-			case LEVEL_TWO:	
+			case LEVEL_TWO:
+				nextLevel = LEVEL_TWO;
 				SceneManager.getInstance().loadGameScene(engine);
 				return true;
 			default:

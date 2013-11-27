@@ -31,9 +31,9 @@
     <entity x="7010" y="138" type="airPlatformLong"/>
     <entity x="8725" y="105" type="airPlatform"/>
     
-    <entity x="548" y="146" type="diamondBlue"/>
-    <entity x="587" y="146" type="diamondBlue"/>
-    <entity x="626" y="146" type="diamondBlue"/>
+    <entity x="250" y="146" type="diamondBlue"/>
+    <entity x="265" y="146" type="diamondBlue"/>
+    <entity x="280" y="146" type="diamondBlue"/>
     <entity x="1851" y="160" type="diamondBlue"/>
     <entity x="2456" y="160" type="diamondBlue"/>
     <entity x="3429" y="165" type="diamondBlue"/>
@@ -76,5 +76,5 @@
     
     <entity x="15" y="100" type="player"/>
         
-    <entity x="300" y="115" type="tent"/>
+    <entity x="9928" y="115" type="tent"/>
 </level>
