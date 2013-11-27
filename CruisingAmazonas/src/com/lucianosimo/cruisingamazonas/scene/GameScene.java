@@ -1,6 +1,8 @@
 package com.lucianosimo.cruisingamazonas.scene;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.engine.handler.timer.ITimerCallback;
@@ -11,6 +13,7 @@ import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.ParallaxBackground;
 import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
@@ -21,6 +24,7 @@ import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.SAXUtils;
 import org.andengine.util.adt.align.HorizontalAlign;
 import org.andengine.util.adt.color.Color;
+import org.andengine.util.debug.Debug;
 import org.andengine.util.level.EntityLoader;
 import org.andengine.util.level.constants.LevelConstants;
 import org.andengine.util.level.simple.SimpleLevelEntityLoaderData;
@@ -35,6 +39,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.lucianosimo.cruisingamazonas.base.BaseScene;
 import com.lucianosimo.cruisingamazonas.manager.SceneManager;
@@ -46,29 +51,41 @@ import com.lucianosimo.cruisingamazonas.object.VenusFlyTraper;
 
 public class GameScene extends BaseScene implements IOnSceneTouchListener{
 
+	//Animatedsprites Arraylists
+	public ArrayList<AnimatedSprite> animatedSpriteList = new ArrayList<AnimatedSprite>();
+	
+	//Scene indicators
 	private HUD gameHud;
-	private Text scoreText;
-	private Text statusText;
 	private Rectangle healthBar;
 	private Sprite healthBarBackground;
 	private Sprite statusBarBackground;
 	private int score = 0;
-	private PhysicsWorld physicsWorld;
-	
-	private Boolean firstTouch = false;
-	private Text gameOverText;
-	private Boolean gameOverDisplayed = false;
 	private LevelCompleteWindow levelCompleteWindow;
-	private boolean levelCompleted = false;
 	
-	private int countDiamondBlue = 0;
-	private int countDiamondYellow = 0;
-	private int countDiamondRed = 0;
+	//Texts variables
+	private Text scoreText;
+	private Text statusText;
+	private Text gameOverText;
 	
+	//Instances
 	private Player player;
 	private VenusFlyTraper venusFlyTraper;
 	private Snake snake;
 	
+	//Booleans
+	private Boolean firstTouch = false;
+	private boolean levelCompleted = false;
+	private Boolean gameOverDisplayed = false;
+	
+	//Physics world variable
+	private PhysicsWorld physicsWorld;
+	
+	//Counters
+	private int countDiamondBlue = 0;
+	private int countDiamondYellow = 0;
+	private int countDiamondRed = 0;
+	
+	//Timer Handler for poison damage
 	private TimerHandler poisonTimer = new TimerHandler(5f, true, new ITimerCallback() {
 		@Override
 		public void onTimePassed(TimerHandler pTimerHandler) {
@@ -79,6 +96,10 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 		}
 	});
 	
+	//Level variable
+	//private int level = 1;
+	
+	//Constants
 	private static final float POISON_DAMAGE = 5;
 	private static final float POTION_RECOVERY = 50;
 	
@@ -105,25 +126,29 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_POTION = "potion";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_ANTIDOTE = "antidote";
 	
+	/*public GameScene() {
+		Log.e("amazonas", "constructor default");
+	}
+	
+	public GameScene(int level) {
+		Log.e("amazonas", "constructor level");
+		this.level = level;
+	}*/
+	
+	//Scene management methods	
 	@Override
 	public void createScene() {
 		resourcesManager.gameMusic.play();
 		createBackground();
 		createHud();
 		createPhysics();
-		loadLevel(1);
+		//Log.e("amazonas", "gamescene level " + level);
+		loadLevel();
 		createGameOverText();
 		levelCompleteWindow = new LevelCompleteWindow(vbom);
 		setOnSceneTouchListener(this);
 	}
-
-	@Override
-	public void onBackKeyPressed() {
-		player.setPoisonedStatus(false);
-		resourcesManager.gameMusic.stop();
-		SceneManager.getInstance().loadMenuScene(engine);
-	}
-
+	
 	@Override
 	public SceneType getSceneType() {
 		return SceneType.SCENE_GAME;
@@ -135,7 +160,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 		camera.setCenter(400, 240);
 		camera.setChaseEntity(null);
 	}
-	
+
 	private void createBackground() {
 		ParallaxBackground background = new ParallaxBackground(0, 0, 0);
 		background.attachParallaxEntity(new ParallaxEntity(0, new Sprite(400, 240, resourcesManager.background_region, vbom)));
@@ -145,16 +170,19 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	private void createHud() {
 		gameHud = new HUD();
 		
-		scoreText = new Text(20, 420, resourcesManager.font, "Score: 0123456789", new TextOptions(HorizontalAlign.LEFT), vbom);
-		scoreText.setAnchorCenter(0, 0);
-		scoreText.setText("Score: 0");
 		healthBar = new Rectangle(720, 450, HEALTHBARWIDTH, HEALTHBARHEIGTH, vbom);
-		healthBar.setColor(Color.GREEN_ARGB_PACKED_INT);
 		healthBarBackground = new Sprite(688, 450, resourcesManager.healthBarBackground_region, vbom);
 		statusBarBackground = new Sprite(688, 410, resourcesManager.statusBarBackground_region, vbom);
-		statusText = new Text(685, 399, resourcesManager.statusNormalFont, "normalpoisoned", new TextOptions(HorizontalAlign.CENTER), vbom);
+		scoreText = new Text(20, 420, resourcesManager.font, "Score: 0123456789", new TextOptions(HorizontalAlign.LEFT), vbom);
+		statusText = new Text(685, 399, resourcesManager.statusFont, "normalpoisoned", new TextOptions(HorizontalAlign.CENTER), vbom);
+		
+		scoreText.setAnchorCenter(0, 0);
+		scoreText.setText("Score: 0");
 		statusText.setAnchorCenter(0, 0);
 		statusText.setText(Player.getStatus());
+		statusText.setColor(Color.GREEN_ARGB_PACKED_INT);
+		
+		healthBar.setColor(Color.GREEN_ARGB_PACKED_INT);
 		
 		gameHud.attachChild(scoreText);
 		gameHud.attachChild(healthBarBackground);
@@ -169,6 +197,39 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 		levelCompleted = true;
 	}
 	
+	private void createGameOverText() {
+		gameOverText = new Text(0, 0, resourcesManager.font, "Game Over!!!!", vbom);
+	}
+	
+	private void displayGameOverText() {
+		camera.setChaseEntity(null);
+		gameOverText.setPosition(camera.getCenterX(), camera.getCenterY());
+		attachChild(gameOverText);
+		gameOverDisplayed = true;
+	}
+	
+	//Touch and buttons events	
+	@Override
+	public void onBackKeyPressed() {
+		player.setPoisonedStatus(false);
+		resourcesManager.gameMusic.stop();
+		SceneManager.getInstance().loadMenuScene(engine);
+	}
+	
+	@Override
+	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
+		if (pSceneTouchEvent.isActionDown()) {
+			if (!firstTouch) {
+				player.setRunning();
+				firstTouch = true;
+			} else {
+				player.jump();
+			}
+		}
+		return false;
+	}
+
+	//Level behavior methods
 	private void addDiamondBlue() {
 		countDiamondBlue++;
 	}
@@ -211,7 +272,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 		
 	}
 	
-	private void loadLevel (int levelID) {
+	//Parse level from XML file
+	private void loadLevel () {
 		final SimpleLevelLoader levelLoader = new SimpleLevelLoader(vbom);
 		final FixtureDef FIXTURE_DEF= PhysicsFactory.createFixtureDef(0, 0f, 0.5f);
 		levelLoader.registerEntityLoader(new EntityLoader<SimpleLevelEntityLoaderData>(LevelConstants.TAG_LEVEL) {
@@ -257,6 +319,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER)) {
 					venusFlyTraper = new VenusFlyTraper(x, y, vbom, camera, physicsWorld);
 					venusFlyTraper.setAnimation();
+					//animatedSpriteList.add(venusFlyTraper);
 					levelObject = venusFlyTraper;
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SNAKE)) {
 					snake = new Snake(x, y, vbom, camera, physicsWorld, resourcesManager.snake_region.deepCopy()) {
@@ -268,6 +331,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 							}
 						};
 					};
+					//animatedSpriteList.add(snake);
 					levelObject = snake;
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DIAMONDBLUE)) {
 					levelObject = new Sprite(x, y, resourcesManager.diamondBlue_region, vbom) {
@@ -303,11 +367,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 								if (Player.getStatus().equals("poisoned")) {
 									player.setPoisonedStatus(false);
 									setPoisonedTimer();
-									gameHud.detachChild(statusText);
-									statusText = new Text(685, 399, resourcesManager.statusNormalFont, "normalpoisoned", new TextOptions(HorizontalAlign.CENTER), vbom);
-									statusText.setAnchorCenter(0, 0);
 									statusText.setText(Player.getStatus());
-									gameHud.attachChild(statusText);
+									statusText.setColor(Color.GREEN_ARGB_PACKED_INT);
 								}								
 							}
 						};
@@ -348,9 +409,9 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 							    final Sprite continueButton = new Sprite(530, 40, resourcesManager.continueButton_region, vbom){
 							    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 							    		if (pSceneTouchEvent.isActionDown()) {
-							    			player.setPoisonedStatus(false);
 								    		resourcesManager.gameMusic.stop();
-								    		SceneManager.getInstance().loadMenuScene(engine);
+								    		SceneManager.getInstance().loadMapScene(engine);
+								    		//goToNextLevel();
 							    		}
 							    		return true;
 							    	};
@@ -382,31 +443,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 				return levelObject;
 			}
 		});
+		//levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + level + ".xml");
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/1.xml");
-	}
-
-	@Override
-	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
-		if (pSceneTouchEvent.isActionDown()) {
-			if (!firstTouch) {
-				player.setRunning();
-				firstTouch = true;
-			} else {
-				player.jump();
-			}
-		}
-		return false;
-	}
-	
-	private void createGameOverText() {
-		gameOverText = new Text(0, 0, resourcesManager.font, "Game Over!!!!", vbom);
-	}
-	
-	private void displayGameOverText() {
-		camera.setChaseEntity(null);
-		gameOverText.setPosition(camera.getCenterX(), camera.getCenterY());
-		attachChild(gameOverText);
-		gameOverDisplayed = true;
 	}
 	
 	private ContactListener contactListener() {
@@ -458,11 +496,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 					if (Player.getStatus().equals("normal")) {
 						player.setPoisonedStatus(true);
 						setPoisonedTimer();
-						gameHud.detachChild(statusText);
-						statusText = new Text(685, 399, resourcesManager.statusPoisonedFont, "normalpoisoned", new TextOptions(HorizontalAlign.CENTER), vbom);
-						statusText.setAnchorCenter(0, 0);
 						statusText.setText(Player.getStatus());
-						gameHud.attachChild(statusText);
+						statusText.setColor(Color.RED_ARGB_PACKED_INT);
 					}					
 					setInactiveBody(x1.getBody());
 				}
@@ -481,4 +516,60 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 			}
 		});
 	}
+
+
+	private void goToNextLevel() {
+        engine.runOnUpdateThread(new Runnable() {
+        	
+        	@Override
+            public void run() {
+        		//myGarbageCollection();
+        		SceneManager.getInstance().loadMapScene(engine);
+            }
+        });
+	}
+	
+	private void myGarbageCollection() {
+		
+		Iterator<Body> allMyBodies = physicsWorld.getBodies();
+        while(allMyBodies.hasNext()) {
+        	try {
+        		final Body myCurrentBody = allMyBodies.next();
+                	physicsWorld.destroyBody(myCurrentBody);                
+            } catch (Exception e) {
+            	Debug.e(e);
+            }
+        }
+ 
+        Iterator<Joint> allMyJoints = this.physicsWorld.getJoints();
+        while(allMyJoints.hasNext()) {
+        	try {
+        		final Joint myCurrentJoint = allMyJoints.next();
+        			physicsWorld.destroyJoint(myCurrentJoint);                
+            } catch (Exception e) {
+                Debug.e(e);
+            }
+        }
+        
+        // check if the ArrayList contains anything
+        if(animatedSpriteList.size()>0){
+                for(int i=0; i < animatedSpriteList.size(); i++){
+                        this.detachChild(animatedSpriteList.get(i));
+                }
+        }
+        
+        // unload the contents of the ArrayList
+        animatedSpriteList.clear();
+               
+        this.clearChildScene();
+        this.detachChildren();
+        this.reset();
+        this.detachSelf();
+        physicsWorld.clearForces();
+        physicsWorld.clearPhysicsConnectors();
+        physicsWorld.reset();
+ 
+        System.gc();
+	}
+	
 }

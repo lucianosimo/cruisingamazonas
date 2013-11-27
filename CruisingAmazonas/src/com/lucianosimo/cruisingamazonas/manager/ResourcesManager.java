@@ -35,12 +35,13 @@ public class ResourcesManager {
 	public GameActivity activity;
 	public VertexBufferObjectManager vbom;
 	public Font font;
-	public Font statusNormalFont;
-	public Font statusPoisonedFont;
+	public Font statusFont;
 	
+	//Splash items
 	public ITextureRegion splash_region;
 	private BitmapTextureAtlas splashTextureAtlas;
 	
+	//Menu items
 	public ITextureRegion menu_background_region;
 	public ITextureRegion play_region;
 	public ITextureRegion configure_region;
@@ -48,6 +49,12 @@ public class ResourcesManager {
 	public Music menuMusic;
 	private BuildableBitmapTextureAtlas menuTextureAtlas;
 	
+	//Map items
+	public ITextureRegion map_background_region;
+	public ITextureRegion level_indicator_region;
+	private BuildableBitmapTextureAtlas mapTextureAtlas;
+	
+	//Game items
 	public Music gameMusic;
 	public Sound grunt;
 	public ITextureRegion landPlatformShort_region;
@@ -84,6 +91,10 @@ public class ResourcesManager {
 		loadGameGraphics();
 		loadGameAudio();
 		loadGameFonts();
+	}
+	
+	public void loadMapResources() {
+		loadMapGraphics();
 	}
 
 	private void loadGameFonts() {
@@ -187,13 +198,10 @@ public class ResourcesManager {
 		FontFactory.setAssetBasePath("font/");
 		final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		final ITexture statusNormalFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		final ITexture statusPoisonedFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font.ttf", 40, true, Color.WHITE_ARGB_PACKED_INT, 2, Color.BLACK_ARGB_PACKED_INT);
-		statusNormalFont = FontFactory.createStrokeFromAsset(activity.getFontManager(), statusNormalFontTexture, activity.getAssets(), "font.ttf", 20, true, Color.GREEN_ARGB_PACKED_INT, 1, Color.BLACK_ARGB_PACKED_INT);
-		statusPoisonedFont = FontFactory.createStrokeFromAsset(activity.getFontManager(), statusPoisonedFontTexture, activity.getAssets(), "font.ttf", 20, true, Color.RED_ARGB_PACKED_INT, 1, Color.BLACK_ARGB_PACKED_INT);
+		statusFont = FontFactory.createStrokeFromAsset(activity.getFontManager(), statusNormalFontTexture, activity.getAssets(), "font.ttf", 20, true, Color.WHITE_ARGB_PACKED_INT, 1, Color.BLACK_ARGB_PACKED_INT);
 		font.load();
-		statusNormalFont.load();
-		statusPoisonedFont.load();
+		statusFont.load();
 	}
 	
 	public void unloadMenuTextures() {
@@ -206,5 +214,18 @@ public class ResourcesManager {
 	
 	public void unloadGameTextures() {
 		
+	}
+
+	private void loadMapGraphics() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/map/");
+		mapTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+		map_background_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mapTextureAtlas, activity, "map.png");
+		level_indicator_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mapTextureAtlas, activity, "levelIndicator.png");
+		try {
+			this.mapTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.mapTextureAtlas.load();
+		} catch (final TextureAtlasBuilderException e) {
+			org.andengine.util.debug.Debug.e(e);
+		}
 	}
 }

@@ -11,6 +11,7 @@ import com.lucianosimo.cruisingamazonas.base.BaseScene;
 import com.lucianosimo.cruisingamazonas.scene.GameScene;
 import com.lucianosimo.cruisingamazonas.scene.LoadingScene;
 import com.lucianosimo.cruisingamazonas.scene.MainMenuScene;
+import com.lucianosimo.cruisingamazonas.scene.MapScene;
 import com.lucianosimo.cruisingamazonas.scene.SplashScene;
 
 public class SceneManager {
@@ -19,6 +20,7 @@ public class SceneManager {
 	private BaseScene menuScene;
 	private BaseScene loadingScene;
 	private BaseScene gameScene;
+	private BaseScene mapScene;
 	
 	private static final SceneManager INSTANCE = new SceneManager();
 	private SceneType currentSceneType = SceneType.SCENE_SPLASH;
@@ -30,6 +32,7 @@ public class SceneManager {
 		SCENE_MENU,
 		SCENE_LOADING,
 		SCENE_GAME,
+		SCENE_MAP,
 	}
 	
 	public void setScene(BaseScene scene) {
@@ -51,6 +54,9 @@ public class SceneManager {
 				break;
 			case SCENE_LOADING:
 				setScene(loadingScene);
+				break;
+			case SCENE_MAP:
+				setScene(mapScene);
 				break;
 			default:
 				break;
@@ -117,6 +123,22 @@ public class SceneManager {
 				mEngine.unregisterUpdateHandler(pTimerHandler);
 				ResourcesManager.getInstance().loadMenuTextures();
 				setScene(menuScene);
+			}
+		}));
+	}
+	
+	public void loadMapScene(final Engine mEngine) {
+		setScene(loadingScene);
+		gameScene.disposeScene();
+		ResourcesManager.getInstance().unloadGameTextures();
+		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
+			
+			@Override
+			public void onTimePassed(final TimerHandler pTimerHandler) {
+				mEngine.unregisterUpdateHandler(pTimerHandler);
+				ResourcesManager.getInstance().loadMapResources();
+				mapScene = new MapScene();
+				setScene(mapScene);
 			}
 		}));
 	}
