@@ -8,13 +8,13 @@ import org.andengine.engine.camera.hud.HUD;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.IEntity;
+import org.andengine.entity.modifier.AlphaModifier;
 import org.andengine.entity.particle.ParticleSystem;
 import org.andengine.entity.particle.SpriteParticleSystem;
-import org.andengine.entity.particle.emitter.CircleOutlineParticleEmitter;
-import org.andengine.entity.particle.initializer.ExpireParticleInitializer;
-import org.andengine.entity.particle.modifier.AlphaParticleModifier;
-import org.andengine.entity.particle.modifier.ColorParticleModifier;
-import org.andengine.entity.particle.modifier.ScaleParticleModifier;
+import org.andengine.entity.particle.emitter.PointParticleEmitter;
+import org.andengine.entity.particle.initializer.GravityParticleInitializer;
+import org.andengine.entity.particle.initializer.VelocityParticleInitializer;
+import org.andengine.entity.particle.modifier.IParticleModifier;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
@@ -136,8 +136,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	@Override
 	public void createScene() {
 		level = MapScene.getNextLevel();
-		/*if (level == 2) {
-			final CircleOutlineParticleEmitter particleEmitter = new CircleOutlineParticleEmitter(854 * 0.5f, 480 * 0.5f + 20, 80);
+		if (level == 2) {
+			/*final CircleOutlineParticleEmitter particleEmitter = new CircleOutlineParticleEmitter(854 * 0.5f, 480 * 0.5f + 20, 80);
             final ParticleSystem particleSystem = new SpriteParticleSystem(50, 50, particleEmitter, 60, 60, 360, resourcesManager.rain_region, vbom);
             
             particleSystem.addParticleModifier(new ScaleParticleModifier<Sprite>(0.5f, 2.0f, 0, 5));
@@ -147,8 +147,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
             particleSystem.addParticleModifier(new ColorParticleModifier<Sprite>(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 11.5f));
             particleSystem.addParticleModifier(new AlphaParticleModifier<Sprite>(1.0f, 0.0f, 4.5f, 11.5f));
             
-            this.attachChild(particleSystem);
-		}*/
+            this.attachChild(particleSystem);*/
+		}
 		resourcesManager.gameMusic.play();
 		createBackground();
 		createHud();
