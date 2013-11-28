@@ -76,5 +76,5 @@
     
     <entity x="15" y="100" type="player"/>
         
-    <entity x="300" y="115" type="tent"/>
+    <entity x="9928" y="115" type="tent"/>
 </level>

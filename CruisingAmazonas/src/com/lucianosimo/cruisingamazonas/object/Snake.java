@@ -8,8 +8,6 @@ import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
-import android.util.Log;
-
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -32,7 +30,6 @@ public class Snake extends AnimatedSprite{
 	}
 	
 	public void startAnimation() {
-		Log.e("amazonas", "startAnimation");
 		final long[] SNAKE_ANIMATE = new long[] {150, 150, 150};
 		animate(SNAKE_ANIMATE, 0, 2, true);
 	}

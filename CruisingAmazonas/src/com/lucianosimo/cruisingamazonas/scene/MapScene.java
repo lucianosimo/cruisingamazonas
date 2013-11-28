@@ -18,7 +18,7 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	private MenuScene menuChildScene;
 	private final int LEVEL_ONE = 1;
 	private final int LEVEL_TWO = 2;
-	private static int nextLevel = 0;
+	private static int nextLevel;
 
 	@Override
 	public void createScene() {
@@ -69,8 +69,8 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 		menuChildScene.buildAnimations();
 		menuChildScene.setBackgroundEnabled(false);
 		
-		levelOne.setPosition(-150, 0);
-		levelTwo.setPosition(150, 0);
+		levelOne.setPosition(-370, -200);
+		levelTwo.setPosition(-287, -180);
 		
 		menuChildScene.setOnMenuItemClickListener(this);
 		setChildScene(menuChildScene);

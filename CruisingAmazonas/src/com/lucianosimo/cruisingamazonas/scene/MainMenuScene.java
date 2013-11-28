@@ -84,7 +84,7 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 		switch (pMenuItem.getID()) {
 			case MENU_PLAY:
 				resourcesManager.menuMusic.stop();
-				SceneManager.getInstance().loadGameScene(engine);
+				SceneManager.getInstance().loadMapScene(engine, this);
 				return true;
 			case MENU_CONFIGURE:
 				return true;

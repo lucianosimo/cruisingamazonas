@@ -5,8 +5,6 @@ import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 
-import android.util.Log;
-
 import com.lucianosimo.cruisingamazonas.base.BaseScene;
 import com.lucianosimo.cruisingamazonas.scene.GameScene;
 import com.lucianosimo.cruisingamazonas.scene.LoadingScene;
@@ -89,7 +87,6 @@ public class SceneManager {
 	}
 	
 	public void createMenuScene() {
-		Log.e("amazonas", "createMenuScene");
 		ResourcesManager.getInstance().loadMenuResources();
 		menuScene = new MainMenuScene();
 		loadingScene = new LoadingScene();
@@ -127,10 +124,18 @@ public class SceneManager {
 		}));
 	}
 	
-	public void loadMapScene(final Engine mEngine) {
+	public void loadMapScene(final Engine mEngine, final BaseScene scene) {
 		setScene(loadingScene);
-		gameScene.disposeScene();
-		ResourcesManager.getInstance().unloadGameTextures();
+		scene.disposeScene();
+		switch (scene.getSceneType()) {
+		case SCENE_GAME:
+			ResourcesManager.getInstance().unloadGameTextures();
+			break;
+		case SCENE_MENU:
+			ResourcesManager.getInstance().unloadMenuTextures();
+		default:
+			break;
+		}
 		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
 			
 			@Override

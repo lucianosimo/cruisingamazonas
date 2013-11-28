@@ -8,12 +8,18 @@ import org.andengine.engine.camera.hud.HUD;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.IEntity;
+import org.andengine.entity.particle.ParticleSystem;
+import org.andengine.entity.particle.SpriteParticleSystem;
+import org.andengine.entity.particle.emitter.CircleOutlineParticleEmitter;
+import org.andengine.entity.particle.initializer.ExpireParticleInitializer;
+import org.andengine.entity.particle.modifier.AlphaParticleModifier;
+import org.andengine.entity.particle.modifier.ColorParticleModifier;
+import org.andengine.entity.particle.modifier.ScaleParticleModifier;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.ParallaxBackground;
 import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
-import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
@@ -30,8 +36,6 @@ import org.andengine.util.level.constants.LevelConstants;
 import org.andengine.util.level.simple.SimpleLevelEntityLoaderData;
 import org.andengine.util.level.simple.SimpleLevelLoader;
 import org.xml.sax.Attributes;
-
-import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -54,7 +58,7 @@ import com.lucianosimo.cruisingamazonas.object.VenusFlyTraper;
 public class GameScene extends BaseScene implements IOnSceneTouchListener{
 
 	//Animatedsprites Arraylists
-	public ArrayList<AnimatedSprite> animatedSpriteList = new ArrayList<AnimatedSprite>();
+	public ArrayList<Sprite> animatedSpriteList = new ArrayList<Sprite>();
 	
 	//Scene indicators
 	private HUD gameHud;
@@ -99,7 +103,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	});
 	
 	//Level variable
-	//private int level = 1;
+	private int level;
 	
 	//Constants
 	private static final float POISON_DAMAGE = 5;
@@ -128,25 +132,28 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_POTION = "potion";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_ANTIDOTE = "antidote";
 	
-	/*public GameScene() {
-		Log.e("amazonas", "constructor default");
-	}
-	
-	public GameScene(int level) {
-		Log.e("amazonas", "constructor level");
-		this.level = level;
-	}*/
-	
 	//Scene management methods	
 	@Override
 	public void createScene() {
+		level = MapScene.getNextLevel();
+		/*if (level == 2) {
+			final CircleOutlineParticleEmitter particleEmitter = new CircleOutlineParticleEmitter(854 * 0.5f, 480 * 0.5f + 20, 80);
+            final ParticleSystem particleSystem = new SpriteParticleSystem(50, 50, particleEmitter, 60, 60, 360, resourcesManager.rain_region, vbom);
+            
+            particleSystem.addParticleModifier(new ScaleParticleModifier<Sprite>(0.5f, 2.0f, 0, 5));
+            particleSystem.addParticleInitializer(new ExpireParticleInitializer<Sprite>(11.5f));
+            particleSystem.addParticleModifier(new AlphaParticleModifier<Sprite>(1.0f, 0.0f, 2.5f, 3.5f));
+            particleSystem.addParticleModifier(new AlphaParticleModifier<Sprite>(0.0f, 1.0f, 3.5f, 4.5f));
+            particleSystem.addParticleModifier(new ColorParticleModifier<Sprite>(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 11.5f));
+            particleSystem.addParticleModifier(new AlphaParticleModifier<Sprite>(1.0f, 0.0f, 4.5f, 11.5f));
+            
+            this.attachChild(particleSystem);
+		}*/
 		resourcesManager.gameMusic.play();
 		createBackground();
 		createHud();
 		createPhysics();
-		Log.e("amazonas", "next level " + MapScene.getNextLevel());
-		//Log.e("amazonas", "gamescene level " + level);
-		loadLevel(MapScene.getNextLevel());
+		loadLevel(level);
 		createGameOverText();
 		levelCompleteWindow = new LevelCompleteWindow(vbom);
 		setOnSceneTouchListener(this);
@@ -257,7 +264,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	
 	private void increaseHealthBar(float hp) {
 		healthBar.setSize(player.getHP() * 2, HEALTHBARHEIGTH);
-		healthBar.setPosition(healthBar.getX() + hp, healthBar.getY());
+		if (player.getHP() == 100) {
+			healthBar.setPosition(720, 450);
+		} else {
+			healthBar.setPosition(healthBar.getX() + hp, healthBar.getY());
+		}
 	}
 	
 	private void createPhysics() {
@@ -322,7 +333,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER)) {
 					venusFlyTraper = new VenusFlyTraper(x, y, vbom, camera, physicsWorld);
 					venusFlyTraper.setAnimation();
-					addToAnimatedSpriteList(venusFlyTraper);
 					levelObject = venusFlyTraper;
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SNAKE)) {
 					snake = new Snake(x, y, vbom, camera, physicsWorld, resourcesManager.snake_region.deepCopy()) {
@@ -334,7 +344,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 							}
 						};
 					};
-					addToAnimatedSpriteList(snake);
 					levelObject = snake;
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DIAMONDBLUE)) {
 					levelObject = new Sprite(x, y, resourcesManager.diamondBlue_region, vbom) {
@@ -412,8 +421,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 							    final Sprite continueButton = new Sprite(530, 40, resourcesManager.continueButton_region, vbom){
 							    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 							    		if (pSceneTouchEvent.isActionDown()) {
-								    		resourcesManager.gameMusic.stop();
-								    		//SceneManager.getInstance().loadMapScene(engine);
 								    		goToNextLevel();
 							    		}
 							    		return true;
@@ -447,7 +454,6 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 			}
 		});
 		levelLoader.loadLevelFromAsset(activity.getAssets(), "level/" + level + ".xml");
-		//levelLoader.loadLevelFromAsset(activity.getAssets(), "level/1.xml");
 	}
 	
 	private ContactListener contactListener() {
@@ -519,25 +525,20 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 			}
 		});
 	}
-
-
+	
 	private void goToNextLevel() {
         engine.runOnUpdateThread(new Runnable() {
         	
         	@Override
             public void run() {
+	    		resourcesManager.gameMusic.stop();
         		myGarbageCollection();
-        		SceneManager.getInstance().loadMapScene(engine);
+        		SceneManager.getInstance().loadMapScene(engine, GameScene.this);
             }
         });
 	}
 	
-	private void addToAnimatedSpriteList(AnimatedSprite animatedSprite) {
-		animatedSpriteList.add(animatedSprite);
-	}
-	
 	private void myGarbageCollection() {
-		
 		Iterator<Body> allMyBodies = physicsWorld.getBodies();
         while(allMyBodies.hasNext()) {
         	try {

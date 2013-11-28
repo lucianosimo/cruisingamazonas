@@ -20,6 +20,7 @@ import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtla
 import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder.TextureAtlasBuilderException;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
+import org.andengine.opengl.texture.region.TextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.adt.color.Color;
 import org.andengine.util.debug.Debug;
@@ -72,6 +73,7 @@ public class ResourcesManager {
 	public ITextureRegion healthBarBackground_region;
 	public ITextureRegion statusBarBackground_region;
 	public ITextureRegion continueButton_region;
+	public TextureRegion rain_region;
 	
 	private BuildableBitmapTextureAtlas gameTextureAtlas;
 	
@@ -121,6 +123,7 @@ public class ResourcesManager {
 		venusFlyTraper_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "venusFlyTraperTiled.png", 3, 1);
 		snake_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "snake.png", 3, 1);
 		
+		rain_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "rainDrop.png");
 		background_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "background.png");
 		landPlatform_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "landPlatform.png");
 		landPlatformLong_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "landPlatformLong.png");
