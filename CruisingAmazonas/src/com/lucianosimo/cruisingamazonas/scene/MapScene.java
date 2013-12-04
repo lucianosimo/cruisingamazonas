@@ -18,6 +18,7 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	private MenuScene menuChildScene;
 	private final int LEVEL_ONE = 1;
 	private final int LEVEL_TWO = 2;
+	private final int LEVEL_THREE = 3;
 	private static int nextLevel;
 
 	@Override
@@ -63,14 +64,17 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 		
 		final IMenuItem levelOne = new ScaleMenuItemDecorator(new SpriteMenuItem(LEVEL_ONE, resourcesManager.level_indicator_region, vbom), 1.2f, 1);
 		final IMenuItem levelTwo = new ScaleMenuItemDecorator(new SpriteMenuItem(LEVEL_TWO, resourcesManager.level_indicator_region, vbom), 1.2f, 1);
+		final IMenuItem levelThree = new ScaleMenuItemDecorator(new SpriteMenuItem(LEVEL_THREE, resourcesManager.level_indicator_region, vbom), 1.2f, 1);
 		
 		menuChildScene.addMenuItem(levelOne);
 		menuChildScene.addMenuItem(levelTwo);
+		menuChildScene.addMenuItem(levelThree);
 		menuChildScene.buildAnimations();
 		menuChildScene.setBackgroundEnabled(false);
 		
 		levelOne.setPosition(-370, -200);
 		levelTwo.setPosition(-287, -180);
+		levelThree.setPosition(-240, -160);
 		
 		menuChildScene.setOnMenuItemClickListener(this);
 		setChildScene(menuChildScene);
@@ -90,6 +94,10 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 				return true;
 			case LEVEL_TWO:
 				nextLevel = LEVEL_TWO;
+				SceneManager.getInstance().loadGameScene(engine);
+				return true;
+			case LEVEL_THREE:
+				nextLevel = LEVEL_THREE;
 				SceneManager.getInstance().loadGameScene(engine);
 				return true;
 			default:

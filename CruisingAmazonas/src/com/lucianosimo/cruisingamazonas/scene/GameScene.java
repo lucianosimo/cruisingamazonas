@@ -8,18 +8,12 @@ import org.andengine.engine.camera.hud.HUD;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.IEntity;
-import org.andengine.entity.modifier.AlphaModifier;
-import org.andengine.entity.particle.ParticleSystem;
-import org.andengine.entity.particle.SpriteParticleSystem;
-import org.andengine.entity.particle.emitter.PointParticleEmitter;
-import org.andengine.entity.particle.initializer.GravityParticleInitializer;
-import org.andengine.entity.particle.initializer.VelocityParticleInitializer;
-import org.andengine.entity.particle.modifier.IParticleModifier;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
-import org.andengine.entity.scene.background.ParallaxBackground;
+import org.andengine.entity.scene.background.AutoParallaxBackground;
 import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
@@ -36,6 +30,8 @@ import org.andengine.util.level.constants.LevelConstants;
 import org.andengine.util.level.simple.SimpleLevelEntityLoaderData;
 import org.andengine.util.level.simple.SimpleLevelLoader;
 import org.xml.sax.Attributes;
+
+import android.opengl.GLES20;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -60,6 +56,8 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	//Animatedsprites Arraylists
 	public ArrayList<Sprite> animatedSpriteList = new ArrayList<Sprite>();
 	
+	AnimatedSprite rain;
+
 	//Scene indicators
 	private HUD gameHud;
 	private Rectangle healthBar;
@@ -136,24 +134,37 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	@Override
 	public void createScene() {
 		level = MapScene.getNextLevel();
-		if (level == 2) {
-			/*final CircleOutlineParticleEmitter particleEmitter = new CircleOutlineParticleEmitter(854 * 0.5f, 480 * 0.5f + 20, 80);
-            final ParticleSystem particleSystem = new SpriteParticleSystem(50, 50, particleEmitter, 60, 60, 360, resourcesManager.rain_region, vbom);
-            
-            particleSystem.addParticleModifier(new ScaleParticleModifier<Sprite>(0.5f, 2.0f, 0, 5));
-            particleSystem.addParticleInitializer(new ExpireParticleInitializer<Sprite>(11.5f));
-            particleSystem.addParticleModifier(new AlphaParticleModifier<Sprite>(1.0f, 0.0f, 2.5f, 3.5f));
-            particleSystem.addParticleModifier(new AlphaParticleModifier<Sprite>(0.0f, 1.0f, 3.5f, 4.5f));
-            particleSystem.addParticleModifier(new ColorParticleModifier<Sprite>(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 11.5f));
-            particleSystem.addParticleModifier(new AlphaParticleModifier<Sprite>(1.0f, 0.0f, 4.5f, 11.5f));
-            
-            this.attachChild(particleSystem);*/
-		}
 		resourcesManager.gameMusic.play();
+		if (level == 2) {
+			rain = new AnimatedSprite(20, 240, resourcesManager.rain_region, vbom);
+			final long[] RAIN_ANIMATE = new long[] {110, 110};
+			rain.animate(RAIN_ANIMATE, 0, 1, true);
+			this.attachChild(rain);
+		}
 		createBackground();
 		createHud();
 		createPhysics();
 		loadLevel(level);
+		if (level == 3) {
+			Sprite darkBackground = new Sprite(427, 300, resourcesManager.darkBackground_region, vbom);
+			Sprite light = new Sprite(0, 0, resourcesManager.lightHalo_region, vbom);
+			Sprite lightTwo = new Sprite(0, 0, resourcesManager.lightHalo_region, vbom);
+			light.setBlendingEnabled(true);
+			light.setBlendFunctionSource(GLES20.GL_DST_COLOR);
+			light.setAlpha(0.0f);			
+			lightTwo.setBlendingEnabled(true);
+			lightTwo.setBlendFunctionSource(GLES20.GL_DST_COLOR);
+			lightTwo.setAlpha(0.0f);
+			this.attachChild(darkBackground);
+			player.setZIndex(100);
+			light.setZIndex(1);
+			//lightTwo.setZIndex(4);
+			light.setParent(player);
+			//lightTwo.setParent(player);
+			//player.attachChild(light);
+			//player.attachChild(lightTwo);
+			this.sortChildren();
+		}
 		createGameOverText();
 		levelCompleteWindow = new LevelCompleteWindow(vbom);
 		setOnSceneTouchListener(this);
@@ -172,8 +183,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	}
 
 	private void createBackground() {
-		ParallaxBackground background = new ParallaxBackground(0, 0, 0);
+		AutoParallaxBackground background = new AutoParallaxBackground(0, 0, 0, 12);
 		background.attachParallaxEntity(new ParallaxEntity(0, new Sprite(400, 240, resourcesManager.background_region, vbom)));
+		if (level == 2) {
+			background.attachParallaxEntity(new ParallaxEntity(0, rain));
+		}
 		this.setBackground(background);
 	}
 	
