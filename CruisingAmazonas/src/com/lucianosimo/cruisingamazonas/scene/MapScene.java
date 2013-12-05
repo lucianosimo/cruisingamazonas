@@ -73,8 +73,8 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 		menuChildScene.setBackgroundEnabled(false);
 		
 		levelOne.setPosition(-370, -200);
-		levelTwo.setPosition(-287, -180);
-		levelThree.setPosition(-240, -160);
+		levelTwo.setPosition(-280, -180);
+		levelThree.setPosition(-190, -160);
 		
 		menuChildScene.setOnMenuItemClickListener(this);
 		setChildScene(menuChildScene);
