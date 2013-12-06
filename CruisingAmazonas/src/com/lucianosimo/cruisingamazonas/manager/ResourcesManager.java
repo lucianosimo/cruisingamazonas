@@ -77,6 +77,7 @@ public class ResourcesManager {
 	public ITiledTextureRegion rain_region;
 	
 	private BuildableBitmapTextureAtlas gameTextureAtlas;
+	private BitmapTextureAtlas darkTextureAtlas;
 	
 	public ITiledTextureRegion player_region;
 	public ITiledTextureRegion venusFlyTraper_region;
@@ -119,13 +120,17 @@ public class ResourcesManager {
 	private void loadGameGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
 		gameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 2048, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		darkTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.REPEATING_BILINEAR_PREMULTIPLYALPHA);
 		
 		player_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "player.png", 3, 1);
 		venusFlyTraper_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "venusFlyTraperTiled.png", 3, 1);
 		snake_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "snake.png", 3, 1);
 		rain_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "rain.png", 2, 1);
 		
-		darkBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "darkBackground.png");	
+		darkBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(darkTextureAtlas, activity, "darkBackground.png", 0, 0);
+		darkBackground_region.setTextureWidth(10000);
+		darkBackground_region.setTextureHeight(600);
+		
 		lightHalo_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "lightHalo.png");		
 		background_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "background.png");
 		landPlatform_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "landPlatform.png");
@@ -147,6 +152,7 @@ public class ResourcesManager {
 		try {
 			this.gameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.gameTextureAtlas.load();
+			this.darkTextureAtlas.load();
 		} catch (final TextureAtlasBuilderException e) {
 			Debug.e(e);
 		}
