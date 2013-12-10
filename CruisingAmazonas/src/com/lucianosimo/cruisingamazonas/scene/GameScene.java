@@ -18,6 +18,7 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
+import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.input.touch.TouchEvent;
@@ -129,6 +130,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_POTION = "potion";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_ANTIDOTE = "antidote";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BRICK = "brick";
 	
 	//Scene management methods	
 	@Override
@@ -146,38 +148,13 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 		createPhysics();
 		loadLevel(level);
 		if (level == 3) {
-			//Sprite darkBackground = new Sprite(427, 300, resourcesManager.darkBackground_region, vbom);
-			Sprite darkBackground1 = new Sprite(500, 300, resourcesManager.darkBackground_region, vbom);
-//			Sprite darkBackground2 = new Sprite(1500, 300, resourcesManager.darkBackground_region, vbom);
-//			Sprite darkBackground3 = new Sprite(2500, 300, resourcesManager.darkBackground_region, vbom);
-//			Sprite darkBackground4 = new Sprite(3500, 300, resourcesManager.darkBackground_region, vbom);
-//			Sprite darkBackground5 = new Sprite(4500, 300, resourcesManager.darkBackground_region, vbom);
-//			Sprite darkBackground6 = new Sprite(5500, 300, resourcesManager.darkBackground_region, vbom);
-//			Sprite darkBackground7 = new Sprite(6500, 300, resourcesManager.darkBackground_region, vbom);
-//			Sprite darkBackground8 = new Sprite(7500, 300, resourcesManager.darkBackground_region, vbom);
-//			Sprite darkBackground9 = new Sprite(8500, 300, resourcesManager.darkBackground_region, vbom);
-//			Sprite darkBackground10 = new Sprite(9500, 300, resourcesManager.darkBackground_region, vbom);
+			Sprite darkBackground = new Sprite(427, 300, resourcesManager.darkBackground_region, vbom);
 			Sprite light = new Sprite(120, 32, resourcesManager.lightHalo_region, vbom);
-			Sprite light2 = new Sprite(120, 32, resourcesManager.lightHalo_region, vbom);
 			light.setBlendingEnabled(true);
 			light.setBlendFunctionSource(GLES20.GL_DST_COLOR);
 			light.setAlpha(0.0f);
-			light2.setBlendingEnabled(true);
-			light2.setBlendFunctionSource(GLES20.GL_DST_COLOR);
-			light2.setAlpha(0.0f);
-			//this.attachChild(darkBackground);
-			this.attachChild(darkBackground1);
-//			this.attachChild(darkBackground2);
-//			this.attachChild(darkBackground3);
-//			this.attachChild(darkBackground4);
-//			this.attachChild(darkBackground5);
-//			this.attachChild(darkBackground6);
-//			this.attachChild(darkBackground7);
-//			this.attachChild(darkBackground8);
-//			this.attachChild(darkBackground9);
-//			this.attachChild(darkBackground10);
+			this.attachChild(darkBackground);
 			player.attachChild(light);
-			player.attachChild(light2);
 		}
 		createGameOverText();
 		levelCompleteWindow = new LevelCompleteWindow(vbom);
@@ -437,6 +414,23 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 							}
 						};
 					};
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BRICK)) {
+					levelObject = new Sprite(x, y, resourcesManager.brick_region, vbom) {
+						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+							if (pSceneTouchEvent.isActionDown()) {
+								final Sprite brickRef = this; 
+								this.setVisible(false);
+								setInactiveSprite(brickRef);
+							}
+							return true;
+						};
+					};
+					GameScene.this.registerTouchArea(levelObject);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.DynamicBody, FIXTURE_DEF);
+					body.setUserData("brick");
+					body.setFixedRotation(true);
+					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false) {
+					});
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TENT)) {
 					levelObject = new Sprite(x, y, resourcesManager.tent_region, vbom) {
 						protected void onManagedUpdate(float pSecondsElapsed) {
@@ -554,11 +548,28 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 		});
 	}
 	
+	private void setInactiveSprite(final Sprite sp) {
+		engine.runOnUpdateThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				final PhysicsConnector pc = physicsWorld.getPhysicsConnectorManager().findPhysicsConnectorByShape(sp);
+				physicsWorld.unregisterPhysicsConnector(pc);
+				Body body = pc.getBody();
+				body.setActive(false);
+				physicsWorld.destroyBody(body);
+				GameScene.this.unregisterTouchArea(sp);
+				GameScene.this.detachChild(sp);
+			}
+		});
+	}
+	
 	private void goToNextLevel() {
         engine.runOnUpdateThread(new Runnable() {
         	
         	@Override
             public void run() {
+        		player.setPoisonedStatus(false);
 	    		resourcesManager.gameMusic.stop();
         		myGarbageCollection();
         		SceneManager.getInstance().loadMapScene(engine, GameScene.this);
