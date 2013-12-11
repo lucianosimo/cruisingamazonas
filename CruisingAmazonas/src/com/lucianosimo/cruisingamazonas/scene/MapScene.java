@@ -9,6 +9,8 @@ import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.util.GLState;
 
+import android.util.Log;
+
 import com.lucianosimo.cruisingamazonas.base.BaseScene;
 import com.lucianosimo.cruisingamazonas.manager.SceneManager;
 import com.lucianosimo.cruisingamazonas.manager.SceneManager.SceneType;
@@ -16,11 +18,14 @@ import com.lucianosimo.cruisingamazonas.manager.SceneManager.SceneType;
 public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	
 	private MenuScene menuChildScene;
-	private final int LEVEL_ONE = 1;
-	private final int LEVEL_TWO = 2;
-	private final int LEVEL_THREE = 3;
-	private final int LEVEL_FOUR = 4;
+	private final int LEVEL_1 = 1;
+	private final int LEVEL_2 = 2;
+	private final int LEVEL_3 = 3;
+	private final int LEVEL_4 = 4;
 	private static int nextLevel;
+	private static int availableLevels = 1;
+	private int buttonX;
+	private int buttonY;
 
 	@Override
 	public void createScene() {
@@ -59,26 +64,30 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	private void createMenuChildScene() {
 		float screenWidth = resourcesManager.camera.getWidth();
 		float screenHeight = resourcesManager.camera.getHeight();
+		
+		final IMenuItem[] levelButtons = new IMenuItem[availableLevels];
+		buttonX = -460;
+		buttonY = -220;
 
 		menuChildScene = new MenuScene(camera);
 		menuChildScene.setPosition(screenWidth/2, screenHeight/2);
 		
-		final IMenuItem levelOne = new ScaleMenuItemDecorator(new SpriteMenuItem(LEVEL_ONE, resourcesManager.level_indicator_region, vbom), 1.2f, 1);
-		final IMenuItem levelTwo = new ScaleMenuItemDecorator(new SpriteMenuItem(LEVEL_TWO, resourcesManager.level_indicator_region, vbom), 1.2f, 1);
-		final IMenuItem levelThree = new ScaleMenuItemDecorator(new SpriteMenuItem(LEVEL_THREE, resourcesManager.level_indicator_region, vbom), 1.2f, 1);
-		final IMenuItem levelFour = new ScaleMenuItemDecorator(new SpriteMenuItem(LEVEL_FOUR, resourcesManager.level_indicator_region, vbom), 1.2f, 1);
+		for (int i = 0; i < availableLevels; i++) {
+			levelButtons[i] = new ScaleMenuItemDecorator(new SpriteMenuItem(i + 1, resourcesManager.level_indicator_region, vbom), 1.2f, 1);
+			menuChildScene.addMenuItem(levelButtons[i]);
+			
+		}
 		
-		menuChildScene.addMenuItem(levelOne);
-		menuChildScene.addMenuItem(levelTwo);
-		menuChildScene.addMenuItem(levelThree);
-		menuChildScene.addMenuItem(levelFour);
 		menuChildScene.buildAnimations();
 		menuChildScene.setBackgroundEnabled(false);
 		
-		levelOne.setPosition(-370, -200);
-		levelTwo.setPosition(-280, -180);
-		levelThree.setPosition(-190, -160);
-		levelFour.setPosition(-100, -140);
+		for (int i = 0; i < availableLevels; i++) {
+			buttonX = buttonX + 90;
+			buttonY = buttonY + 20;
+			levelButtons[i].setPosition(buttonX, buttonY);
+			Log.e("amazonas", "x " + levelButtons[i].getX());
+			Log.e("amazonas", "y " + levelButtons[i].getY());
+		}
 		
 		menuChildScene.setOnMenuItemClickListener(this);
 		setChildScene(menuChildScene);
@@ -87,25 +96,29 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	public static int getNextLevel() {
 		return nextLevel;
 	}
+	
+	public static void increaseAvailableLevels() {
+		availableLevels++;
+	}
 
 	@Override
 	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,	float pMenuItemLocalX, float pMenuItemLocalY) {
 		resourcesManager.menuMusic.stop();
 		switch (pMenuItem.getID()) {
-			case LEVEL_ONE:
-				nextLevel = LEVEL_ONE;
+			case LEVEL_1:
+				nextLevel = LEVEL_1;
 				SceneManager.getInstance().loadGameScene(engine);
 				return true;
-			case LEVEL_TWO:
-				nextLevel = LEVEL_TWO;
+			case LEVEL_2:
+				nextLevel = LEVEL_2;
 				SceneManager.getInstance().loadGameScene(engine);
 				return true;
-			case LEVEL_THREE:
-				nextLevel = LEVEL_THREE;
+			case LEVEL_3:
+				nextLevel = LEVEL_3;
 				SceneManager.getInstance().loadGameScene(engine);
 				return true;
-			case LEVEL_FOUR:
-				nextLevel = LEVEL_FOUR;
+			case LEVEL_4:
+				nextLevel = LEVEL_4;
 				SceneManager.getInstance().loadGameScene(engine);
 				return true;
 			default:

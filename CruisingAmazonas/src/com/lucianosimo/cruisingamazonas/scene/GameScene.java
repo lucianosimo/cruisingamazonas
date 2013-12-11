@@ -9,8 +9,6 @@ import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.primitive.Rectangle;
-import org.andengine.entity.scene.IOnSceneTouchListener;
-import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.AutoParallaxBackground;
 import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
 import org.andengine.entity.sprite.AnimatedSprite;
@@ -52,7 +50,7 @@ import com.lucianosimo.cruisingamazonas.object.Player;
 import com.lucianosimo.cruisingamazonas.object.Snake;
 import com.lucianosimo.cruisingamazonas.object.VenusFlyTraper;
 
-public class GameScene extends BaseScene implements IOnSceneTouchListener{
+public class GameScene extends BaseScene{
 
 	//Animatedsprites Arraylists
 	public ArrayList<Sprite> animatedSpriteList = new ArrayList<Sprite>();
@@ -66,6 +64,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 	private Sprite statusBarBackground;
 	private int score = 0;
 	private LevelCompleteWindow levelCompleteWindow;
+	private Sprite jumpButton;
 	
 	//Texts variables
 	private Text scoreText;
@@ -158,7 +157,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 		}
 		createGameOverText();
 		levelCompleteWindow = new LevelCompleteWindow(vbom);
-		setOnSceneTouchListener(this);
+		//setOnSceneTouchListener(this);
 	}
 	
 	@Override
@@ -190,6 +189,20 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 		statusBarBackground = new Sprite(688, 410, resourcesManager.statusBarBackground_region, vbom);
 		scoreText = new Text(20, 420, resourcesManager.font, "Score: 0123456789", new TextOptions(HorizontalAlign.LEFT), vbom);
 		statusText = new Text(685, 399, resourcesManager.statusFont, "normalpoisoned", new TextOptions(HorizontalAlign.CENTER), vbom);
+		jumpButton = new Sprite(65, 240, resourcesManager.jumpButton_region, vbom){
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				if (pSceneTouchEvent.isActionDown()) {
+					if (!firstTouch) {
+						player.setRunning();
+						firstTouch = true;
+					} else {
+						player.jump();
+					}
+				}
+				return false;
+			}
+		};
 		
 		scoreText.setAnchorCenter(0, 0);
 		scoreText.setText("Score: 0");
@@ -199,11 +212,14 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 		
 		healthBar.setColor(Color.GREEN_ARGB_PACKED_INT);
 		
+		gameHud.attachChild(jumpButton);
 		gameHud.attachChild(scoreText);
 		gameHud.attachChild(healthBarBackground);
 		gameHud.attachChild(healthBar);
 		gameHud.attachChild(statusBarBackground);
 		gameHud.attachChild(statusText);
+		
+		gameHud.registerTouchArea(jumpButton);
 		
 		camera.setHUD(gameHud);
 	}
@@ -231,7 +247,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 		SceneManager.getInstance().loadMenuScene(engine);
 	}
 	
-	@Override
+	/*@Override
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 		if (pSceneTouchEvent.isActionDown()) {
 			if (!firstTouch) {
@@ -242,7 +258,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 			}
 		}
 		return false;
-	}
+	}*/
 
 	//Level behavior methods
 	private void addDiamondBlue() {
@@ -336,9 +352,19 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
 					body.setUserData("airPlatformLong");
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER)) {
-					venusFlyTraper = new VenusFlyTraper(x, y, vbom, camera, physicsWorld);
+					venusFlyTraper = new VenusFlyTraper(x, y, vbom, camera, physicsWorld) {
+						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+							if (pSceneTouchEvent.isActionDown()) {
+								final Sprite venusRef = this; 
+								this.setVisible(false);
+								setInactiveSprite(venusRef);
+							}
+							return true;
+						};
+					};
 					venusFlyTraper.setAnimation();
 					levelObject = venusFlyTraper;
+					GameScene.this.registerTouchArea(levelObject);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SNAKE)) {
 					snake = new Snake(x, y, vbom, camera, physicsWorld, resourcesManager.snake_region.deepCopy()) {
 						@Override
@@ -348,8 +374,17 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 								this.startMoving();
 							}
 						};
+						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+							if (pSceneTouchEvent.isActionDown()) {
+								final Sprite snakeRef = this; 
+								this.setVisible(false);
+								setInactiveSprite(snakeRef);
+							}
+							return true;
+						};
 					};
 					levelObject = snake;
+					GameScene.this.registerTouchArea(levelObject);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DIAMONDBLUE)) {
 					levelObject = new Sprite(x, y, resourcesManager.diamondBlue_region, vbom) {
 						protected void onManagedUpdate(float pSecondsElapsed) {
@@ -532,6 +567,11 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
 					}					
 					setInactiveBody(x1.getBody());
 				}
+				
+				if (x1.getBody().getUserData().equals("brick") && x2.getBody().getUserData().equals("player")) {
+					player.decreaseHP(1f);
+					reduceHealthBar(1f);
+				}
 			}
 		};
 		return contactListener;
@@ -572,6 +612,7 @@ public class GameScene extends BaseScene implements IOnSceneTouchListener{
         		player.setPoisonedStatus(false);
 	    		resourcesManager.gameMusic.stop();
         		myGarbageCollection();
+        		MapScene.increaseAvailableLevels();
         		SceneManager.getInstance().loadMapScene(engine, GameScene.this);
             }
         });

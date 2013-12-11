@@ -75,6 +75,8 @@ public class ResourcesManager {
 	public ITextureRegion lightHalo_region;
 	public ITextureRegion darkBackground_region;
 	public ITextureRegion brick_region;
+	public ITextureRegion jumpButton_region;
+	
 	public ITiledTextureRegion rain_region;
 	
 	private BuildableBitmapTextureAtlas gameTextureAtlas;
@@ -132,6 +134,7 @@ public class ResourcesManager {
 		darkBackground_region.setTextureWidth(10000);
 		darkBackground_region.setTextureHeight(600);
 		
+		jumpButton_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "jumpButton.png");
 		brick_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "brick.png");
 		lightHalo_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "lightHalo.png");		
 		background_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "background.png");

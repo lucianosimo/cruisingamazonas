@@ -65,14 +65,17 @@
     <entity x="4300" y="110" type="venusFlyTraper"/>
     <entity x="4787" y="110" type="venusFlyTraper"/>
     <entity x="8420" y="110" type="venusFlyTraper"/>
-    <entity x="400" y="90" type="snake"/>
     <entity x="1160" y="90" type="snake"/>
     <entity x="8050" y="90" type="snake"/>
     
-    <entity x="400" y="250" type="brick"/>
-    <entity x="400" y="300" type="brick"/>
-    <entity x="400" y="350" type="brick"/>
-    <entity x="400" y="400" type="brick"/>
+    <entity x="100" y="250" type="brick"/>
+    <entity x="100" y="300" type="brick"/>
+    <entity x="100" y="350" type="brick"/>
+    <entity x="100" y="400" type="brick"/>
+    <entity x="150" y="250" type="brick"/>
+    <entity x="150" y="300" type="brick"/>
+    <entity x="150" y="350" type="brick"/>
+    <entity x="150" y="400" type="brick"/>
     
     <entity x="3679" y="90" type="potion"/>
     <entity x="7005" y="177" type="antidote"/>
