@@ -9,8 +9,6 @@ import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.util.GLState;
 
-import android.util.Log;
-
 import com.lucianosimo.cruisingamazonas.base.BaseScene;
 import com.lucianosimo.cruisingamazonas.manager.SceneManager;
 import com.lucianosimo.cruisingamazonas.manager.SceneManager.SceneType;
@@ -85,8 +83,6 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 			buttonX = buttonX + 90;
 			buttonY = buttonY + 20;
 			levelButtons[i].setPosition(buttonX, buttonY);
-			Log.e("amazonas", "x " + levelButtons[i].getX());
-			Log.e("amazonas", "y " + levelButtons[i].getY());
 		}
 		
 		menuChildScene.setOnMenuItemClickListener(this);

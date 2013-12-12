@@ -88,38 +88,104 @@ public class ResourcesManager {
 	
 	public ITextureRegion complete_level_window_region;
 	
+	//Splash Methods
+	public void loadSplashScreen() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+		splashTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 229, 260, TextureOptions.BILINEAR);
+		splash_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, activity, "splash.png", 0, 0);
+		splashTextureAtlas.load();
+	}
+	
+	public void unloadSplashScreen() {
+		splashTextureAtlas.unload();
+		splash_region = null;
+	}
+	
+	//Menu methods
 	public void loadMenuResources() {
 		loadMenuGraphics();
 		loadMenuAudio();
 		loadMenuFonts();
 	}
+
+	private void loadMenuGraphics() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
+		menuTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+		menu_background_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "menu_background.png");
+		play_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "play.png");
+		configure_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "configure.png");
+		howtoplay_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "howtoplay.png");
+		try {
+			this.menuTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.menuTextureAtlas.load();
+		} catch (final TextureAtlasBuilderException e) {
+			org.andengine.util.debug.Debug.e(e);
+		}
+	}
 	
+	private void loadMenuAudio() {
+		try {
+			MusicFactory.setAssetBasePath("music/menu/");
+			menuMusic = MusicFactory.createMusicFromAsset(activity.getMusicManager(), activity, "menuMusic.mp3");
+			menuMusic.setLooping(true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void loadMenuFonts() {
+		FontFactory.setAssetBasePath("font/");
+		final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		final ITexture statusNormalFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font.ttf", 40, true, Color.WHITE_ARGB_PACKED_INT, 2, Color.BLACK_ARGB_PACKED_INT);
+		statusFont = FontFactory.createStrokeFromAsset(activity.getFontManager(), statusNormalFontTexture, activity.getAssets(), "font.ttf", 20, true, Color.WHITE_ARGB_PACKED_INT, 1, Color.BLACK_ARGB_PACKED_INT);
+		font.load();
+		statusFont.load();
+	}
+	
+	public void unloadMenuTextures() {
+		menuTextureAtlas.unload();
+	}
+	
+	public void loadMenuTextures() {
+		menuTextureAtlas.load();
+	}
+	
+	public void unloadMenuAudio() {
+		menuMusic.release();
+		activity.getMusicManager().remove(menuMusic);
+		System.gc();
+	}
+	
+	//Map methods
+	public void loadMapResources() {
+		loadMapGraphics();
+	}
+	
+	private void loadMapGraphics() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/map/");
+		mapTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+		map_background_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mapTextureAtlas, activity, "map.png");
+		level_indicator_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mapTextureAtlas, activity, "levelIndicator.png");
+		try {
+			this.mapTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.mapTextureAtlas.load();
+		} catch (final TextureAtlasBuilderException e) {
+			org.andengine.util.debug.Debug.e(e);
+		}
+	}
+	
+	public void unloadMapTextures() {
+		mapTextureAtlas.unload();
+	}
+	
+	//Game Methods
 	public void loadGameResources() {
 		loadGameGraphics();
 		loadGameAudio();
 		loadGameFonts();
 	}
 	
-	public void loadMapResources() {
-		loadMapGraphics();
-	}
-
-	private void loadGameFonts() {
-		
-	}
-
-	private void loadGameAudio() {
-		MusicFactory.setAssetBasePath("music/game/");
-		SoundFactory.setAssetBasePath("sound/game/");
-		try {
-			gameMusic = MusicFactory.createMusicFromAsset(activity.getMusicManager(), activity, "gameMusic.mp3");
-			gameMusic.setLooping(true);
-			grunt = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "grunt.mp3");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	private void loadGameGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
 		gameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 2048, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
@@ -163,43 +229,36 @@ public class ResourcesManager {
 		}
 	}
 
-	private void loadMenuAudio() {
+	private void loadGameAudio() {
+		MusicFactory.setAssetBasePath("music/game/");
+		SoundFactory.setAssetBasePath("sound/game/");
 		try {
-			MusicFactory.setAssetBasePath("music/menu/");
-			menuMusic = MusicFactory.createMusicFromAsset(activity.getMusicManager(), activity, "menuMusic.mp3");
-			menuMusic.setLooping(true);
+			gameMusic = MusicFactory.createMusicFromAsset(activity.getMusicManager(), activity, "gameMusic.mp3");
+			gameMusic.setLooping(true);
+			grunt = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "grunt.mp3");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
-	private void loadMenuGraphics() {
-		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
-		menuTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
-		menu_background_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "menu_background.png");
-		play_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "play.png");
-		configure_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "configure.png");
-		howtoplay_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "howtoplay.png");
-		try {
-			this.menuTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
-			this.menuTextureAtlas.load();
-		} catch (final TextureAtlasBuilderException e) {
-			org.andengine.util.debug.Debug.e(e);
-		}
+	
+	public void unloadGameAudio() {
+		gameMusic.release();
+		grunt.release();
+		activity.getMusicManager().remove(gameMusic);
+		activity.getSoundManager().remove(grunt);
+		System.gc();
 	}
 	
-	public void loadSplashScreen() {
-		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-		splashTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 229, 260, TextureOptions.BILINEAR);
-		splash_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, activity, "splash.png", 0, 0);
-		splashTextureAtlas.load();
+	private void loadGameFonts() {
+		
 	}
 	
-	public void unloadSplashScreen() {
-		splashTextureAtlas.unload();
-		splash_region = null;
+	public void unloadGameTextures() {
+		gameTextureAtlas.unload();
+		darkTextureAtlas.unload();
 	}
 	
+	//Manager Methods
 	public static void prepareManager(Engine engine, GameActivity activity, BoundCamera camera, VertexBufferObjectManager vbom) {
 		getInstance().engine = engine;
 		getInstance().activity = activity;
@@ -210,39 +269,5 @@ public class ResourcesManager {
 	public static ResourcesManager getInstance() {
 		return INSTANCE;
 	}
-	
-	private void loadMenuFonts() {
-		FontFactory.setAssetBasePath("font/");
-		final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		final ITexture statusNormalFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font.ttf", 40, true, Color.WHITE_ARGB_PACKED_INT, 2, Color.BLACK_ARGB_PACKED_INT);
-		statusFont = FontFactory.createStrokeFromAsset(activity.getFontManager(), statusNormalFontTexture, activity.getAssets(), "font.ttf", 20, true, Color.WHITE_ARGB_PACKED_INT, 1, Color.BLACK_ARGB_PACKED_INT);
-		font.load();
-		statusFont.load();
-	}
-	
-	public void unloadMenuTextures() {
-		menuTextureAtlas.unload();
-	}
-	
-	public void loadMenuTextures() {
-		menuTextureAtlas.load();
-	}
-	
-	public void unloadGameTextures() {
-		
-	}
 
-	private void loadMapGraphics() {
-		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/map/");
-		mapTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
-		map_background_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mapTextureAtlas, activity, "map.png");
-		level_indicator_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mapTextureAtlas, activity, "levelIndicator.png");
-		try {
-			this.mapTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
-			this.mapTextureAtlas.load();
-		} catch (final TextureAtlasBuilderException e) {
-			org.andengine.util.debug.Debug.e(e);
-		}
-	}
 }

@@ -96,7 +96,7 @@ public class SceneManager {
 	
 	public void loadGameScene(final Engine mEngine) {
 		setScene(loadingScene);
-		ResourcesManager.getInstance().unloadMenuTextures();
+		ResourcesManager.getInstance().unloadMapTextures();
 		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
 			
 			@Override
@@ -112,7 +112,7 @@ public class SceneManager {
 	public void loadMenuScene(final Engine mEngine) {
 		setScene(loadingScene);
 		gameScene.disposeScene();
-		ResourcesManager.getInstance().unloadGameTextures();
+		ResourcesManager.getInstance().unloadMapTextures();
 		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
 			
 			@Override
@@ -130,9 +130,11 @@ public class SceneManager {
 		switch (scene.getSceneType()) {
 		case SCENE_GAME:
 			ResourcesManager.getInstance().unloadGameTextures();
+			ResourcesManager.getInstance().unloadGameAudio();
 			break;
 		case SCENE_MENU:
 			ResourcesManager.getInstance().unloadMenuTextures();
+			ResourcesManager.getInstance().unloadGameAudio();
 		default:
 			break;
 		}

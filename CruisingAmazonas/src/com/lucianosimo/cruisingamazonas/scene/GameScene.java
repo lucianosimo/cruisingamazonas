@@ -1,7 +1,6 @@
 package com.lucianosimo.cruisingamazonas.scene;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.andengine.engine.camera.hud.HUD;
@@ -40,7 +39,6 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.lucianosimo.cruisingamazonas.base.BaseScene;
 import com.lucianosimo.cruisingamazonas.manager.SceneManager;
@@ -51,11 +49,9 @@ import com.lucianosimo.cruisingamazonas.object.Snake;
 import com.lucianosimo.cruisingamazonas.object.VenusFlyTraper;
 
 public class GameScene extends BaseScene{
-
-	//Animatedsprites Arraylists
-	public ArrayList<Sprite> animatedSpriteList = new ArrayList<Sprite>();
 	
-	AnimatedSprite rain;
+	//Scene objects
+	private AnimatedSprite rain;
 
 	//Scene indicators
 	private HUD gameHud;
@@ -157,7 +153,6 @@ public class GameScene extends BaseScene{
 		}
 		createGameOverText();
 		levelCompleteWindow = new LevelCompleteWindow(vbom);
-		//setOnSceneTouchListener(this);
 	}
 	
 	@Override
@@ -242,23 +237,17 @@ public class GameScene extends BaseScene{
 	//Touch and buttons events	
 	@Override
 	public void onBackKeyPressed() {
-		player.setPoisonedStatus(false);
-		resourcesManager.gameMusic.stop();
-		SceneManager.getInstance().loadMenuScene(engine);
-	}
-	
-	/*@Override
-	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
-		if (pSceneTouchEvent.isActionDown()) {
-			if (!firstTouch) {
-				player.setRunning();
-				firstTouch = true;
-			} else {
-				player.jump();
+		engine.runOnUpdateThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				player.setPoisonedStatus(false);
+				resourcesManager.gameMusic.stop();
+				myGarbageCollection();
+				SceneManager.getInstance().loadMapScene(engine, GameScene.this);
 			}
-		}
-		return false;
-	}*/
+		});
+	}
 
 	//Level behavior methods
 	private void addDiamondBlue() {
@@ -357,7 +346,7 @@ public class GameScene extends BaseScene{
 							if (pSceneTouchEvent.isActionDown()) {
 								final Sprite venusRef = this; 
 								this.setVisible(false);
-								setInactiveSprite(venusRef);
+								destroySprite(venusRef);
 							}
 							return true;
 						};
@@ -378,7 +367,7 @@ public class GameScene extends BaseScene{
 							if (pSceneTouchEvent.isActionDown()) {
 								final Sprite snakeRef = this; 
 								this.setVisible(false);
-								setInactiveSprite(snakeRef);
+								destroySprite(snakeRef);
 							}
 							return true;
 						};
@@ -455,7 +444,7 @@ public class GameScene extends BaseScene{
 							if (pSceneTouchEvent.isActionDown()) {
 								final Sprite brickRef = this; 
 								this.setVisible(false);
-								setInactiveSprite(brickRef);
+								destroySprite(brickRef);
 							}
 							return true;
 						};
@@ -588,7 +577,7 @@ public class GameScene extends BaseScene{
 		});
 	}
 	
-	private void setInactiveSprite(final Sprite sp) {
+	private void destroySprite(final Sprite sp) {
 		engine.runOnUpdateThread(new Runnable() {
 			
 			@Override
@@ -628,26 +617,6 @@ public class GameScene extends BaseScene{
             	Debug.e(e);
             }
         }
- 
-        Iterator<Joint> allMyJoints = this.physicsWorld.getJoints();
-        while(allMyJoints.hasNext()) {
-        	try {
-        		final Joint myCurrentJoint = allMyJoints.next();
-        			physicsWorld.destroyJoint(myCurrentJoint);                
-            } catch (Exception e) {
-                Debug.e(e);
-            }
-        }
-        
-        // check if the ArrayList contains anything
-        if(animatedSpriteList.size()>0){
-                for(int i=0; i < animatedSpriteList.size(); i++){
-                        this.detachChild(animatedSpriteList.get(i));
-                }
-        }
-        
-        // unload the contents of the ArrayList
-        animatedSpriteList.clear();
                
         this.clearChildScene();
         this.detachChildren();
