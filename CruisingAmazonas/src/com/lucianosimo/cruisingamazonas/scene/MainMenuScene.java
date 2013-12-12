@@ -83,7 +83,6 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,	float pMenuItemLocalX, float pMenuItemLocalY) {
 		switch (pMenuItem.getID()) {
 			case MENU_PLAY:
-				resourcesManager.menuMusic.stop();
 				SceneManager.getInstance().loadMapScene(engine, this);
 				return true;
 			case MENU_CONFIGURE:

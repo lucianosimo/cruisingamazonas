@@ -111,14 +111,15 @@ public class SceneManager {
 	
 	public void loadMenuScene(final Engine mEngine) {
 		setScene(loadingScene);
-		gameScene.disposeScene();
+		mapScene.disposeScene();
 		ResourcesManager.getInstance().unloadMapTextures();
 		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
 			
 			@Override
 			public void onTimePassed(final TimerHandler pTimerHandler) {
 				mEngine.unregisterUpdateHandler(pTimerHandler);
-				ResourcesManager.getInstance().loadMenuTextures();
+				ResourcesManager.getInstance().loadMenuResources();
+				menuScene = new MainMenuScene();
 				setScene(menuScene);
 			}
 		}));
@@ -134,7 +135,7 @@ public class SceneManager {
 			break;
 		case SCENE_MENU:
 			ResourcesManager.getInstance().unloadMenuTextures();
-			ResourcesManager.getInstance().unloadGameAudio();
+			ResourcesManager.getInstance().unloadMenuAudio();
 		default:
 			break;
 		}

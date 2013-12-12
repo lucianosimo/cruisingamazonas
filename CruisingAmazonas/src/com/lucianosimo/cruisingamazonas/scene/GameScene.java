@@ -599,9 +599,10 @@ public class GameScene extends BaseScene{
         	@Override
             public void run() {
         		player.setPoisonedStatus(false);
-	    		resourcesManager.gameMusic.stop();
         		myGarbageCollection();
-        		MapScene.increaseAvailableLevels();
+        		if (level < MapScene.getLastLevel()) {
+        			MapScene.increaseAvailableLevels();
+        		}
         		SceneManager.getInstance().loadMapScene(engine, GameScene.this);
             }
         });

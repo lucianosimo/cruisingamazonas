@@ -152,9 +152,10 @@ public class ResourcesManager {
 	}
 	
 	public void unloadMenuAudio() {
-		menuMusic.release();
-		activity.getMusicManager().remove(menuMusic);
-		System.gc();
+		menuMusic.stop();
+		//menuMusic.release();
+		//activity.getMusicManager().remove(menuMusic);
+		//System.gc();
 	}
 	
 	//Map methods
@@ -242,11 +243,13 @@ public class ResourcesManager {
 	}
 	
 	public void unloadGameAudio() {
-		gameMusic.release();
-		grunt.release();
-		activity.getMusicManager().remove(gameMusic);
-		activity.getSoundManager().remove(grunt);
-		System.gc();
+		gameMusic.stop();
+		grunt.stop();
+		//gameMusic.release();
+		//grunt.release();
+		//activity.getMusicManager().remove(gameMusic);
+		//activity.getSoundManager().remove(grunt);
+		//System.gc();
 	}
 	
 	private void loadGameFonts() {

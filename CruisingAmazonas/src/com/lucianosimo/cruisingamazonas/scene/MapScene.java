@@ -22,6 +22,7 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	private final int LEVEL_4 = 4;
 	private static int nextLevel;
 	private static int availableLevels = 1;
+	private static int lastLevel = 4;
 	private int buttonX;
 	private int buttonY;
 
@@ -29,12 +30,10 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	public void createScene() {
 		createBackground();
 		createMenuChildScene();
-		resourcesManager.menuMusic.play();
 	}
 
 	@Override
 	public void onBackKeyPressed() {
-		resourcesManager.menuMusic.stop();
 		SceneManager.getInstance().loadMenuScene(engine);
 	}
 
@@ -91,6 +90,10 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	
 	public static int getNextLevel() {
 		return nextLevel;
+	}
+	
+	public static int getLastLevel() {
+		return lastLevel;
 	}
 	
 	public static void increaseAvailableLevels() {
