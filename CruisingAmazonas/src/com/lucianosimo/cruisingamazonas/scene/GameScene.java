@@ -147,8 +147,8 @@ public class GameScene extends BaseScene{
 		createPhysics();
 		loadLevel(level);
 		if (level == 3) {
-			Sprite darkBackground = new Sprite(427, 300, resourcesManager.darkBackground_region, vbom);
-			Sprite light = new Sprite(120, 32, resourcesManager.lightHalo_region, vbom);
+			Sprite darkBackground = new Sprite(5000, 300, resourcesManager.darkBackground_region, vbom);
+			Sprite light = new Sprite(170, 32, resourcesManager.lightHalo_region, vbom);
 			light.setBlendingEnabled(true);
 			light.setBlendFunctionSource(GLES20.GL_DST_COLOR);
 			light.setAlpha(0.0f);
