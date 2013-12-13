@@ -375,11 +375,17 @@ public class GameScene extends BaseScene{
 					levelObject = snake;
 					GameScene.this.registerTouchArea(levelObject);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DIAMONDBLUE)) {
+					final AnimatedSprite points = new AnimatedSprite(x, y + 35, resourcesManager.points100_region, vbom);
+					points.setVisible(false);
 					levelObject = new Sprite(x, y, resourcesManager.diamondBlue_region, vbom) {
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
 							if (player.collidesWith(this)) {
 								addToScore(100);
+								points.setVisible(true);
+								final long[] POINTS_ANIMATE = new long[] {75, 75, 75};
+								points.animate(POINTS_ANIMATE, 0, 2, false);
+								GameScene.this.attachChild(points);
 								this.setVisible(false);
 								this.setIgnoreUpdate(true);
 								addDiamondBlue();
@@ -415,11 +421,17 @@ public class GameScene extends BaseScene{
 						};
 					};
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DIAMONDYELLOW)) {
+					final AnimatedSprite points = new AnimatedSprite(x, y + 35, resourcesManager.points200_region, vbom);
+					points.setVisible(false);
 					levelObject = new Sprite(x, y, resourcesManager.diamondYellow_region, vbom) {
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
 							if (player.collidesWith(this)) {
 								addToScore(200);
+								points.setVisible(true);
+								final long[] POINTS_ANIMATE = new long[] {75, 75, 75};
+								points.animate(POINTS_ANIMATE, 0, 2, false);
+								GameScene.this.attachChild(points);
 								this.setVisible(false);
 								this.setIgnoreUpdate(true);
 								addDiamondYellow();
@@ -427,11 +439,17 @@ public class GameScene extends BaseScene{
 						};
 					};
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DIAMONDRED)) {
+					final AnimatedSprite points = new AnimatedSprite(x, y + 35, resourcesManager.points300_region, vbom);
+					points.setVisible(false);
 					levelObject = new Sprite(x, y, resourcesManager.diamondRed_region, vbom) {
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
 							if (player.collidesWith(this)) {
 								addToScore(300);
+								points.setVisible(true);
+								final long[] POINTS_ANIMATE = new long[] {75, 75, 75};
+								points.animate(POINTS_ANIMATE, 0, 2, false);
+								GameScene.this.attachChild(points);
 								this.setVisible(false);
 								this.setIgnoreUpdate(true);
 								addDiamondRed();

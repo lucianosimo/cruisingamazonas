@@ -21,7 +21,7 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	private final int LEVEL_3 = 3;
 	private final int LEVEL_4 = 4;
 	private static int nextLevel;
-	private static int availableLevels = 1;
+	private static int availableLevels = 4;
 	private static int lastLevel = 4;
 	private int buttonX;
 	private int buttonY;
