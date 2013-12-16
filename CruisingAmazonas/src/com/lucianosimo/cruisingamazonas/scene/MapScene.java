@@ -96,6 +96,14 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 		return lastLevel;
 	}
 	
+	public static void setAvailableLevels(int levels) {
+		availableLevels = levels;
+	}
+	
+	public static int getAvailableLevels() {
+		return availableLevels;
+	}
+	
 	public static void increaseAvailableLevels() {
 		availableLevels++;
 	}

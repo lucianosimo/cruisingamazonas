@@ -29,7 +29,10 @@ import org.andengine.util.level.simple.SimpleLevelEntityLoaderData;
 import org.andengine.util.level.simple.SimpleLevelLoader;
 import org.xml.sax.Attributes;
 
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.opengl.GLES20;
+import android.preference.PreferenceManager;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -58,7 +61,7 @@ public class GameScene extends BaseScene{
 	private Rectangle healthBar;
 	private Sprite healthBarBackground;
 	private Sprite statusBarBackground;
-	private int score = 0;
+	//private int score = 0;
 	private LevelCompleteWindow levelCompleteWindow;
 	private Sprite jumpButton;
 	
@@ -153,6 +156,30 @@ public class GameScene extends BaseScene{
 		}
 		createGameOverText();
 		levelCompleteWindow = new LevelCompleteWindow(vbom);
+		loadSavedPreferences();
+	}
+	
+	private void loadSavedPreferences() {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+		int score = sharedPreferences.getInt("score", 0);
+		float hp = sharedPreferences.getFloat("hp", 100);
+		player.setHP(hp);
+		player.setScore(score);
+		scoreText.setText("Score: " + player.getScore());
+	}
+
+	private void saveScore(String key, int score) {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+		Editor editor = sharedPreferences.edit();
+		editor.putInt("score", score);
+		editor.commit();
+	}
+	
+	private void saveHP(String key, float hp) {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+		Editor editor = sharedPreferences.edit();
+		editor.putFloat("hp", hp);
+		editor.commit();
 	}
 	
 	@Override
@@ -263,8 +290,9 @@ public class GameScene extends BaseScene{
 	}
 	
 	private void addToScore(int i) {
-		score += i;
-		scoreText.setText("Score: " + score);
+		//score += i;
+		player.increaseScore(i);
+		scoreText.setText("Score: " + player.getScore());
 	}
 	
 	private void reduceHealthBar(float hp) {
@@ -481,10 +509,12 @@ public class GameScene extends BaseScene{
 								levelCompleted();
 								player.playerStop();
 								player.setVisible(false);
-								levelCompleteWindow.display(countDiamondBlue, countDiamondYellow, countDiamondRed, score, GameScene.this, camera);
+								levelCompleteWindow.display(countDiamondBlue, countDiamondYellow, countDiamondRed, player.getScore(), GameScene.this, camera);
 							    final Sprite continueButton = new Sprite(530, 40, resourcesManager.continueButton_region, vbom){
 							    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 							    		if (pSceneTouchEvent.isActionDown()) {
+							    			saveHP("hp", player.getHP());
+							        		saveScore("score", player.getScore());
 								    		goToNextLevel();
 							    		}
 							    		return true;
@@ -501,6 +531,8 @@ public class GameScene extends BaseScene{
 						
 						@Override
 						public void onDie() {
+							saveHP("hp", 100);
+							saveScore("score", 0);
 							if (!gameOverDisplayed && !levelCompleted) {
 								displayGameOverText();
 							}
@@ -618,7 +650,7 @@ public class GameScene extends BaseScene{
             public void run() {
         		player.setPoisonedStatus(false);
         		myGarbageCollection();
-        		if (level < MapScene.getLastLevel()) {
+        		if (MapScene.getAvailableLevels() < MapScene.getLastLevel()) {
         			MapScene.increaseAvailableLevels();
         		}
         		SceneManager.getInstance().loadMapScene(engine, GameScene.this);

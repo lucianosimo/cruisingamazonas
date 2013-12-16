@@ -18,6 +18,7 @@ public abstract class Player extends AnimatedSprite{
 	private Boolean canRun = false;
 	private int footContacts = 0;
 	private float hpCounter = 0;
+	private int score = 0;
 	
 	private static final int MAXHP = 100;
 	private static final String NORMAL_STATUS = "normal";
@@ -90,6 +91,7 @@ public abstract class Player extends AnimatedSprite{
 	public void decreaseHP(float hpDamage) {
 		if ((hpCounter - hpDamage) <= 0) {
 			hpCounter = 0;
+			setScore(0);
 			onDie();
 		} else {
 			hpCounter = hpCounter - hpDamage;
@@ -106,6 +108,22 @@ public abstract class Player extends AnimatedSprite{
 	
 	public float getHP() {
 		return hpCounter;
+	}
+	
+	public void setHP(float hp) {
+		this.hpCounter = hp;
+	}
+	
+	public int getScore() {
+		return score;
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	public void increaseScore(int score) {
+		this.score = this.score + score;
 	}
 	
 	public void setPoisonedStatus(Boolean poisoned) {
