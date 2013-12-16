@@ -199,9 +199,9 @@ public class ResourcesManager {
 		venusFlyTraper_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "venusFlyTraperTiled.png", 3, 1);
 		snake_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "snake.png", 3, 1);
 		rain_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "rain.png", 2, 1);
-		points100_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "100.png", 3, 1);
-		points200_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "200.png", 3, 1);
-		points300_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "300.png", 3, 1);
+		points100_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "100.png", 4, 1);
+		points200_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "200.png", 4, 1);
+		points300_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "300.png", 4, 1);
 		
 		darkBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(darkTextureAtlas, activity, "darkBackground.png", 0, 0);
 		darkBackground_region.setTextureWidth(10000);

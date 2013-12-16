@@ -383,8 +383,8 @@ public class GameScene extends BaseScene{
 							if (player.collidesWith(this)) {
 								addToScore(100);
 								points.setVisible(true);
-								final long[] POINTS_ANIMATE = new long[] {75, 75, 75};
-								points.animate(POINTS_ANIMATE, 0, 2, false);
+								final long[] POINTS_ANIMATE = new long[] {75, 75, 250, 75};
+								points.animate(POINTS_ANIMATE, 0, 3, false);
 								GameScene.this.attachChild(points);
 								this.setVisible(false);
 								this.setIgnoreUpdate(true);
@@ -429,8 +429,8 @@ public class GameScene extends BaseScene{
 							if (player.collidesWith(this)) {
 								addToScore(200);
 								points.setVisible(true);
-								final long[] POINTS_ANIMATE = new long[] {75, 75, 75};
-								points.animate(POINTS_ANIMATE, 0, 2, false);
+								final long[] POINTS_ANIMATE = new long[] {75, 75, 250, 75};
+								points.animate(POINTS_ANIMATE, 0, 3, false);
 								GameScene.this.attachChild(points);
 								this.setVisible(false);
 								this.setIgnoreUpdate(true);
@@ -447,8 +447,8 @@ public class GameScene extends BaseScene{
 							if (player.collidesWith(this)) {
 								addToScore(300);
 								points.setVisible(true);
-								final long[] POINTS_ANIMATE = new long[] {75, 75, 75};
-								points.animate(POINTS_ANIMATE, 0, 2, false);
+								final long[] POINTS_ANIMATE = new long[] {75, 75, 250, 75};
+								points.animate(POINTS_ANIMATE, 0, 3, false);
 								GameScene.this.attachChild(points);
 								this.setVisible(false);
 								this.setIgnoreUpdate(true);
