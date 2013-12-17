@@ -9,6 +9,9 @@ import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.util.GLState;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import com.lucianosimo.cruisingamazonas.base.BaseScene;
 import com.lucianosimo.cruisingamazonas.manager.SceneManager;
 import com.lucianosimo.cruisingamazonas.manager.SceneManager.SceneType;
@@ -21,13 +24,14 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	private final int LEVEL_3 = 3;
 	private final int LEVEL_4 = 4;
 	private static int nextLevel;
-	private static int availableLevels = 4;
+	private static int availableLevels = 1;
 	private static int lastLevel = 4;
 	private int buttonX;
 	private int buttonY;
 
 	@Override
 	public void createScene() {
+		loadSavedPreferences();
 		createBackground();
 		createMenuChildScene();
 	}
@@ -131,6 +135,12 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 			default:
 				return false;
 		}
+	}
+	
+	private void loadSavedPreferences() {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+		int available = sharedPreferences.getInt("availableLevels", 1);
+		setAvailableLevels(available);
 	}
 
 }

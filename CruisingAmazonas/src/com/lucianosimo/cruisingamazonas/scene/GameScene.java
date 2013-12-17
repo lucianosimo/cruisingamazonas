@@ -33,6 +33,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.opengl.GLES20;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -166,19 +167,30 @@ public class GameScene extends BaseScene{
 		player.setHP(hp);
 		player.setScore(score);
 		scoreText.setText("Score: " + player.getScore());
+		if (hp < 100) {
+			reduceHealthBar((100 - hp));
+		}
 	}
 
 	private void saveScore(String key, int score) {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
 		Editor editor = sharedPreferences.edit();
-		editor.putInt("score", score);
+		editor.putInt(key, score);
 		editor.commit();
 	}
 	
 	private void saveHP(String key, float hp) {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
 		Editor editor = sharedPreferences.edit();
-		editor.putFloat("hp", hp);
+		editor.putFloat(key, hp);
+		editor.commit();
+	}
+	
+	private void saveAvailableLevels(String key, int availableLevels) {
+		Log.e("amazonas", "saving available " + availableLevels);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+		Editor editor = sharedPreferences.edit();
+		editor.putInt(key, availableLevels);
 		editor.commit();
 	}
 	
@@ -509,6 +521,10 @@ public class GameScene extends BaseScene{
 								levelCompleted();
 								player.playerStop();
 								player.setVisible(false);
+								player.setPoisonedStatus(false);
+								saveHP("hp", player.getHP());
+								saveScore("score", player.getScore());
+								destroySprite(player);
 								levelCompleteWindow.display(countDiamondBlue, countDiamondYellow, countDiamondRed, player.getScore(), GameScene.this, camera);
 							    final Sprite continueButton = new Sprite(530, 40, resourcesManager.continueButton_region, vbom){
 							    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -533,10 +549,11 @@ public class GameScene extends BaseScene{
 						public void onDie() {
 							saveHP("hp", 100);
 							saveScore("score", 0);
+							//destroySprite(player);
 							if (!gameOverDisplayed && !levelCompleted) {
 								displayGameOverText();
 							}
-							if (getHP() <= 0) {
+							if (getHP() <= 0 && player.getY() > 0) {
 								player.playerStop();
 							}
 						}
@@ -648,11 +665,11 @@ public class GameScene extends BaseScene{
         	
         	@Override
             public void run() {
-        		player.setPoisonedStatus(false);
         		myGarbageCollection();
         		if (MapScene.getAvailableLevels() < MapScene.getLastLevel()) {
         			MapScene.increaseAvailableLevels();
         		}
+        		saveAvailableLevels("availableLevels", MapScene.getAvailableLevels());
         		SceneManager.getInstance().loadMapScene(engine, GameScene.this);
             }
         });
