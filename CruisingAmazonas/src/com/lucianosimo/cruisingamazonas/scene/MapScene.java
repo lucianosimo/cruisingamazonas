@@ -1,5 +1,7 @@
 package com.lucianosimo.cruisingamazonas.scene;
 
+import java.util.ArrayList;
+
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
@@ -26,6 +28,7 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	private static int nextLevel;
 	private static int availableLevels = 1;
 	private static int lastLevel = 4;
+	private static ArrayList<Integer> completedLevels = new ArrayList<Integer>();
 	private int buttonX;
 	private int buttonY;
 
@@ -110,6 +113,16 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	
 	public static void increaseAvailableLevels() {
 		availableLevels++;
+	}
+	
+	public static void setCompletedLevels(int level) {
+		if (!completedLevels.contains(level)) {
+			completedLevels.add(level);
+		}
+	}
+	
+	public static ArrayList<Integer> getCompletedLevels() {
+		return completedLevels;
 	}
 
 	@Override

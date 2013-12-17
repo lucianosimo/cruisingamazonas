@@ -1,6 +1,7 @@
 package com.lucianosimo.cruisingamazonas.scene;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.andengine.engine.camera.hud.HUD;
@@ -666,8 +667,10 @@ public class GameScene extends BaseScene{
         	@Override
             public void run() {
         		myGarbageCollection();
-        		if (MapScene.getAvailableLevels() < MapScene.getLastLevel()) {
+        		ArrayList<Integer> completed = MapScene.getCompletedLevels();
+        		if ((MapScene.getAvailableLevels() < MapScene.getLastLevel()) && (!completed.contains(level))) {
         			MapScene.increaseAvailableLevels();
+        			MapScene.setCompletedLevels(level);
         		}
         		saveAvailableLevels("availableLevels", MapScene.getAvailableLevels());
         		SceneManager.getInstance().loadMapScene(engine, GameScene.this);
