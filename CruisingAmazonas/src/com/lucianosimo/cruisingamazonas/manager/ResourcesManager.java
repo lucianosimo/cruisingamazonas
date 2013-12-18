@@ -164,8 +164,8 @@ public class ResourcesManager {
 	public void unloadMenuAudio() {
 		menuMusic.stop();
 		//menuMusic.release();
-		//activity.getMusicManager().remove(menuMusic);
-		//System.gc();
+		activity.getMusicManager().remove(menuMusic);
+		System.gc();
 	}
 	
 	//Map methods
@@ -292,9 +292,9 @@ public class ResourcesManager {
 		grunt.stop();
 		//gameMusic.release();
 		//grunt.release();
-		//activity.getMusicManager().remove(gameMusic);
-		//activity.getSoundManager().remove(grunt);
-		//System.gc();
+		activity.getMusicManager().remove(gameMusic);
+		activity.getSoundManager().remove(grunt);
+		System.gc();
 	}
 	
 	private void loadGameFonts() {
