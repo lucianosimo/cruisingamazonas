@@ -76,12 +76,9 @@ public class ResourcesManager {
 	public ITextureRegion darkBackground_region;
 	public ITextureRegion brick_region;
 	public ITextureRegion jumpButton_region;
+	public ITextureRegion complete_level_window_region;
 	
 	public ITiledTextureRegion rain_region;
-	
-	private BuildableBitmapTextureAtlas gameTextureAtlas;
-	private BitmapTextureAtlas darkTextureAtlas;
-	
 	public ITiledTextureRegion points100_region;
 	public ITiledTextureRegion points200_region;
 	public ITiledTextureRegion points300_region;
@@ -89,7 +86,17 @@ public class ResourcesManager {
 	public ITiledTextureRegion venusFlyTraper_region;
 	public ITiledTextureRegion snake_region;
 	
-	public ITextureRegion complete_level_window_region;
+	//Game Textures
+	private BuildableBitmapTextureAtlas animatedTextureAtlas;
+	private BuildableBitmapTextureAtlas rainTextureAtlas;
+	private BuildableBitmapTextureAtlas backgroundTextureAtlas;
+	private BuildableBitmapTextureAtlas platformsTextureAtlas;
+	private BuildableBitmapTextureAtlas objectsTextureAtlas;
+	private BuildableBitmapTextureAtlas hudTextureAtlas;
+	private BuildableBitmapTextureAtlas othersTextureAtlas;
+	private BuildableBitmapTextureAtlas completeWindowTextureAtlas;
+	private BitmapTextureAtlas darkBackgroundTextureAtlas;	
+	
 	
 	//Splash Methods
 	public void loadSplashScreen() {
@@ -141,7 +148,7 @@ public class ResourcesManager {
 		final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		final ITexture statusNormalFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "jungle4.ttf", 35, true, Color.GREEN_ARGB_PACKED_INT, 1f, Color.BLACK_ARGB_PACKED_INT);
-		statusFont = FontFactory.createStrokeFromAsset(activity.getFontManager(), statusNormalFontTexture, activity.getAssets(), "jungle4.ttf", 18, true, Color.WHITE_ARGB_PACKED_INT, 1f, Color.BLACK_ARGB_PACKED_INT);
+        statusFont = FontFactory.createStrokeFromAsset(activity.getFontManager(), statusNormalFontTexture, activity.getAssets(), "jungle4.ttf", 18, true, Color.WHITE_ARGB_PACKED_INT, 1f, Color.BLACK_ARGB_PACKED_INT);
 		font.load();
 		statusFont.load();
 	}
@@ -192,45 +199,77 @@ public class ResourcesManager {
 	
 	private void loadGameGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
-		gameTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 2048, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		darkTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 2, 2, TextureOptions.REPEATING_BILINEAR_PREMULTIPLYALPHA);
+		animatedTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 512, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		rainTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1700, 600, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		backgroundTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 480, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		darkBackgroundTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 2, 2, TextureOptions.REPEATING_BILINEAR_PREMULTIPLYALPHA);
+		platformsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		objectsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		hudTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 400, 100, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		othersTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 750, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		completeWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 750, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		
-		player_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "player.png", 3, 1);
-		venusFlyTraper_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "venusFlyTraperTiled.png", 3, 1);
-		snake_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "snake.png", 3, 1);
-		rain_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "rain.png", 2, 1);
-		points100_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "100.png", 4, 1);
-		points200_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "200.png", 4, 1);
-		points300_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(gameTextureAtlas, activity, "300.png", 4, 1);
+		//Animated Sprites
+		player_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "player.png", 3, 1);
+		venusFlyTraper_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "venusFlyTraperTiled.png", 3, 1);
+		snake_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "snake.png", 3, 1);
+		rain_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(rainTextureAtlas, activity, "rain.png", 2, 1);
+		points100_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "100.png", 4, 1);
+		points200_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "200.png", 4, 1);
+		points300_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "300.png", 4, 1);
 		
-		darkBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(darkTextureAtlas, activity, "darkBackground.png", 0, 0);
+		//Backgrounds
+		background_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(backgroundTextureAtlas, activity, "background.png");
+		darkBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(darkBackgroundTextureAtlas, activity, "darkBackground.png", 0, 0);
 		darkBackground_region.setTextureWidth(10000);
 		darkBackground_region.setTextureHeight(600);
 		
-		jumpButton_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "jumpButton.png");
-		brick_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "brick.png");
-		lightHalo_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "lightHalo.png");		
-		background_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "background.png");
-		landPlatform_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "landPlatform.png");
-		landPlatformLong_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "landPlatformLong.png");
-		landPlatformShort_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "landPlatformShort.png");
-		airPlatform_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "airPlatform.png");
-		airPlatformLong_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "airPlatformLong.png");
-		diamondBlue_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "diamondBlue.png");
-		diamondYellow_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "diamondYellow.png");
-		diamondRed_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "diamondRed.png");
-		potion_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "potion.png");
-		antidote_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "antidote.png");
-		tent_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "tent.png");
-		healthBarBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "healthBarBackground.png");
-		statusBarBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "statusBarBackground.png");
+		//Platforms
+		landPlatform_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "landPlatform.png");
+		landPlatformLong_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "landPlatformLong.png");
+		landPlatformShort_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "landPlatformShort.png");
+		airPlatform_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "airPlatform.png");
+		airPlatformLong_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "airPlatformLong.png");		
 		
-		complete_level_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "levelCompleteWindow.png");
-		continueButton_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameTextureAtlas, activity, "continueButton.png");
+		//Objects
+		brick_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "brick.png");
+		diamondBlue_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "diamondBlue.png");
+		diamondYellow_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "diamondYellow.png");
+		diamondRed_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "diamondRed.png");
+		potion_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "potion.png");
+		antidote_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "antidote.png");
+		
+		//HUD
+		jumpButton_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudTextureAtlas, activity, "jumpButton.png");
+		healthBarBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudTextureAtlas, activity, "healthBarBackground.png");
+		statusBarBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudTextureAtlas, activity, "statusBarBackground.png");
+				
+		//Others
+		lightHalo_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "lightHalo.png");		
+		tent_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "tent.png");
+		
+		//Complete window
+		complete_level_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(completeWindowTextureAtlas, activity, "levelCompleteWindow.png");
+		continueButton_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(completeWindowTextureAtlas, activity, "continueButton.png");
+		
 		try {
-			this.gameTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
-			this.gameTextureAtlas.load();
-			this.darkTextureAtlas.load();
+			this.animatedTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.rainTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.backgroundTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.platformsTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.objectsTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.hudTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.othersTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.completeWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.animatedTextureAtlas.load();
+			this.rainTextureAtlas.load();
+			this.backgroundTextureAtlas.load();
+			this.platformsTextureAtlas.load();
+			this.objectsTextureAtlas.load();
+			this.hudTextureAtlas.load();
+			this.othersTextureAtlas.load();
+			this.completeWindowTextureAtlas.load();
+			this.darkBackgroundTextureAtlas.load();
 		} catch (final TextureAtlasBuilderException e) {
 			Debug.e(e);
 		}
@@ -263,8 +302,15 @@ public class ResourcesManager {
 	}
 	
 	public void unloadGameTextures() {
-		gameTextureAtlas.unload();
-		darkTextureAtlas.unload();
+		this.animatedTextureAtlas.unload();
+		this.rainTextureAtlas.unload();
+		this.backgroundTextureAtlas.unload();
+		this.platformsTextureAtlas.unload();
+		this.objectsTextureAtlas.unload();
+		this.hudTextureAtlas.unload();
+		this.othersTextureAtlas.unload();
+		this.completeWindowTextureAtlas.unload();
+		this.darkBackgroundTextureAtlas.unload();
 	}
 	
 	//Manager Methods
@@ -280,3 +326,4 @@ public class ResourcesManager {
 	}
 
 }
+
