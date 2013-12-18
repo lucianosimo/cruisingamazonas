@@ -140,8 +140,8 @@ public class ResourcesManager {
 		FontFactory.setAssetBasePath("font/");
 		final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		final ITexture statusNormalFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "jungle.ttf", 40, true, Color.GREEN_ARGB_PACKED_INT, 1.5f, Color.BLACK_ARGB_PACKED_INT);
-		statusFont = FontFactory.createStrokeFromAsset(activity.getFontManager(), statusNormalFontTexture, activity.getAssets(), "jungle.ttf", 25, true, Color.GREEN_ARGB_PACKED_INT, 1, Color.BLACK_ARGB_PACKED_INT);
+		font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "jungle4.ttf", 35, true, Color.GREEN_ARGB_PACKED_INT, 1f, Color.BLACK_ARGB_PACKED_INT);
+		statusFont = FontFactory.createStrokeFromAsset(activity.getFontManager(), statusNormalFontTexture, activity.getAssets(), "jungle4.ttf", 18, true, Color.WHITE_ARGB_PACKED_INT, 1f, Color.BLACK_ARGB_PACKED_INT);
 		font.load();
 		statusFont.load();
 	}

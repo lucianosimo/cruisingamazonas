@@ -222,8 +222,8 @@ public class GameScene extends BaseScene{
 		healthBar = new Rectangle(720, 450, HEALTHBARWIDTH, HEALTHBARHEIGTH, vbom);
 		healthBarBackground = new Sprite(688, 450, resourcesManager.healthBarBackground_region, vbom);
 		statusBarBackground = new Sprite(688, 410, resourcesManager.statusBarBackground_region, vbom);
-		scoreText = new Text(20, 420, resourcesManager.font, "Score: 0123456789", new TextOptions(HorizontalAlign.LEFT), vbom);
-		statusText = new Text(680, 396, resourcesManager.statusFont, "normalpoisoned", new TextOptions(HorizontalAlign.CENTER), vbom);
+		scoreText = new Text(20, 430, resourcesManager.font, "Score: 0123456789", new TextOptions(HorizontalAlign.LEFT), vbom);
+		statusText = new Text(680, 400, resourcesManager.statusFont, "normalpoisoned", new TextOptions(HorizontalAlign.CENTER), vbom);
 		jumpButton = new Sprite(65, 240, resourcesManager.jumpButton_region, vbom){
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
