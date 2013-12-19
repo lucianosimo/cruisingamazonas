@@ -119,18 +119,33 @@ public class GameScene extends BaseScene{
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_LANDPLATFORM = "landPlatform";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_LANDPLATFORMSHORT = "landPlatformShort";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_LANDPLATFORMLONG = "landPlatformLong";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_EARTHPLATFORMLONG = "earthPlatformLong";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_EARTHPLATFORMSHORT = "earthPlatformShort";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DARKEARTHPLATFORMLONG = "darkEarthPlatformLong";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DARKEARTHPLATFORMSHORT = "darkEarthPlatformShort";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DARKEARTHPLATFORM = "darkEarthPlatform";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_EARTHPLATFORM = "earthPlatform";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_AIRPLATFORM = "airPlatform";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_AIRPLATFORMLONG = "airPlatformLong";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BRIDGE = "bridge";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GRASSHALFLEFT = "grassHalfLeft";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GRASSHALFRIGHT = "grassHalfRight";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_WATER = "water";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_WATERPLATFORM = "waterPlatform";
+	
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DIAMONDBLUE = "diamondBlue";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DIAMONDYELLOW = "diamondYellow";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DIAMONDRED = "diamondRed";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER = "venusFlyTraper";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SNAKE = "snake";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TENT = "tent";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_POTION = "potion";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_ANTIDOTE = "antidote";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BRICK = "brick";
+	
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER = "venusFlyTraper";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SNAKE = "snake";	
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
+	
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TENT = "tent";
+	
 	
 	//Scene management methods	
 	@Override
@@ -381,6 +396,48 @@ public class GameScene extends BaseScene{
 					levelObject = new Sprite(x, y, resourcesManager.airPlatformLong_region, vbom);
 					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
 					body.setUserData("airPlatformLong");
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_EARTHPLATFORM)) {
+					levelObject = new Sprite(x, y, resourcesManager.earthPlatform_region, vbom);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
+					body.setUserData("earthPlatform");
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_EARTHPLATFORMSHORT)) {
+					levelObject = new Sprite(x, y, resourcesManager.earthPlatformShort_region, vbom);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
+					body.setUserData("earthPlatformShort");
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_EARTHPLATFORMLONG)) {
+					levelObject = new Sprite(x, y, resourcesManager.earthPlatformLong_region, vbom);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
+					body.setUserData("earthPlatformLong");
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DARKEARTHPLATFORMLONG)) {
+					levelObject = new Sprite(x, y, resourcesManager.darkEarthPlatformLong_region, vbom);
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DARKEARTHPLATFORM)) {
+					levelObject = new Sprite(x, y, resourcesManager.darkEarthPlatform_region, vbom);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
+					body.setUserData("darkEarthPlatform");
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DARKEARTHPLATFORMSHORT)) {
+					levelObject = new Sprite(x, y, resourcesManager.darkEarthPlatformShort_region, vbom);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
+					body.setUserData("darkEarthPlatformShort");
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BRIDGE)) {
+					levelObject = new Sprite(x, y, resourcesManager.bridge_region, vbom);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
+					body.setUserData("bridge");
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GRASSHALFLEFT)) {
+					levelObject = new Sprite(x, y, resourcesManager.grassHalfLeft_region, vbom);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
+					body.setUserData("grassHalfLeft");
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_GRASSHALFRIGHT)) {
+					levelObject = new Sprite(x, y, resourcesManager.grassHalfRight_region, vbom);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
+					body.setUserData("grassHalfRight");
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_WATER)) {
+					levelObject = new Sprite(x, y, resourcesManager.water_region, vbom);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
+					body.setUserData("water");
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_WATERPLATFORM)) {
+					levelObject = new Sprite(x, y, resourcesManager.waterPlatform_region, vbom);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
+					body.setUserData("waterPlatform");
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER)) {
 					venusFlyTraper = new VenusFlyTraper(x, y, vbom, camera, physicsWorld) {
 						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {

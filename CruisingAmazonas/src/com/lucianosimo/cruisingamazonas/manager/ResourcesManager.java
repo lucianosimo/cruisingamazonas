@@ -57,32 +57,52 @@ public class ResourcesManager {
 	//Game items
 	public Music gameMusic;
 	public Sound grunt;
+	
+	//Platforms
 	public ITextureRegion landPlatformShort_region;
 	public ITextureRegion landPlatform_region;
 	public ITextureRegion landPlatformLong_region;
 	public ITextureRegion airPlatform_region;
 	public ITextureRegion airPlatformLong_region;
+	public ITextureRegion bridge_region;
+	public ITextureRegion darkEarthPlatform_region;
+	public ITextureRegion darkEarthPlatformShort_region;
+	public ITextureRegion darkEarthPlatformLong_region;
+	public ITextureRegion earthPlatform_region;
+	public ITextureRegion earthPlatformShort_region;
+	public ITextureRegion earthPlatformLong_region;
+	public ITextureRegion grassHalfLeft_region;	
+	public ITextureRegion grassHalfRight_region;
+	public ITextureRegion water_region;
+	public ITextureRegion waterPlatform_region;
+	
+	//Backgrounds
+	public ITextureRegion darkBackground_region;
 	public ITextureRegion background_region;
+	
+	//Objects
 	public ITextureRegion diamondBlue_region;
 	public ITextureRegion diamondYellow_region;
 	public ITextureRegion diamondRed_region;
 	public ITextureRegion potion_region;
 	public ITextureRegion antidote_region;
+	public ITextureRegion brick_region;
+	
+	//Others
 	public ITextureRegion tent_region;
 	public ITextureRegion healthBarBackground_region;
 	public ITextureRegion statusBarBackground_region;
 	public ITextureRegion continueButton_region;
 	public ITextureRegion lightHalo_region;
-	public ITextureRegion darkBackground_region;
-	public ITextureRegion brick_region;
 	public ITextureRegion jumpButton_region;
 	public ITextureRegion complete_level_window_region;
 	
+	//Animated
+	public ITiledTextureRegion player_region;
 	public ITiledTextureRegion rain_region;
 	public ITiledTextureRegion points100_region;
 	public ITiledTextureRegion points200_region;
 	public ITiledTextureRegion points300_region;
-	public ITiledTextureRegion player_region;
 	public ITiledTextureRegion venusFlyTraper_region;
 	public ITiledTextureRegion snake_region;
 	
@@ -229,7 +249,18 @@ public class ResourcesManager {
 		landPlatformLong_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "landPlatformLong.png");
 		landPlatformShort_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "landPlatformShort.png");
 		airPlatform_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "airPlatform.png");
-		airPlatformLong_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "airPlatformLong.png");		
+		airPlatformLong_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "airPlatformLong.png");
+		bridge_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "bridge.png");;
+		darkEarthPlatform_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "darkEarthPlatform.png");;
+		darkEarthPlatformShort_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "darkEarthPlatformShort.png");
+		darkEarthPlatformLong_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "darkEarthPlatformLong.png");
+		earthPlatform_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "earthPlatform.png");
+		earthPlatformShort_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "earthPlatformShort.png");
+		earthPlatformLong_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "earthPlatformLong.png");
+		grassHalfLeft_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "grassHalfLeft.png");	
+		grassHalfRight_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "grassHalfRight.png");
+		water_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "water.png");
+		waterPlatform_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "waterPlatform.png");
 		
 		//Objects
 		brick_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "brick.png");
