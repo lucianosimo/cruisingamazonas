@@ -41,7 +41,7 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 
 	@Override
 	public void onBackKeyPressed() {
-		SceneManager.getInstance().loadMenuScene(engine);
+		SceneManager.getInstance().loadMenuScene(engine, this);
 	}
 
 	@Override

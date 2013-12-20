@@ -34,7 +34,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.opengl.GLES20;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -203,7 +202,6 @@ public class GameScene extends BaseScene{
 	}
 	
 	private void saveAvailableLevels(String key, int availableLevels) {
-		Log.e("amazonas", "saving available " + availableLevels);
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
 		Editor editor = sharedPreferences.edit();
 		editor.putInt(key, availableLevels);

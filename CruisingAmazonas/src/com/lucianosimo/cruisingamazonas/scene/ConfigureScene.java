@@ -9,33 +9,33 @@ import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.util.GLState;
 
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
+
 import com.lucianosimo.cruisingamazonas.base.BaseScene;
 import com.lucianosimo.cruisingamazonas.manager.SceneManager;
 import com.lucianosimo.cruisingamazonas.manager.SceneManager.SceneType;
 
-public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener{
+public class ConfigureScene extends BaseScene implements IOnMenuItemClickListener{
 	
 	private MenuScene menuChildScene;
-	private final int MENU_PLAY = 0;
-	private final int MENU_CONFIGURE = 1;
-	private final int MENU_HOWTOPLAY = 2;
+	private final int DELETE_PREFERENCES = 2;
 
 	@Override
 	public void createScene() {
 		createBackground();
 		createMenuChildScene();
-		resourcesManager.menuMusic.play();
 	}
 
 	@Override
 	public void onBackKeyPressed() {
-		resourcesManager.menuMusic.stop();
-		System.exit(0);
+		SceneManager.getInstance().loadMenuScene(engine, this);
 	}
 
 	@Override
 	public SceneType getSceneType() {
-		return SceneType.SCENE_MENU;
+		return SceneType.SCENE_CONFIGURE;
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	public void createBackground() {
 		float screenWidth = resourcesManager.camera.getWidth();
 		float screenHeight = resourcesManager.camera.getHeight();
-		attachChild(new Sprite(screenWidth/2, screenHeight/2, resourcesManager.menu_background_region, vbom){
+		attachChild(new Sprite(screenWidth/2, screenHeight/2, resourcesManager.configure_background_region, vbom){
 			@Override
 			protected void preDraw(GLState pGLState, Camera pCamera) {
 				super.preDraw(pGLState, pCamera);
@@ -61,19 +61,13 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 		menuChildScene = new MenuScene(camera);
 		menuChildScene.setPosition(screenWidth/2, screenHeight/2);
 		
-		final IMenuItem playMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_PLAY, resourcesManager.play_region, vbom), 1.2f, 1);
-		final IMenuItem configureMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_CONFIGURE, resourcesManager.configure_region, vbom), 1.2f, 1);
-		final IMenuItem howtoplayMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_HOWTOPLAY, resourcesManager.howtoplay_region,vbom), 1.2f, 1);
+		final IMenuItem deleteMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(DELETE_PREFERENCES, resourcesManager.delete_region, vbom), 1.2f, 1);
+		menuChildScene.addMenuItem(deleteMenuItem);
 		
-		menuChildScene.addMenuItem(playMenuItem);
-		menuChildScene.addMenuItem(configureMenuItem);
-		menuChildScene.addMenuItem(howtoplayMenuItem);
 		menuChildScene.buildAnimations();
 		menuChildScene.setBackgroundEnabled(false);
 		
-		playMenuItem.setPosition(0, 30);
-		configureMenuItem.setPosition(0, -80);
-		howtoplayMenuItem.setPosition(0, -180);
+		deleteMenuItem.setPosition(0, 0);
 		
 		menuChildScene.setOnMenuItemClickListener(this);
 		setChildScene(menuChildScene);
@@ -82,17 +76,21 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	@Override
 	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,	float pMenuItemLocalX, float pMenuItemLocalY) {
 		switch (pMenuItem.getID()) {
-			case MENU_PLAY:
-				SceneManager.getInstance().loadMapScene(engine, this);
-				return true;
-			case MENU_CONFIGURE:
-				SceneManager.getInstance().loadConfigureScene(engine);
-				return true;
-			case MENU_HOWTOPLAY:
-				return true;
-			default:
-				return false;
-		}
+		case DELETE_PREFERENCES:
+			deleteSharedPreferences();
+			return true;
+		default:
+			return false;
+	}
+	}
+
+	private void deleteSharedPreferences() {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+		Editor editor = sharedPreferences.edit();
+		editor.putInt("score", 0);
+		editor.putFloat("hp", 100);
+		editor.putInt("availableLevels", 1);
+		editor.commit();
 	}
 
 }

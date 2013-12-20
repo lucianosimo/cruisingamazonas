@@ -49,6 +49,11 @@ public class ResourcesManager {
 	public Music menuMusic;
 	private BuildableBitmapTextureAtlas menuTextureAtlas;
 	
+	//Configure items
+	public ITextureRegion configure_background_region;
+	public ITextureRegion delete_region;
+	private BuildableBitmapTextureAtlas configureTextureAtlas;
+	
 	//Map items
 	public ITextureRegion map_background_region;
 	public ITextureRegion level_indicator_region;
@@ -355,6 +360,36 @@ public class ResourcesManager {
 	public static ResourcesManager getInstance() {
 		return INSTANCE;
 	}
+	
+	//Menu methods
+	public void loadConfigureResources() {
+		loadConfigureGraphics();
+		loadMenuFonts();
+	}
+
+	private void loadConfigureGraphics() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
+		configureTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+		configure_background_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(configureTextureAtlas, activity, "configure_background.png");
+		delete_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(configureTextureAtlas, activity, "delete.png");
+		try {
+			this.configureTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.configureTextureAtlas.load();
+		} catch (final TextureAtlasBuilderException e) {
+			org.andengine.util.debug.Debug.e(e);
+		}
+	}
+	
+	public void unloadConfigureTextures() {
+		configureTextureAtlas.unload();
+	}
+	
+	public void unloadConfigureAudio() {
+		menuMusic.stop();
+		activity.getMusicManager().remove(menuMusic);
+		System.gc();
+	}
+
 
 }
 

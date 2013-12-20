@@ -6,6 +6,7 @@ import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 
 import com.lucianosimo.cruisingamazonas.base.BaseScene;
+import com.lucianosimo.cruisingamazonas.scene.ConfigureScene;
 import com.lucianosimo.cruisingamazonas.scene.GameScene;
 import com.lucianosimo.cruisingamazonas.scene.LoadingScene;
 import com.lucianosimo.cruisingamazonas.scene.MainMenuScene;
@@ -19,6 +20,7 @@ public class SceneManager {
 	private BaseScene loadingScene;
 	private BaseScene gameScene;
 	private BaseScene mapScene;
+	private BaseScene configureScene;
 	
 	private static final SceneManager INSTANCE = new SceneManager();
 	private SceneType currentSceneType = SceneType.SCENE_SPLASH;
@@ -31,6 +33,7 @@ public class SceneManager {
 		SCENE_LOADING,
 		SCENE_GAME,
 		SCENE_MAP,
+		SCENE_CONFIGURE,
 	}
 	
 	public void setScene(BaseScene scene) {
@@ -55,6 +58,9 @@ public class SceneManager {
 				break;
 			case SCENE_MAP:
 				setScene(mapScene);
+				break;
+			case SCENE_CONFIGURE:
+				setScene(configureScene);
 				break;
 			default:
 				break;
@@ -109,10 +115,21 @@ public class SceneManager {
 		}));
 	}
 	
-	public void loadMenuScene(final Engine mEngine) {
+	public void loadMenuScene(final Engine mEngine, final BaseScene scene) {
 		setScene(loadingScene);
-		mapScene.disposeScene();
-		ResourcesManager.getInstance().unloadMapTextures();
+		scene.disposeScene();
+		//ResourcesManager.getInstance().unloadMapTextures();
+		switch (scene.getSceneType()) {
+		case SCENE_MAP:
+			ResourcesManager.getInstance().unloadMapTextures();
+			break;
+		case SCENE_CONFIGURE:
+			ResourcesManager.getInstance().unloadConfigureTextures();
+			ResourcesManager.getInstance().unloadConfigureAudio();
+			break;
+		default:
+			break;
+	}
 		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
 			
 			@Override
@@ -136,6 +153,7 @@ public class SceneManager {
 		case SCENE_MENU:
 			ResourcesManager.getInstance().unloadMenuTextures();
 			ResourcesManager.getInstance().unloadMenuAudio();
+			break;
 		default:
 			break;
 		}
@@ -147,6 +165,22 @@ public class SceneManager {
 				ResourcesManager.getInstance().loadMapResources();
 				mapScene = new MapScene();
 				setScene(mapScene);
+			}
+		}));
+	}
+	
+	public void loadConfigureScene(final Engine mEngine) {
+		setScene(loadingScene);
+		menuScene.disposeScene();
+		ResourcesManager.getInstance().unloadMenuTextures();
+		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
+			
+			@Override
+			public void onTimePassed(final TimerHandler pTimerHandler) {
+				mEngine.unregisterUpdateHandler(pTimerHandler);
+				ResourcesManager.getInstance().loadConfigureResources();
+				configureScene = new ConfigureScene();
+				setScene(configureScene);
 			}
 		}));
 	}
