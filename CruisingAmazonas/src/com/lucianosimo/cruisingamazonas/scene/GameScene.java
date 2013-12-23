@@ -53,9 +53,6 @@ import com.lucianosimo.cruisingamazonas.object.Snake;
 import com.lucianosimo.cruisingamazonas.object.VenusFlyTraper;
 
 public class GameScene extends BaseScene{
-	
-	//Scene objects
-	private AnimatedSprite rain;
 
 	//Scene indicators
 	private HUD gameHud;
@@ -151,12 +148,6 @@ public class GameScene extends BaseScene{
 	public void createScene() {
 		level = MapScene.getNextLevel();
 		resourcesManager.gameMusic.play();
-		if (level == 2) {
-			rain = new AnimatedSprite(20, 240, resourcesManager.rain_region, vbom);
-			final long[] RAIN_ANIMATE = new long[] {110, 110};
-			rain.animate(RAIN_ANIMATE, 0, 1, true);
-			this.attachChild(rain);
-		}
 		createBackground();
 		createHud();
 		createPhysics();
@@ -223,9 +214,6 @@ public class GameScene extends BaseScene{
 	private void createBackground() {
 		AutoParallaxBackground background = new AutoParallaxBackground(0, 0, 0, 12);
 		background.attachParallaxEntity(new ParallaxEntity(0, new Sprite(400, 240, resourcesManager.background_region, vbom)));
-		if (level == 2) {
-			background.attachParallaxEntity(new ParallaxEntity(0, rain));
-		}
 		this.setBackground(background);
 	}
 	
@@ -440,7 +428,7 @@ public class GameScene extends BaseScene{
 					venusFlyTraper = new VenusFlyTraper(x, y, vbom, camera, physicsWorld) {
 						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 							if (pSceneTouchEvent.isActionDown()) {
-								final Sprite venusRef = this; 
+								final Sprite venusRef = this;
 								this.setVisible(false);
 								destroySprite(venusRef);
 							}
@@ -489,10 +477,16 @@ public class GameScene extends BaseScene{
 						};
 					};
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_POTION)) {
+					final AnimatedSprite potionSprite = new AnimatedSprite(x, y + 35, resourcesManager.potionSprite_region, vbom);
+					potionSprite.setVisible(false);
 					levelObject = new Sprite(x, y, resourcesManager.potion_region, vbom) {
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
 							if (player.collidesWith(this)) {
+								potionSprite.setVisible(true);
+								final long[] POTION_ANIMATE = new long[] {75, 75, 250, 75};
+								potionSprite.animate(POTION_ANIMATE, 0, 3, false);
+								GameScene.this.attachChild(potionSprite);
 								this.setVisible(false);
 								this.setIgnoreUpdate(true);
 								player.increaseHP(POTION_RECOVERY);
@@ -501,10 +495,16 @@ public class GameScene extends BaseScene{
 						};
 					};
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_ANTIDOTE)) {
+					final AnimatedSprite antidoteSprite = new AnimatedSprite(x, y + 35, resourcesManager.antidoteSprite_region, vbom);
+					antidoteSprite.setVisible(false);
 					levelObject = new Sprite(x, y, resourcesManager.antidote_region, vbom) {
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
 							if (player.collidesWith(this)) {
+								antidoteSprite.setVisible(true);
+								final long[] ANTIDOTE_ANIMATE = new long[] {75, 75, 250, 75};
+								antidoteSprite.animate(ANTIDOTE_ANIMATE, 0, 3, false);
+								GameScene.this.attachChild(antidoteSprite);
 								this.setVisible(false);
 								this.setIgnoreUpdate(true);
 								if (Player.getStatus().equals("poisoned")) {

@@ -64,8 +64,8 @@ public abstract class Player extends AnimatedSprite{
 	
 	public void playerStop() {
 		body.setLinearVelocity(new Vector2(0,0));
-		final long[] PLAYER_ANIMATE = new long[] {0, 0, 0};
-		animate(PLAYER_ANIMATE, 0, 2, false);
+		final long[] PLAYER_ANIMATE = new long[] {0, 0};
+		animate(PLAYER_ANIMATE, 0, 1, false);
 		canRun = false;
 	}
 	

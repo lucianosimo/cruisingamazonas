@@ -1,80 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level width="10000" height="600">
-    <entity x="212" y="30" type="landPlatformLong"/>
-    <entity x="960" y="30" type="landPlatformLong"/>
-    <entity x="1584" y="30" type="landPlatform"/>
-    <entity x="2188" y="30" type="landPlatformLong"/>
-    <entity x="2590" y="30" type="landPlatformShort"/>
-    <entity x="3160" y="30" type="landPlatformLong"/>
-    <entity x="3676" y="30" type="landPlatform"/>
-    <entity x="4188" y="30" type="landPlatformLong"/>
-    <entity x="4790" y="30" type="landPlatformLong"/>
-    <entity x="7340" y="30" type="landPlatformLong"/>
-    <entity x="7940" y="30" type="landPlatformLong"/>
-    <entity x="8421" y="30" type="landPlatform"/>
-    <entity x="9043" y="30" type="landPlatform"/>
-    <entity x="9364" y="30" type="landPlatformShort"/>
-    <entity x="9787" y="30" type="landPlatformLong"/>
     
-    <entity x="585" y="115" type="airPlatformLong"/>
-    <entity x="1330" y="118" type="airPlatform"/>
-    <entity x="1850" y="115" type="airPlatform"/>
-    <entity x="2777" y="130" type="airPlatformLong"/>
-    <entity x="5216" y="116" type="airPlatformLong"/>
-    <entity x="5469" y="206" type="airPlatformLong"/>
-    <entity x="5715" y="284" type="airPlatform"/>
-    <entity x="5942" y="341" type="airPlatformLong"/>
-    <entity x="6239" y="332" type="airPlatform"/>
-    <entity x="6553" y="339" type="airPlatformLong"/>
-    <entity x="6553" y="339" type="airPlatformLong"/>
-    <entity x="6783" y="244" type="airPlatformLong"/>
-    <entity x="7010" y="138" type="airPlatformLong"/>
-    <entity x="8725" y="105" type="airPlatform"/>
+    <entity x="125" y="25" type="earthPlatform"/>
+    <entity x="125" y="75" type="earthPlatform"/>
+    <entity x="125" y="125" type="earthPlatform"/>
+    <entity x="125" y="175" type="earthPlatform"/>
+    <entity x="125" y="225" type="landPlatform"/>
     
-    <entity x="250" y="146" type="diamondBlue"/>
-    <entity x="265" y="146" type="diamondBlue"/>
-    <entity x="280" y="146" type="diamondBlue"/>
-    <entity x="1851" y="160" type="diamondBlue"/>
-    <entity x="2456" y="160" type="diamondBlue"/>
-    <entity x="3429" y="165" type="diamondBlue"/>
-    <entity x="3466" y="165" type="diamondBlue"/>
-    <entity x="5177" y="150" type="diamondBlue"/>
-    <entity x="5216" y="150" type="diamondBlue"/>
-    <entity x="5255" y="150" type="diamondBlue"/>
-    <entity x="6103" y="450" type="diamondBlue"/>
-    <entity x="6381" y="450" type="diamondBlue"/>
-    <entity x="7297" y="90" type="diamondBlue"/>
-    <entity x="7335" y="90" type="diamondBlue"/>
-    <entity x="7375" y="90" type="diamondBlue"/>
-    <entity x="2758" y="165" type="diamondYellow"/>
-    <entity x="2795" y="165" type="diamondYellow"/>
-    <entity x="6745" y="277" type="diamondYellow"/>
-    <entity x="6783" y="277" type="diamondYellow"/>
-    <entity x="6824" y="277" type="diamondYellow"/>
-    <entity x="8725" y="141" type="diamondYellow"/>
-    <entity x="1335" y="157" type="diamondRed"/>
-    <entity x="2494" y="160" type="diamondRed"/>
-    <entity x="3429" y="195" type="diamondRed"/>
-    <entity x="3466" y="195" type="diamondRed"/>
-    <entity x="5427" y="239" type="diamondRed"/>
-    <entity x="5467" y="239" type="diamondRed"/>
-    <entity x="5508" y="239" type="diamondRed"/>
-    <entity x="8235" y="160" type="diamondRed"/>
+    <entity x="475" y="162" type="airPlatform"/>
+    <entity x="775" y="162" type="airPlatform"/>
     
-    <entity x="2200" y="110" type="venusFlyTraper"/>
-    <entity x="3079" y="110" type="venusFlyTraper"/>
-    <entity x="3238" y="110" type="venusFlyTraper"/>
-    <entity x="4080" y="110" type="venusFlyTraper"/>
-    <entity x="4300" y="110" type="venusFlyTraper"/>
-    <entity x="4787" y="110" type="venusFlyTraper"/>
-    <entity x="8420" y="110" type="venusFlyTraper"/>
-    <entity x="1160" y="90" type="snake"/>
-    <entity x="8050" y="90" type="snake"/>
+    <entity x="1025" y="36" type="grassHalfLeft"/>
+    <entity x="1300" y="25" type="earthPlatformLong"/>
+    <entity x="1300" y="75" type="darkEarthPlatformLong"/>
+    <entity x="1300" y="125" type="landPlatformLong"/>
+    <entity x="1575" y="35" type="grassHalfRight"/>
     
-    <entity x="3679" y="90" type="potion"/>
-    <entity x="7005" y="177" type="antidote"/>
+    <entity x="1825" y="62" type="airPlatformLong"/>
     
-    <entity x="15" y="100" type="player"/>
+    <entity x="2075" y="86" type="grassHalfLeft"/>
+    <entity x="2350" y="25" type="earthPlatformLong"/>
+    <entity x="2350" y="75" type="landPlatformLong"/>
+    
+    <entity x="3000" y="25" type="earthPlatformLong"/>
+    <entity x="3000" y="75" type="landPlatformLong"/>
+    
+    <entity x="3425" y="112" type="airPlatform"/>
+    
+    <entity x="3850" y="25" type="earthPlatformLong"/>
+    <entity x="3850" y="75" type="earthPlatformLong"/>
+    <entity x="3850" y="125" type="landPlatformLong"/>
+    
+    <entity x="4325" y="25" type="earthPlatform"/>
+    <entity x="4325" y="75" type="earthPlatform"/>
+    <entity x="4325" y="125" type="earthPlatform"/>
+    <entity x="4325" y="175" type="landPlatform"/>
+    
+    <entity x="4575" y="36" type="grassHalfLeft"/>
+    <entity x="4850" y="25" type="earthPlatformLong"/>
+    <entity x="4850" y="75" type="darkEarthPlatformLong"/>
+    <entity x="4850" y="125" type="earthPlatformLong"/>
+    <entity x="4850" y="175" type="landPlatformLong"/>
+    <entity x="5125" y="35" type="grassHalfRight"/>
+    
+    <entity x="5325" y="87" type="airPlatformLong"/>
+    <entity x="5675" y="87" type="airPlatformLong"/>
+    
+    <entity x="6200" y="25" type="landPlatformLong"/>
+    
+    <entity x="6625" y="87" type="airPlatform"/>
+    
+    <entity x="7050" y="25" type="earthPlatformLong"/>
+    <entity x="7050" y="75" type="earthPlatformLong"/>
+    <entity x="7050" y="125" type="landPlatformLong"/>
+    
+    <entity x="7450" y="159" type="bridge"/>
+    
+    <entity x="7850" y="25" type="earthPlatformLong"/>
+    <entity x="7850" y="75" type="earthPlatformLong"/>
+    <entity x="7850" y="125" type="landPlatformLong"/>
+    
+    <entity x="8325" y="162" type="airPlatformLong"/>
+    <entity x="8725" y="187" type="airPlatformLong"/>
+    <entity x="9125" y="187" type="airPlatformLong"/>
+    
+    <entity x="9475" y="36" type="grassHalfLeft"/>
+    <entity x="9750" y="25" type="landPlatformLong"/>
+    
+    <entity x="1550" y="116" type="snake"/>
+    <entity x="2950" y="116" type="snake"/>
+    <entity x="3200" y="116" type="snake"/>
+    <entity x="5100" y="67" type="snake"/>
+    <entity x="6400" y="67" type="snake"/>
+    <entity x="8800" y="220" type="snake"/>    
+    
+    <entity x="1740" y="110" type="venusFlyTraper"/>
+    <entity x="2190" y="162" type="venusFlyTraper"/>
+    <entity x="2395" y="162" type="venusFlyTraper"/>
+    <entity x="3840" y="205" type="venusFlyTraper"/>
+    <entity x="4340" y="255" type="venusFlyTraper"/>
+    <entity x="4540" y="105" type="venusFlyTraper"/>
+    <entity x="5390" y="155" type="venusFlyTraper"/>
+    <entity x="5745" y="155" type="venusFlyTraper"/>
+    <entity x="8240" y="230" type="venusFlyTraper"/>
+    <entity x="9110" y="255" type="venusFlyTraper"/>
+    
+    <entity x="567" y="288" type="diamondBlue"/>
+    <entity x="617" y="288" type="diamondBlue"/>
+    <entity x="667" y="288" type="diamondBlue"/>
+    <entity x="1170" y="86" type="diamondRed"/>
+    <entity x="1220" y="86" type="diamondRed"/>
+    <entity x="1270" y="86" type="diamondRed"/>
+    <entity x="1320" y="86" type="diamondRed"/>
+    <entity x="1370" y="86" type="diamondRed"/>
+    <entity x="1985" y="162" type="diamondYellow"/>
+    <entity x="1985" y="187" type="diamondYellow"/>
+    <entity x="2035" y="162" type="diamondYellow"/>
+    <entity x="2035" y="187" type="diamondYellow"/>
+    <entity x="2630" y="187" type="diamondRed"/>
+    <entity x="2680" y="187" type="diamondRed"/>
+    <entity x="2730" y="187" type="diamondRed"/>
+    <entity x="2685" y="238" type="diamondBlue"/>
+    <entity x="2965" y="187" type="diamondYellow"/>
+    <entity x="3015" y="187" type="diamondYellow"/>
+    <entity x="3065" y="187" type="diamondYellow"/>
+    <entity x="2965" y="238" type="diamondBlue"/>
+    <entity x="3015" y="238" type="diamondBlue"/>
+    <entity x="3065" y="238" type="diamondBlue"/>
+    <entity x="3385" y="162" type="diamondRed"/>
+    <entity x="3435" y="162" type="diamondRed"/>
+    <entity x="3485" y="162" type="diamondRed"/>
+    <entity x="3765" y="265" type="diamondBlue"/>
+    <entity x="3815" y="265" type="diamondBlue"/>
+    <entity x="3865" y="265" type="diamondBlue"/>
+    <entity x="4115" y="240" type="diamondYellow"/>
+    <entity x="4165" y="260" type="diamondYellow"/>
+    <entity x="4815" y="62" type="diamondBlue"/>
+    <entity x="4865" y="62" type="diamondBlue"/>
+    <entity x="4815" y="87" type="diamondRed"/>
+    <entity x="4865" y="87" type="diamondRed"/>
+    <entity x="5280" y="162" type="diamondYellow"/>
+    <entity x="5280" y="137" type="diamondYellow"/>
+    <entity x="5280" y="187" type="diamondYellow"/>
+    <entity x="5630" y="162" type="diamondRed"/>
+    <entity x="5630" y="137" type="diamondRed"/>
+    <entity x="5630" y="187" type="diamondRed"/>
+    <entity x="6465" y="110" type="diamondBlue"/>
+    <entity x="6520" y="137" type="diamondRed"/>
+    <entity x="6735" y="162" type="diamondBlue"/>
+    <entity x="6785" y="187" type="diamondRed"/>
+    <entity x="7365" y="260" type="diamondBlue"/>
+    <entity x="7415" y="260" type="diamondBlue"/>
+    <entity x="7465" y="260" type="diamondBlue"/>
+    <entity x="7515" y="260" type="diamondBlue"/>
+    <entity x="7565" y="260" type="diamondBlue"/>
+    <entity x="7385" y="288" type="diamondYellow"/>
+    <entity x="7435" y="288" type="diamondYellow"/>
+    <entity x="7485" y="288" type="diamondYellow"/>
+    <entity x="7535" y="288" type="diamondYellow"/>
+    <entity x="7415" y="313" type="diamondRed"/>
+    <entity x="7465" y="313" type="diamondRed"/>
+    <entity x="7515" y="313" type="diamondRed"/>
+    
+    <entity x="6265" y="160" type="potion"/>
+	<entity x="4613" y="66" type="antidote"/>
+    
+    <entity x="15" y="250" type="player"/>
         
-    <entity x="9928" y="115" type="tent"/>
+    <entity x="9930" y="100" type="tent"/>
 </level>

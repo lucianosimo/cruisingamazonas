@@ -29,7 +29,7 @@ public class VenusFlyTraper extends AnimatedSprite{
 	}
 	
 	public void setAnimation() {
-		final long[] VENUSFLYTRAPER_ANIMATE = new long[] {100, 100, 100};
-		animate(VENUSFLYTRAPER_ANIMATE, 0, 2, true);
+		final long[] VENUSFLYTRAPER_ANIMATE = new long[] {100, 100, 100, 100};
+		animate(VENUSFLYTRAPER_ANIMATE, 0, 3, true);
 	}
 }

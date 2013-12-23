@@ -30,8 +30,8 @@ public class Snake extends AnimatedSprite{
 	}
 	
 	public void startAnimation() {
-		final long[] SNAKE_ANIMATE = new long[] {150, 150, 150};
-		animate(SNAKE_ANIMATE, 0, 2, true);
+		final long[] SNAKE_ANIMATE = new long[] {150, 150, 150, 150};
+		animate(SNAKE_ANIMATE, 0, 3, true);
 	}
 	
 	public void startMoving() {

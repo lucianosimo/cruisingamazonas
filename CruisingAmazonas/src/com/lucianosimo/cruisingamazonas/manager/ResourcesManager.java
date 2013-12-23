@@ -104,16 +104,16 @@ public class ResourcesManager {
 	
 	//Animated
 	public ITiledTextureRegion player_region;
-	public ITiledTextureRegion rain_region;
 	public ITiledTextureRegion points100_region;
 	public ITiledTextureRegion points200_region;
 	public ITiledTextureRegion points300_region;
+	public ITiledTextureRegion antidoteSprite_region;
+	public ITiledTextureRegion potionSprite_region;
 	public ITiledTextureRegion venusFlyTraper_region;
 	public ITiledTextureRegion snake_region;
 	
 	//Game Textures
 	private BuildableBitmapTextureAtlas animatedTextureAtlas;
-	private BuildableBitmapTextureAtlas rainTextureAtlas;
 	private BuildableBitmapTextureAtlas backgroundTextureAtlas;
 	private BuildableBitmapTextureAtlas platformsTextureAtlas;
 	private BuildableBitmapTextureAtlas objectsTextureAtlas;
@@ -225,7 +225,6 @@ public class ResourcesManager {
 	private void loadGameGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
 		animatedTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 512, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		rainTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1700, 600, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		backgroundTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 480, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		darkBackgroundTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 2, 2, TextureOptions.REPEATING_BILINEAR_PREMULTIPLYALPHA);
 		platformsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
@@ -236,12 +235,13 @@ public class ResourcesManager {
 		
 		//Animated Sprites
 		player_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "player.png", 3, 1);
-		venusFlyTraper_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "venusFlyTraperTiled.png", 3, 1);
-		snake_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "snake.png", 3, 1);
-		rain_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(rainTextureAtlas, activity, "rain.png", 2, 1);
+		venusFlyTraper_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "venusFlyTraperTiled.png", 4, 1);
+		snake_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "snake.png", 4, 1);
 		points100_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "100.png", 4, 1);
 		points200_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "200.png", 4, 1);
 		points300_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "300.png", 4, 1);
+		antidoteSprite_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "antidoteSprite.png", 4, 1);
+		potionSprite_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "potionSprite.png", 4, 1);
 		
 		//Backgrounds
 		background_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(backgroundTextureAtlas, activity, "background.png");
@@ -290,7 +290,6 @@ public class ResourcesManager {
 		
 		try {
 			this.animatedTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
-			this.rainTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.backgroundTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.platformsTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.objectsTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
@@ -298,7 +297,6 @@ public class ResourcesManager {
 			this.othersTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.completeWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.animatedTextureAtlas.load();
-			this.rainTextureAtlas.load();
 			this.backgroundTextureAtlas.load();
 			this.platformsTextureAtlas.load();
 			this.objectsTextureAtlas.load();
@@ -339,7 +337,6 @@ public class ResourcesManager {
 	
 	public void unloadGameTextures() {
 		this.animatedTextureAtlas.unload();
-		this.rainTextureAtlas.unload();
 		this.backgroundTextureAtlas.unload();
 		this.platformsTextureAtlas.unload();
 		this.objectsTextureAtlas.unload();
