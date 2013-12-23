@@ -59,9 +59,9 @@ public class GameScene extends BaseScene{
 	private Rectangle healthBar;
 	private Sprite healthBarBackground;
 	private Sprite statusBarBackground;
-	//private int score = 0;
 	private LevelCompleteWindow levelCompleteWindow;
 	private Sprite jumpButton;
+	private Sprite shortJumpButton;
 	
 	//Texts variables
 	private Text scoreText;
@@ -77,6 +77,7 @@ public class GameScene extends BaseScene{
 	private Boolean firstTouch = false;
 	private boolean levelCompleted = false;
 	private Boolean gameOverDisplayed = false;
+	private boolean diedPlayer = false;
 	
 	//Physics world variable
 	private PhysicsWorld physicsWorld;
@@ -239,6 +240,20 @@ public class GameScene extends BaseScene{
 				return false;
 			}
 		};
+		shortJumpButton = new Sprite(790, 240, resourcesManager.jumpButton_region, vbom){
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				if (pSceneTouchEvent.isActionDown()) {
+					if (!firstTouch) {
+						player.setRunning();
+						firstTouch = true;
+					} else {
+						player.shortJump();
+					}
+				}
+				return false;
+			}
+		};
 		
 		scoreText.setAnchorCenter(0, 0);
 		scoreText.setText("Score: 0");
@@ -249,6 +264,7 @@ public class GameScene extends BaseScene{
 		healthBar.setColor(Color.GREEN_ARGB_PACKED_INT);
 		
 		gameHud.attachChild(jumpButton);
+		gameHud.attachChild(shortJumpButton);
 		gameHud.attachChild(scoreText);
 		gameHud.attachChild(healthBarBackground);
 		gameHud.attachChild(healthBar);
@@ -256,8 +272,13 @@ public class GameScene extends BaseScene{
 		gameHud.attachChild(statusText);
 		
 		gameHud.registerTouchArea(jumpButton);
+		gameHud.registerTouchArea(shortJumpButton);
 		
 		camera.setHUD(gameHud);
+	}
+	
+	private void reloadHud() {
+		gameHud.setVisible(true);
 	}
 	
 	private void levelCompleted() {
@@ -282,10 +303,43 @@ public class GameScene extends BaseScene{
 			
 			@Override
 			public void run() {
-				player.setPoisonedStatus(false);
-				resourcesManager.gameMusic.stop();
-				myGarbageCollection();
-				SceneManager.getInstance().loadMapScene(engine, GameScene.this);
+				if (!diedPlayer) {
+					GameScene.this.setIgnoreUpdate(true);
+					levelCompleteWindow.display(countDiamondBlue, countDiamondYellow, countDiamondRed, player.getScore(), GameScene.this, camera);
+				    final Sprite continueButton = new Sprite(530, 40, resourcesManager.continueButton_region, vbom){
+				    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				    		if (pSceneTouchEvent.isActionDown()) {
+				    			GameScene.this.detachChild(levelCompleteWindow);
+				    			GameScene.this.setIgnoreUpdate(false);
+				    			camera.setChaseEntity(player);
+				    			reloadHud();
+				    		}
+				    		return true;
+				    	};
+				    };
+				    final Sprite quitButton = new Sprite(70, 40, resourcesManager.continueButton_region, vbom){
+				    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				    		if (pSceneTouchEvent.isActionDown()) {
+				    			saveHP("hp", player.getHP());
+				        		saveScore("score", player.getScore());
+				        		player.setPoisonedStatus(false);
+								resourcesManager.gameMusic.stop();
+								myGarbageCollection();
+								SceneManager.getInstance().loadMapScene(engine, GameScene.this);
+				    		}
+				    		return true;
+				    	};
+				    };
+				    GameScene.this.registerTouchArea(continueButton);
+				    GameScene.this.registerTouchArea(quitButton);
+				    levelCompleteWindow.attachChild(quitButton);
+				    levelCompleteWindow.attachChild(continueButton);
+				} else {
+					player.setPoisonedStatus(false);
+					resourcesManager.gameMusic.stop();
+					myGarbageCollection();
+					SceneManager.getInstance().loadMapScene(engine, GameScene.this);
+				}
 			}
 		});
 	}
@@ -304,7 +358,6 @@ public class GameScene extends BaseScene{
 	}
 	
 	private void addToScore(int i) {
-		//score += i;
 		player.increaseScore(i);
 		scoreText.setText("Score: " + player.getScore());
 	}
@@ -603,6 +656,7 @@ public class GameScene extends BaseScene{
 						
 						@Override
 						public void onDie() {
+							diedPlayer = true;
 							saveHP("hp", 100);
 							saveScore("score", 0);
 							//destroySprite(player);
