@@ -136,7 +136,10 @@ public class GameScene extends BaseScene{
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DIAMONDRED = "diamondRed";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_POTION = "potion";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_ANTIDOTE = "antidote";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BRICK = "brick";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_ROCK = "rock";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BOX = "box";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SPIKE = "spike";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCH = "torch";
 	
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER = "venusFlyTraper";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SNAKE = "snake";	
@@ -154,7 +157,7 @@ public class GameScene extends BaseScene{
 		createHud();
 		createPhysics();
 		loadLevel(level);
-		if (level == 3) {
+		if (level == 4) {
 			Sprite darkBackground = new Sprite(5000, 300, resourcesManager.darkBackground_region, vbom);
 			Sprite light = new Sprite(170, 32, resourcesManager.lightHalo_region, vbom);
 			light.setBlendingEnabled(true);
@@ -481,6 +484,19 @@ public class GameScene extends BaseScene{
 					levelObject = new Sprite(x, y, resourcesManager.waterPlatform_region, vbom);
 					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
 					body.setUserData("waterPlatform");
+				}  else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SPIKE)) {
+					levelObject = new Sprite(x, y, resourcesManager.spike_region, vbom);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
+					body.setUserData("spike");
+				}  else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BOX)) {
+					levelObject = new Sprite(x, y, resourcesManager.box_region, vbom);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.DynamicBody, FIXTURE_DEF);
+					body.setUserData("box");
+					body.setFixedRotation(true);
+					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false) {
+					});
+				}  else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCH)) {
+					levelObject = new Sprite(x, y, resourcesManager.torch_region, vbom);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER)) {
 					venusFlyTraper = new VenusFlyTraper(x, y, vbom, camera, physicsWorld) {
 						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -609,20 +625,20 @@ public class GameScene extends BaseScene{
 							}
 						};
 					};
-				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BRICK)) {
-					levelObject = new Sprite(x, y, resourcesManager.brick_region, vbom) {
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_ROCK)) {
+					levelObject = new Sprite(x, y, resourcesManager.rock_region, vbom) {
 						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 							if (pSceneTouchEvent.isActionDown()) {
-								final Sprite brickRef = this; 
+								final Sprite rockRef = this; 
 								this.setVisible(false);
-								destroySprite(brickRef);
+								destroySprite(rockRef);
 							}
 							return true;
 						};
 					};
 					GameScene.this.registerTouchArea(levelObject);
 					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.DynamicBody, FIXTURE_DEF);
-					body.setUserData("brick");
+					body.setUserData("rock");
 					body.setFixedRotation(true);
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false) {
 					});
@@ -738,9 +754,34 @@ public class GameScene extends BaseScene{
 					setInactiveBody(x1.getBody());
 				}
 				
-				if (x1.getBody().getUserData().equals("brick") && x2.getBody().getUserData().equals("player")) {
+				if (x1.getBody().getUserData().equals("rock") && x2.getBody().getUserData().equals("player")) {
 					player.decreaseHP(1f);
 					reduceHealthBar(1f);
+				}
+				
+				if (x1.getBody().getUserData().equals("spike") && x2.getBody().getUserData().equals("player")) {
+					player.decreaseHP(100f);
+					reduceHealthBar(100f);
+				}
+				
+				if (x1.getBody().getUserData().equals("water") && x2.getBody().getUserData().equals("player")) {
+					setInactiveBody(x1.getBody());
+				}
+				
+				if (x1.getBody().getUserData().equals("box") && x2.getBody().getUserData().equals("water")) {
+					setInactiveBody(x2.getBody());
+				}
+				
+				if (x1.getBody().getUserData().equals("waterPlatform") && x2.getBody().getUserData().equals("player")) {
+					engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
+						
+						@Override
+						public void onTimePassed(TimerHandler pTimerHandler) {
+							pTimerHandler.reset();
+							engine.unregisterUpdateHandler(pTimerHandler);
+							x1.getBody().setType(BodyType.DynamicBody);
+						}
+					}));
 				}
 			}
 		};

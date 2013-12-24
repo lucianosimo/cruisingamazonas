@@ -91,7 +91,10 @@ public class ResourcesManager {
 	public ITextureRegion diamondRed_region;
 	public ITextureRegion potion_region;
 	public ITextureRegion antidote_region;
-	public ITextureRegion brick_region;
+	public ITextureRegion rock_region;
+	public ITextureRegion box_region;
+	public ITextureRegion spike_region;
+	public ITextureRegion torch_region;
 	
 	//Others
 	public ITextureRegion tent_region;
@@ -272,7 +275,10 @@ public class ResourcesManager {
 		waterPlatform_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "waterPlatform.png");
 		
 		//Objects
-		brick_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "brick.png");
+		rock_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "rock.png");
+		box_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "box.png");
+		spike_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "spikes.png");
+		torch_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "torch.png");
 		diamondBlue_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "diamondBlue.png");
 		diamondYellow_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "diamondYellow.png");
 		diamondRed_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "diamondRed.png");
