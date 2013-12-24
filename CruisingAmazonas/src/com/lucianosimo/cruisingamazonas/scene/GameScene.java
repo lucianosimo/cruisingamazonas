@@ -60,6 +60,7 @@ public class GameScene extends BaseScene{
 	private Sprite healthBarBackground;
 	private Sprite statusBarBackground;
 	private LevelCompleteWindow levelCompleteWindow;
+	private Sprite pauseWindow;
 	private Sprite jumpButton;
 	private Sprite shortJumpButton;
 	
@@ -164,6 +165,7 @@ public class GameScene extends BaseScene{
 		}
 		createGameOverText();
 		levelCompleteWindow = new LevelCompleteWindow(vbom);
+		pauseWindow = new Sprite(427, 240, resourcesManager.pause_window_region, vbom);
 		loadSavedPreferences();
 	}
 	
@@ -305,11 +307,13 @@ public class GameScene extends BaseScene{
 			public void run() {
 				if (!diedPlayer) {
 					GameScene.this.setIgnoreUpdate(true);
-					levelCompleteWindow.display(countDiamondBlue, countDiamondYellow, countDiamondRed, player.getScore(), GameScene.this, camera);
-				    final Sprite continueButton = new Sprite(530, 40, resourcesManager.continueButton_region, vbom){
+			        camera.setChaseEntity(null);
+			        pauseWindow.setPosition(camera.getCenterX(), camera.getCenterY());
+					GameScene.this.attachChild(pauseWindow);
+				    final Sprite continuePauseButton = new Sprite(355, 45, resourcesManager.continue_pause_button_region, vbom){
 				    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				    		if (pSceneTouchEvent.isActionDown()) {
-				    			GameScene.this.detachChild(levelCompleteWindow);
+				    			GameScene.this.detachChild(pauseWindow);
 				    			GameScene.this.setIgnoreUpdate(false);
 				    			camera.setChaseEntity(player);
 				    			reloadHud();
@@ -317,7 +321,7 @@ public class GameScene extends BaseScene{
 				    		return true;
 				    	};
 				    };
-				    final Sprite quitButton = new Sprite(70, 40, resourcesManager.continueButton_region, vbom){
+				    final Sprite quitButton = new Sprite(95, 45, resourcesManager.quit_button_region, vbom){
 				    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				    		if (pSceneTouchEvent.isActionDown()) {
 				    			saveHP("hp", player.getHP());
@@ -330,10 +334,10 @@ public class GameScene extends BaseScene{
 				    		return true;
 				    	};
 				    };
-				    GameScene.this.registerTouchArea(continueButton);
+				    GameScene.this.registerTouchArea(continuePauseButton);
 				    GameScene.this.registerTouchArea(quitButton);
-				    levelCompleteWindow.attachChild(quitButton);
-				    levelCompleteWindow.attachChild(continueButton);
+				    pauseWindow.attachChild(quitButton);
+				    pauseWindow.attachChild(continuePauseButton);
 				} else {
 					player.setPoisonedStatus(false);
 					resourcesManager.gameMusic.stop();

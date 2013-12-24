@@ -101,6 +101,10 @@ public class ResourcesManager {
 	public ITextureRegion lightHalo_region;
 	public ITextureRegion jumpButton_region;
 	public ITextureRegion complete_level_window_region;
+	public ITextureRegion pause_window_region;
+	public ITextureRegion quit_button_region;
+	public ITextureRegion continue_pause_button_region;
+	
 	
 	//Animated
 	public ITiledTextureRegion player_region;
@@ -283,6 +287,9 @@ public class ResourcesManager {
 		//Others
 		lightHalo_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "lightHalo.png");		
 		tent_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "tent.png");
+		pause_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "pauseWindow.png");
+		quit_button_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "quitButton.png");
+		continue_pause_button_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "continuePauseButton.png");
 		
 		//Complete window
 		complete_level_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(completeWindowTextureAtlas, activity, "levelCompleteWindow.png");
