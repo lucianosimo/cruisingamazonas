@@ -25,7 +25,8 @@
     
     <entity x="2550" y="25" type="earthPlatformLong"/>
     <entity x="2550" y="75" type="landPlatformLong"/>
-    <entity x="2775" y="125" type="box"/>
+    <entity x="2825" y="86" type="grassHalfRight"/>
+    <entity x="2825" y="125" type="box"/>
     
     <entity x="2875" y="12" type="water"/>
     <entity x="3025" y="12" type="water"/>
@@ -49,11 +50,9 @@
     <entity x="4425" y="25" type="earthPlatform"/>
     <entity x="4800" y="25" type="earthPlatformLong"/>
     <entity x="4800" y="75" type="landPlatformLong"/>
-    <entity x="4175" y="125" type="box"/>
-    <entity x="4225" y="125" type="box"/>
-    <entity x="4275" y="125" type="box"/>
-    <entity x="4225" y="175" type="box"/>
-    <entity x="4275" y="175" type="box"/>
+    <entity x="4250" y="125" type="box"/>
+    <entity x="4300" y="125" type="box"/>
+    <entity x="4325" y="175" type="box"/>
     <entity x="4335" y="67" type="spike"/>
     <entity x="4435" y="67" type="spike"/>
     <entity x="4515" y="67" type="spike"/>
@@ -63,8 +62,10 @@
     <entity x="5600" y="25" type="earthPlatformLong"/>
     <entity x="5600" y="75" type="landPlatformLong"/>
     <entity x="5925" y="12" type="water"/>
-    <entity x="4800" y="25" type="earthPlatformShort"/>
-    <entity x="4800" y="75" type="landPlatformShort"/>
+    
+    <entity x="6075" y="25" type="earthPlatformShort"/>
+    <entity x="6075" y="75" type="landPlatformShort"/>
+    
     <entity x="6225" y="12" type="water"/>
     <entity x="6375" y="12" type="water"/>
     <entity x="6250" y="34" type="waterPlatform"/>
@@ -75,7 +76,7 @@
     <entity x="6700" y="175" type="landPlatformLong"/>
     <entity x="7025" y="12" type="water"/>
     <entity x="7175" y="12" type="water"/>
-    <entity x="7000" y="34" type="waterPlatform"/>
+    <entity x="7015" y="34" type="waterPlatform"/>
     
     <entity x="7500" y="25" type="landPlatformLong"/>
     <entity x="7825" y="12" type="water"/>
@@ -143,8 +144,8 @@
     <entity x="13275" y="25" type="earthPlatform"/>
     <entity x="13525" y="25" type="earthPlatform"/>
     <entity x="13525" y="75" type="landPlatform"/>
-    <entity x="13075" y="125" type="box"/>
     <entity x="13125" y="125" type="box"/>
+    <entity x="13150" y="175" type="box"/>
     <entity x="13185" y="67" type="spike"/>
     <entity x="13285" y="67" type="spike"/>
     <entity x="13365" y="67" type="spike"/>
