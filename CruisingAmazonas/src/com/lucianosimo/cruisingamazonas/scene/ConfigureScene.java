@@ -9,9 +9,12 @@ import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.util.GLState;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import com.lucianosimo.cruisingamazonas.base.BaseScene;
 import com.lucianosimo.cruisingamazonas.manager.SceneManager;
@@ -85,12 +88,27 @@ public class ConfigureScene extends BaseScene implements IOnMenuItemClickListene
 	}
 
 	private void deleteSharedPreferences() {
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-		Editor editor = sharedPreferences.edit();
-		editor.putInt("score", 0);
-		editor.putFloat("hp", 100);
-		editor.putInt("availableLevels", 1);
-		editor.commit();
+		ConfigureScene.this.activity.runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				new AlertDialog.Builder(ConfigureScene.this.activity)
+				.setMessage("Do you really want to restart your adventure?")
+				.setPositiveButton("Of course!!!", new DialogInterface.OnClickListener() {
+
+				    public void onClick(DialogInterface dialog, int whichButton) {
+				    	SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+						Editor editor = sharedPreferences.edit();
+						editor.putInt("score", 0);
+						editor.putFloat("hp", 100);
+						editor.putInt("availableLevels", 1);
+						editor.commit();
+				        Toast.makeText(activity, "Adventure restarted", Toast.LENGTH_LONG).show();
+				    }})
+				 .setNegativeButton("Mmmm, not really", null).show();	
+				
+			}
+		});
 	}
 
 }
