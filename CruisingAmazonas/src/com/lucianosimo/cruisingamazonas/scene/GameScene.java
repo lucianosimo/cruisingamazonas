@@ -80,7 +80,7 @@ public class GameScene extends BaseScene{
 	private Boolean firstTouch = false;
 	private boolean levelCompleted = false;
 	private Boolean gameOverDisplayed = false;
-	private boolean diedPlayer = false;
+	private boolean availablePause = true;
 	
 	//Physics world variable
 	private PhysicsWorld physicsWorld;
@@ -310,7 +310,7 @@ public class GameScene extends BaseScene{
 			
 			@Override
 			public void run() {
-				if (!diedPlayer) {
+				if (availablePause) {
 					GameScene.this.setIgnoreUpdate(true);
 			        camera.setChaseEntity(null);
 			        pauseWindow.setPosition(camera.getCenterX(), camera.getCenterY());
@@ -343,11 +343,6 @@ public class GameScene extends BaseScene{
 				    GameScene.this.registerTouchArea(quitButton);
 				    pauseWindow.attachChild(quitButton);
 				    pauseWindow.attachChild(continuePauseButton);
-				} else {
-					player.setPoisonedStatus(false);
-					resourcesManager.gameMusic.stop();
-					myGarbageCollection();
-					SceneManager.getInstance().loadMapScene(engine, GameScene.this);
 				}
 			}
 		});
@@ -663,6 +658,7 @@ public class GameScene extends BaseScene{
 						protected void onManagedUpdate(float pSecondsElapsed) {
 							super.onManagedUpdate(pSecondsElapsed);
 							if (player.collidesWith(this)) {
+								availablePause = false;
 								levelCompleted();
 								player.playerStop();
 								player.setVisible(false);
@@ -692,7 +688,7 @@ public class GameScene extends BaseScene{
 						
 						@Override
 						public void onDie() {
-							diedPlayer = true;
+							availablePause = false;
 							saveHP("hp", 100);
 							saveScore("score", 0);
 							//destroySprite(player);
