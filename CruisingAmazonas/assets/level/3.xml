@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level width="15000" height="600">
     
+    <entity x="175" y="100" type="box"/>
+    
     <entity x="125" y="25" type="earthPlatform"/>
     <entity x="125" y="75" type="landPlatform"/>
     
@@ -167,7 +169,7 @@
     <entity x="3679" y="90" type="potion"/>
     <entity x="7005" y="177" type="antidote"/>
     
-    <entity x="15" y="100" type="player"/>
+    <entity x="15" y="110" type="player"/>
         
     <entity x="14928" y="115" type="tent"/>
 </level>

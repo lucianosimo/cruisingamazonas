@@ -68,19 +68,19 @@
     <entity x="1160" y="90" type="snake"/>
     <entity x="8050" y="90" type="snake"/>
     
-    <entity x="100" y="250" type="brick"/>
-    <entity x="100" y="300" type="brick"/>
-    <entity x="100" y="350" type="brick"/>
-    <entity x="100" y="400" type="brick"/>
-    <entity x="150" y="250" type="brick"/>
-    <entity x="150" y="300" type="brick"/>
-    <entity x="150" y="350" type="brick"/>
-    <entity x="150" y="400" type="brick"/>
+    <entity x="175" y="250" type="rock"/>
+    <entity x="175" y="300" type="rock"/>
+    <entity x="175" y="350" type="rock"/>
+    <entity x="175" y="400" type="rock"/>
+    <entity x="250" y="250" type="rock"/>
+    <entity x="250" y="300" type="rock"/>
+    <entity x="250" y="350" type="rock"/>
+    <entity x="250" y="400" type="rock"/>
     
     <entity x="3679" y="90" type="potion"/>
     <entity x="7005" y="177" type="antidote"/>
     
-    <entity x="15" y="100" type="player"/>
+    <entity x="15" y="125" type="player"/>
         
     <entity x="9928" y="115" type="tent"/>
 </level>

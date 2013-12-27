@@ -19,6 +19,7 @@ import org.andengine.extension.physics.box2d.FixedStepPhysicsWorld;
 import org.andengine.extension.physics.box2d.PhysicsConnector;
 import org.andengine.extension.physics.box2d.PhysicsFactory;
 import org.andengine.extension.physics.box2d.PhysicsWorld;
+import org.andengine.extension.physics.box2d.util.constants.PhysicsConstants;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.SAXUtils;
 import org.andengine.util.adt.align.HorizontalAlign;
@@ -44,6 +45,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.MassData;
 import com.lucianosimo.cruisingamazonas.base.BaseScene;
 import com.lucianosimo.cruisingamazonas.manager.SceneManager;
 import com.lucianosimo.cruisingamazonas.manager.SceneManager.SceneType;
@@ -157,7 +159,7 @@ public class GameScene extends BaseScene{
 		createHud();
 		createPhysics();
 		loadLevel(level);
-		if (level == 4) {
+		if (level == 5) {
 			Sprite darkBackground = new Sprite(5000, 300, resourcesManager.darkBackground_region, vbom);
 			Sprite light = new Sprite(170, 32, resourcesManager.lightHalo_region, vbom);
 			light.setBlendingEnabled(true);
@@ -489,10 +491,21 @@ public class GameScene extends BaseScene{
 					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
 					body.setUserData("spike");
 				}  else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BOX)) {
-					levelObject = new Sprite(x, y, resourcesManager.box_region, vbom);
+					levelObject = new Sprite(x, y, resourcesManager.box_region, vbom){
+						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+							final Body box = physicsWorld.getPhysicsConnectorManager().findBodyByShape(this);
+							box.setTransform(pSceneTouchEvent.getX() / PhysicsConstants.PIXEL_TO_METER_RATIO_DEFAULT, pSceneTouchEvent.getY() / PhysicsConstants.PIXEL_TO_METER_RATIO_DEFAULT, box.getAngle());
+							return true;
+						};
+					};
+					GameScene.this.registerTouchArea(levelObject);
+					GameScene.this.setTouchAreaBindingOnActionDownEnabled(true);
 					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.DynamicBody, FIXTURE_DEF);
 					body.setUserData("box");
 					body.setFixedRotation(true);
+					MassData massData = new MassData();
+					massData.mass = 1500f;
+					body.setMassData(massData);
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false) {
 					});
 				}  else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCH)) {
@@ -640,6 +653,9 @@ public class GameScene extends BaseScene{
 					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.DynamicBody, FIXTURE_DEF);
 					body.setUserData("rock");
 					body.setFixedRotation(true);
+					MassData massData = new MassData();
+					massData.mass = 3000f;
+					body.setMassData(massData);
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false) {
 					});
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TENT)) {
@@ -768,21 +784,6 @@ public class GameScene extends BaseScene{
 					setInactiveBody(x1.getBody());
 				}
 				
-				if (x1.getBody().getUserData().equals("box") && x2.getBody().getUserData().equals("water")) {
-					setInactiveBody(x2.getBody());
-				}
-				
-				if (x1.getBody().getUserData().equals("waterPlatform") && x2.getBody().getUserData().equals("player")) {
-					engine.registerUpdateHandler(new TimerHandler(0.2f, new ITimerCallback() {
-						
-						@Override
-						public void onTimePassed(TimerHandler pTimerHandler) {
-							pTimerHandler.reset();
-							engine.unregisterUpdateHandler(pTimerHandler);
-							x1.getBody().setType(BodyType.DynamicBody);
-						}
-					}));
-				}
 			}
 		};
 		return contactListener;
