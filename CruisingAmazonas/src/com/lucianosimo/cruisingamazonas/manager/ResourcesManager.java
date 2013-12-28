@@ -103,6 +103,7 @@ public class ResourcesManager {
 	public ITextureRegion continueButton_region;
 	public ITextureRegion lightHalo_region;
 	public ITextureRegion jumpButton_region;
+	public ITextureRegion shortJumpButton_region;
 	public ITextureRegion complete_level_window_region;
 	public ITextureRegion pause_window_region;
 	public ITextureRegion quit_button_region;
@@ -236,7 +237,7 @@ public class ResourcesManager {
 		darkBackgroundTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 2, 2, TextureOptions.REPEATING_BILINEAR_PREMULTIPLYALPHA);
 		platformsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		objectsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		hudTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 400, 100, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		hudTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 500, 200, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		othersTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 750, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		completeWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 750, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		
@@ -287,6 +288,7 @@ public class ResourcesManager {
 		
 		//HUD
 		jumpButton_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudTextureAtlas, activity, "jumpButton.png");
+		shortJumpButton_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudTextureAtlas, activity, "shortJumpButton.png");
 		healthBarBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudTextureAtlas, activity, "healthBarBackground.png");
 		statusBarBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudTextureAtlas, activity, "statusBarBackground.png");
 				

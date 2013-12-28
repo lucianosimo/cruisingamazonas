@@ -233,7 +233,7 @@ public class GameScene extends BaseScene{
 		statusBarBackground = new Sprite(688, 410, resourcesManager.statusBarBackground_region, vbom);
 		scoreText = new Text(20, 430, resourcesManager.font, "Score: 0123456789", new TextOptions(HorizontalAlign.LEFT), vbom);
 		statusText = new Text(680, 400, resourcesManager.statusFont, "normalpoisoned", new TextOptions(HorizontalAlign.CENTER), vbom);
-		jumpButton = new Sprite(65, 240, resourcesManager.jumpButton_region, vbom){
+		jumpButton = new Sprite(90, 320, resourcesManager.jumpButton_region, vbom){
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				if (pSceneTouchEvent.isActionDown()) {
@@ -247,7 +247,7 @@ public class GameScene extends BaseScene{
 				return false;
 			}
 		};
-		shortJumpButton = new Sprite(790, 240, resourcesManager.jumpButton_region, vbom){
+		shortJumpButton = new Sprite(90, 130, resourcesManager.shortJumpButton_region, vbom){
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				if (pSceneTouchEvent.isActionDown()) {
@@ -311,6 +311,7 @@ public class GameScene extends BaseScene{
 			@Override
 			public void run() {
 				if (availablePause) {
+					availablePause = false;
 					GameScene.this.setIgnoreUpdate(true);
 			        camera.setChaseEntity(null);
 			        pauseWindow.setPosition(camera.getCenterX(), camera.getCenterY());
@@ -318,6 +319,7 @@ public class GameScene extends BaseScene{
 				    final Sprite continuePauseButton = new Sprite(355, 45, resourcesManager.continue_pause_button_region, vbom){
 				    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				    		if (pSceneTouchEvent.isActionDown()) {
+				    			availablePause = true;
 				    			GameScene.this.detachChild(pauseWindow);
 				    			GameScene.this.setIgnoreUpdate(false);
 				    			camera.setChaseEntity(player);
@@ -329,8 +331,6 @@ public class GameScene extends BaseScene{
 				    final Sprite quitButton = new Sprite(95, 45, resourcesManager.quit_button_region, vbom){
 				    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				    		if (pSceneTouchEvent.isActionDown()) {
-				    			saveHP("hp", player.getHP());
-				        		saveScore("score", player.getScore());
 				        		player.setPoisonedStatus(false);
 								resourcesManager.gameMusic.stop();
 								myGarbageCollection();
@@ -343,6 +343,11 @@ public class GameScene extends BaseScene{
 				    GameScene.this.registerTouchArea(quitButton);
 				    pauseWindow.attachChild(quitButton);
 				    pauseWindow.attachChild(continuePauseButton);
+				} else {
+					player.setPoisonedStatus(false);
+					resourcesManager.gameMusic.stop();
+					myGarbageCollection();
+					SceneManager.getInstance().loadMapScene(engine, GameScene.this);
 				}
 			}
 		});
