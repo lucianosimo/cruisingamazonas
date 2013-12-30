@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level width="10000" height="600">
-    <entity x="250" y="25" type="landPlatformLong"/>
-    
+
     <entity x="250" y="25" type="landPlatformLong"/>
     <entity x="775" y="25" type="landPlatform"/>
     <entity x="1175" y="25" type="landPlatform"/>

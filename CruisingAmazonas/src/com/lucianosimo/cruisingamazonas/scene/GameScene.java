@@ -646,6 +646,14 @@ public class GameScene extends BaseScene{
 					};
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_ROCK)) {
 					levelObject = new Sprite(x, y, resourcesManager.rock_region, vbom) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+							if ((this.getX() - player.getX()) < 175) {
+								final Body rock = physicsWorld.getPhysicsConnectorManager().findBodyByShape(this);
+								rock.setType(BodyType.DynamicBody);
+							}
+						};
 						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 							if (pSceneTouchEvent.isActionDown()) {
 								final Sprite rockRef = this; 
@@ -656,11 +664,11 @@ public class GameScene extends BaseScene{
 						};
 					};
 					GameScene.this.registerTouchArea(levelObject);
-					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.DynamicBody, FIXTURE_DEF);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
 					body.setUserData("rock");
 					body.setFixedRotation(true);
 					MassData massData = new MassData();
-					massData.mass = 3000f;
+					massData.mass = 1000f;
 					body.setMassData(massData);
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false) {
 					});
@@ -778,8 +786,8 @@ public class GameScene extends BaseScene{
 				}
 				
 				if (x1.getBody().getUserData().equals("rock") && x2.getBody().getUserData().equals("player")) {
-					player.decreaseHP(1f);
-					reduceHealthBar(1f);
+					player.decreaseHP(25f);
+					reduceHealthBar(25f);
 				}
 				
 				if (x1.getBody().getUserData().equals("spike") && x2.getBody().getUserData().equals("player")) {
