@@ -93,6 +93,7 @@ public class ResourcesManager {
 	public ITextureRegion antidote_region;
 	public ITextureRegion rock_region;
 	public ITextureRegion box_region;
+	public ITextureRegion box_position_region;
 	public ITextureRegion spike_region;
 	public ITextureRegion torch_region;
 	
@@ -102,6 +103,7 @@ public class ResourcesManager {
 	public ITextureRegion statusBarBackground_region;
 	public ITextureRegion continueButton_region;
 	public ITextureRegion lightHalo_region;
+	public ITextureRegion torch_lightHalo_region;
 	public ITextureRegion jumpButton_region;
 	public ITextureRegion shortJumpButton_region;
 	public ITextureRegion complete_level_window_region;
@@ -238,7 +240,7 @@ public class ResourcesManager {
 		platformsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		objectsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		hudTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 500, 200, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		othersTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 750, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		othersTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 750, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		completeWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 750, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		
 		//Animated Sprites
@@ -278,6 +280,7 @@ public class ResourcesManager {
 		//Objects
 		rock_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "rock.png");
 		box_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "box.png");
+		box_position_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "boxPosition.png");
 		spike_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "spikes.png");
 		torch_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "torch.png");
 		diamondBlue_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "diamondBlue.png");
@@ -293,7 +296,8 @@ public class ResourcesManager {
 		statusBarBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudTextureAtlas, activity, "statusBarBackground.png");
 				
 		//Others
-		lightHalo_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "lightHalo.png");		
+		lightHalo_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "lightHalo.png");
+		torch_lightHalo_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "torchLightHalo.png");
 		tent_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "tent.png");
 		pause_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "pauseWindow.png");
 		quit_button_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "quitButton.png");

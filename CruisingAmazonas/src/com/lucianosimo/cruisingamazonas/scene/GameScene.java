@@ -35,6 +35,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.opengl.GLES20;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -140,8 +141,10 @@ public class GameScene extends BaseScene{
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_ANTIDOTE = "antidote";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_ROCK = "rock";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BOX = "box";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BOXPOSITION = "boxPosition";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SPIKE = "spike";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCH = "torch";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCHLIGHTHALO = "torchLightHalo";
 	
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER = "venusFlyTraper";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SNAKE = "snake";	
@@ -159,7 +162,7 @@ public class GameScene extends BaseScene{
 		createHud();
 		createPhysics();
 		loadLevel(level);
-		if (level == 5) {
+		if (level == 4) {
 			Sprite darkBackground = new Sprite(5000, 300, resourcesManager.darkBackground_region, vbom);
 			Sprite light = new Sprite(170, 32, resourcesManager.lightHalo_region, vbom);
 			light.setBlendingEnabled(true);
@@ -460,12 +463,8 @@ public class GameScene extends BaseScene{
 					levelObject = new Sprite(x, y, resourcesManager.darkEarthPlatformLong_region, vbom);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DARKEARTHPLATFORM)) {
 					levelObject = new Sprite(x, y, resourcesManager.darkEarthPlatform_region, vbom);
-					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
-					body.setUserData("darkEarthPlatform");
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DARKEARTHPLATFORMSHORT)) {
 					levelObject = new Sprite(x, y, resourcesManager.darkEarthPlatformShort_region, vbom);
-					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
-					body.setUserData("darkEarthPlatformShort");
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BRIDGE)) {
 					levelObject = new Sprite(x, y, resourcesManager.bridge_region, vbom);
 					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
@@ -480,12 +479,14 @@ public class GameScene extends BaseScene{
 					body.setUserData("grassHalfRight");
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_WATER)) {
 					levelObject = new Sprite(x, y, resourcesManager.water_region, vbom);
-					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
-					body.setUserData("water");
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BOXPOSITION)) {
+					levelObject = new Sprite(x, y, resourcesManager.box_position_region, vbom);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_WATERPLATFORM)) {
 					levelObject = new Sprite(x, y, resourcesManager.waterPlatform_region, vbom);
 					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
 					body.setUserData("waterPlatform");
+					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false){
+					});
 				}  else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SPIKE)) {
 					levelObject = new Sprite(x, y, resourcesManager.spike_region, vbom);
 					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
@@ -510,6 +511,11 @@ public class GameScene extends BaseScene{
 					});
 				}  else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCH)) {
 					levelObject = new Sprite(x, y, resourcesManager.torch_region, vbom);
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCHLIGHTHALO)) {
+					levelObject = new Sprite(x, y, resourcesManager.torch_lightHalo_region, vbom);
+					levelObject.setBlendingEnabled(true);
+					levelObject.setBlendFunctionSource(GLES20.GL_DST_COLOR);
+					levelObject.setAlpha(0.0f);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER)) {
 					venusFlyTraper = new VenusFlyTraper(x, y, vbom, camera, physicsWorld) {
 						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -781,8 +787,17 @@ public class GameScene extends BaseScene{
 					reduceHealthBar(100f);
 				}
 				
-				if (x1.getBody().getUserData().equals("water") && x2.getBody().getUserData().equals("player")) {
-					setInactiveBody(x1.getBody());
+				if (x1.getBody().getUserData().equals("waterPlatform") && x2.getBody().getUserData().equals("player")) {
+					engine.registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+						
+						@Override
+						public void onTimePassed(TimerHandler pTimerHandler) {
+							Log.e("amazonas", "dynamic");
+							pTimerHandler.reset();
+							engine.unregisterUpdateHandler(pTimerHandler);
+							x1.getBody().setType(BodyType.DynamicBody);
+						}
+					}));
 				}
 				
 			}

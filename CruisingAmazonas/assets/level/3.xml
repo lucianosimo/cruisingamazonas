@@ -180,8 +180,8 @@
     <entity x="8940" y="110" type="venusFlyTraper"/>
     <entity x="9290" y="110" type="venusFlyTraper"/>
     <entity x="9740" y="210" type="venusFlyTraper"/>
-    <entity x="9890" y="110" type="venusFlyTraper"/>
-    <entity x="10040" y="110" type="venusFlyTraper"/>
+    <entity x="9890" y="210" type="venusFlyTraper"/>
+    <entity x="10040" y="210" type="venusFlyTraper"/>
     <entity x="11090" y="140" type="venusFlyTraper"/>
     <entity x="12340" y="160" type="venusFlyTraper"/>
     <entity x="12490" y="160" type="venusFlyTraper"/>
@@ -253,6 +253,12 @@
     <entity x="13570" y="137" type="diamondRed"/>
     <entity x="13620" y="112" type="diamondYellow"/>
     <entity x="13620" y="137" type="diamondYellow"/>
+    
+    <entity x="1575" y="125" type="boxPosition"/>
+    <entity x="2400" y="125" type="boxPosition"/>
+    <entity x="4300" y="175" type="boxPosition"/>
+    <entity x="5125" y="150" type="boxPosition"/>
+    <entity x="13275" y="125" type="boxPosition"/>
     
     <entity x="7725" y="75" type="potion"/>
     <entity x="8325" y="250" type="antidote"/>
