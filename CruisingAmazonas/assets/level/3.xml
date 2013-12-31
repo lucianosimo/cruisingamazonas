@@ -163,6 +163,8 @@
     <entity x="14325" y="12" type="water"/>
     <entity x="14475" y="12" type="water"/>
     
+    <entity x="14475" y="36" type="grassHalfLeft"/>
+    
     <entity x="13800" y="34" type="waterPlatform"/>
     <entity x="14050" y="34" type="waterPlatform"/>
     <entity x="14300" y="34" type="waterPlatform"/>

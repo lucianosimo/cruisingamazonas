@@ -167,7 +167,7 @@ public class GameScene extends BaseScene{
 			Sprite light = new Sprite(170, 32, resourcesManager.lightHalo_region, vbom);
 			light.setBlendingEnabled(true);
 			light.setBlendFunctionSource(GLES20.GL_DST_COLOR);
-			light.setAlpha(0.0f);
+			light.setAlpha(0.2f);
 			this.attachChild(darkBackground);
 			player.attachChild(light);
 		}
@@ -314,8 +314,15 @@ public class GameScene extends BaseScene{
 			@Override
 			public void run() {
 				if (availablePause) {
+					final boolean wasPoisoned;
 					availablePause = false;
 					GameScene.this.setIgnoreUpdate(true);
+					if (Player.getStatus().equals("poisoned")) {
+						player.setPoisonedStatus(false);
+						wasPoisoned = true;
+					} else {
+						wasPoisoned = false;
+					}
 			        camera.setChaseEntity(null);
 			        pauseWindow.setPosition(camera.getCenterX(), camera.getCenterY());
 					GameScene.this.attachChild(pauseWindow);
@@ -323,6 +330,9 @@ public class GameScene extends BaseScene{
 				    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				    		if (pSceneTouchEvent.isActionDown()) {
 				    			availablePause = true;
+				    			if (wasPoisoned) {
+									player.setPoisonedStatus(true);
+								}
 				    			GameScene.this.detachChild(pauseWindow);
 				    			GameScene.this.setIgnoreUpdate(false);
 				    			camera.setChaseEntity(player);
@@ -515,7 +525,7 @@ public class GameScene extends BaseScene{
 					levelObject = new Sprite(x, y, resourcesManager.torch_lightHalo_region, vbom);
 					levelObject.setBlendingEnabled(true);
 					levelObject.setBlendFunctionSource(GLES20.GL_DST_COLOR);
-					levelObject.setAlpha(0.0f);
+					levelObject.setAlpha(0.2f);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER)) {
 					venusFlyTraper = new VenusFlyTraper(x, y, vbom, camera, physicsWorld) {
 						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {

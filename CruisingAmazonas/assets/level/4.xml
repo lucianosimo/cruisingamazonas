@@ -81,6 +81,88 @@
     <entity x="9175" y="125" type="box"/>
     <entity x="9200" y="175" type="boxPosition"/>
     
+    <entity x="545" y="385" type="venusFlyTraper"/>
+    <entity x="1215" y="275" type="venusFlyTraper"/>
+    <entity x="2440" y="125" type="venusFlyTraper"/>
+    <entity x="3840" y="125" type="venusFlyTraper"/>
+    <entity x="4240" y="125" type="venusFlyTraper"/>
+    <entity x="5185" y="205" type="venusFlyTraper"/>
+    <entity x="6045" y="100" type="venusFlyTraper"/>
+    <entity x="6600" y="100" type="venusFlyTraper"/>
+    <entity x="8060" y="150" type="venusFlyTraper"/>
+    <entity x="8360" y="150" type="venusFlyTraper"/>
+    <entity x="8715" y="150" type="venusFlyTraper"/>
+    
+    <entity x="1800" y="120" type="snake"/>
+    <entity x="3300" y="65" type="snake"/>
+    <entity x="5050" y="170" type="snake"/>
+    <entity x="5800" y="70" type="snake"/>
+    <entity x="7950" y="115" type="snake"/>
+    
+    <entity x="885" y="325" type="torch"/>
+    <entity x="885" y="325" type="torchLightHalo"/>
+    <entity x="1460" y="128" type="torch"/>
+    <entity x="1460" y="128" type="torchLightHalo"/>
+    <entity x="2935" y="78" type="torch"/>
+    <entity x="2935" y="78" type="torchLightHalo"/>
+    <entity x="3485" y="78" type="torch"/>
+    <entity x="3485" y="78" type="torchLightHalo"/>
+    <entity x="4585" y="155" type="torch"/>
+    <entity x="4585" y="155" type="torchLightHalo"/>
+    <entity x="5585" y="80" type="torch"/>
+    <entity x="5585" y="80" type="torchLightHalo"/>
+    <entity x="6965" y="250" type="torch"/>
+    <entity x="6965" y="250" type="torchLightHalo"/>
+    <entity x="7815" y="125" type="torch"/>
+    <entity x="7815" y="125" type="torchLightHalo"/>
+    <entity x="9415" y="125" type="torch"/>
+    <entity x="9415" y="125" type="torchLightHalo"/>
+    
+    <entity x="1035" y="387" type="diamondBlue"/>
+    <entity x="1085" y="387" type="diamondBlue"/>
+    <entity x="1135" y="387" type="diamondBlue"/>
+    <entity x="1365" y="337" type="diamondBlue"/>
+    <entity x="1415" y="337" type="diamondBlue"/>
+    <entity x="1465" y="337" type="diamondBlue"/>
+    <entity x="2015" y="262" type="diamondRed"/>
+    <entity x="2065" y="262" type="diamondRed"/>
+    <entity x="2115" y="262" type="diamondRed"/>
+    <entity x="2015" y="237" type="diamondRed"/>
+    <entity x="2065" y="237" type="diamondRed"/>
+    <entity x="2115" y="237" type="diamondRed"/>
+    <entity x="2735" y="112" type="diamondYellow"/>
+    <entity x="2735" y="87" type="diamondYellow"/>
+    <entity x="2735" y="62" type="diamondYellow"/>
+    <entity x="3185" y="137" type="diamondBlue"/>
+    <entity x="3235" y="137" type="diamondBlue"/>
+    <entity x="3285" y="137" type="diamondBlue"/>
+    <entity x="3235" y="112" type="diamondRed"/>
+    <entity x="3985" y="212" type="diamondBlue"/>
+    <entity x="4035" y="212" type="diamondRed"/>
+    <entity x="3985" y="187" type="diamondBlue"/>
+    <entity x="4035" y="187" type="diamondRed"/>
+    <entity x="4385" y="187" type="diamondYellow"/>
+    <entity x="4435" y="187" type="diamondYellow"/>
+    <entity x="4765" y="237" type="diamondBlue"/>
+    <entity x="4815" y="237" type="diamondBlue"/>
+    <entity x="4865" y="237" type="diamondBlue"/>
+    <entity x="5865" y="112" type="diamondRed"/>
+    <entity x="5865" y="87" type="diamondRed"/>
+    <entity x="5865" y="62" type="diamondRed"/>
+    <entity x="5915" y="112" type="diamondYellow"/>
+    <entity x="5915" y="87" type="diamondYellow"/>
+    <entity x="5915" y="62" type="diamondYellow"/>
+    <entity x="6835" y="262" type="diamondRed"/>
+    <entity x="6885" y="287" type="diamondRed"/>
+    <entity x="6935" y="312" type="diamondRed"/>
+    <entity x="8185" y="212" type="diamondBlue"/>
+    <entity x="8235" y="212" type="diamondBlue"/>
+    <entity x="8185" y="237" type="diamondRed"/>
+    <entity x="8235" y="237" type="diamondRed"/>
+    
+    <entity x="5485" y="165" type="potion"/>
+    <entity x="6365" y="90" type="antidote"/>
+    
     <entity x="15" y="450" type="player"/>
         
     <entity x="9928" y="150" type="tent"/>
