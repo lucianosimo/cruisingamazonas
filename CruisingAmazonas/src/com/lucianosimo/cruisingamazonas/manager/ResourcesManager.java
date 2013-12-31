@@ -245,7 +245,7 @@ public class ResourcesManager {
 		animatedTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 400, 400, TextureOptions.BILINEAR);
 		backgroundTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 480, TextureOptions.BILINEAR);
 		darkBackgroundTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 2, 2, TextureOptions.REPEATING_BILINEAR);
-		platformsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 500, 400, TextureOptions.BILINEAR);
+		platformsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 500, 400, TextureOptions.DEFAULT);
 		objectsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 128, 200, TextureOptions.BILINEAR);
 		hudTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 300, 200, TextureOptions.BILINEAR);
 		othersTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 512, 750, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
