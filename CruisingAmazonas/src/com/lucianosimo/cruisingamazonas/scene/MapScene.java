@@ -72,8 +72,8 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 		float screenHeight = resourcesManager.camera.getHeight();
 		
 		final IMenuItem[] levelButtons = new IMenuItem[availableLevels];
-		buttonX = -460;
-		buttonY = -220;
+		buttonX = -375;
+		buttonY = 260;
 
 		menuChildScene = new MenuScene(camera);
 		menuChildScene.setPosition(screenWidth/2, screenHeight/2);
@@ -88,8 +88,8 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 		menuChildScene.setBackgroundEnabled(false);
 		
 		for (int i = 0; i < availableLevels; i++) {
-			buttonX = buttonX + 90;
-			buttonY = buttonY + 20;
+			buttonX = buttonX + 88;
+			buttonY = buttonY - 55;
 			levelButtons[i].setPosition(buttonX, buttonY);
 		}
 		

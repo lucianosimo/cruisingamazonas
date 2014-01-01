@@ -136,7 +136,7 @@ public class ResourcesManager {
 	//Splash Methods
 	public void loadSplashScreen() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-		splashTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 229, 260, TextureOptions.BILINEAR);
+		splashTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 500, 400, TextureOptions.BILINEAR);
 		splash_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, activity, "splash.png", 0, 0);
 		splashTextureAtlas.load();
 	}
