@@ -806,7 +806,7 @@ public class GameScene extends BaseScene{
 				}
 				
 				if (x1.getBody().getUserData().equals("waterPlatform") && x2.getBody().getUserData().equals("player")) {
-					engine.registerUpdateHandler(new TimerHandler(0.3f, new ITimerCallback() {
+					engine.registerUpdateHandler(new TimerHandler(0.5f, new ITimerCallback() {
 						
 						@Override
 						public void onTimePassed(TimerHandler pTimerHandler) {
