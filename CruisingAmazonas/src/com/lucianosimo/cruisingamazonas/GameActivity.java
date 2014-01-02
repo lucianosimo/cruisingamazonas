@@ -1,6 +1,7 @@
 package com.lucianosimo.cruisingamazonas;
 
 import java.io.IOException;
+import com.chartboost.sdk.*;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.LimitedFPSEngine;
@@ -24,13 +25,49 @@ public class GameActivity extends BaseGameActivity{
 	private BoundCamera camera;
 	private ResourcesManager resourcesManager;
 	
+	private Chartboost cb;
+	
 	@Override
 	public EngineOptions onCreateEngineOptions() {
+		// Configure Chartboost
+		this.cb = Chartboost.sharedChartboost();
+		String appId = "52c5ae739ddc3561b816facf";
+		String appSignature = "141edd3649126793164ef409e57401e2053a6e24";
+		this.cb.onCreate(this, appId, appSignature, null);
+		
 		camera = new BoundCamera(0, 0, 854, 480);
 		EngineOptions engineOptions = new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(854, 480), this.camera);
 		engineOptions.getAudioOptions().setNeedsMusic(true).setNeedsSound(true);
 		engineOptions.setWakeLockOptions(WakeLockOptions.SCREEN_ON);
 		return engineOptions;
+	}
+	
+	@Override
+    protected void onStart() {
+        super.onStart();
+        this.cb.onStart(this);
+        // Notify the beginning of a user session. Must not be dependent on user actions or any prior network requests.
+        this.cb.startSession();
+
+    }   
+	
+	@Override
+	protected void onStop() {
+	    super.onStop();
+	    this.cb.onStop(this);
+	}
+
+	@Override
+	public void onBackPressed() {
+	    // If an interstitial is on screen, close it. Otherwise continue as normal.
+	    if (this.cb.onBackPressed())
+	        return;
+	            else
+	        super.onBackPressed();
+	}
+	
+	public void showAd() {
+		this.cb.showInterstitial(); 
 	}
 
 	@Override
@@ -51,6 +88,7 @@ public class GameActivity extends BaseGameActivity{
 			
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {
+		        // Show an interstitial
 				mEngine.unregisterUpdateHandler(pTimerHandler);
 				SceneManager.getInstance().createMenuScene();
 			}
@@ -65,6 +103,7 @@ public class GameActivity extends BaseGameActivity{
 	
 	@Override
 	protected void onDestroy() {
+		this.cb.onDestroy(this);
 		super.onDestroy();
 		System.exit(0);
 	}
