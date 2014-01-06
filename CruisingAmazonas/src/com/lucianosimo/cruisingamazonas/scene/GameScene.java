@@ -145,6 +145,7 @@ public class GameScene extends BaseScene{
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SPIKE = "spike";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCH = "torch";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCHLIGHTHALO = "torchLightHalo";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_WEIGHT = "weight";
 	
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER = "venusFlyTraper";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SNAKE = "snake";	
@@ -519,6 +520,24 @@ public class GameScene extends BaseScene{
 					body.setMassData(massData);
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false) {
 					});
+				}  else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_WEIGHT)) {
+					levelObject = new Sprite(x, y, resourcesManager.weight_region, vbom){
+						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+							final Body weight = physicsWorld.getPhysicsConnectorManager().findBodyByShape(this);
+							weight.setTransform(pSceneTouchEvent.getX() / PhysicsConstants.PIXEL_TO_METER_RATIO_DEFAULT, pSceneTouchEvent.getY() / PhysicsConstants.PIXEL_TO_METER_RATIO_DEFAULT, weight.getAngle());
+							return true;
+						};
+					};
+					GameScene.this.registerTouchArea(levelObject);
+					GameScene.this.setTouchAreaBindingOnActionDownEnabled(true);
+					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.DynamicBody, FIXTURE_DEF);
+					body.setUserData("weight");
+					body.setFixedRotation(true);
+					MassData massData = new MassData();
+					massData.mass = 5000;
+					body.setMassData(massData);
+					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false) {
+					});
 				}  else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCH)) {
 					levelObject = new Sprite(x, y, resourcesManager.torch_region, vbom);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCHLIGHTHALO)) {
@@ -528,14 +547,14 @@ public class GameScene extends BaseScene{
 					levelObject.setAlpha(0.2f);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER)) {
 					venusFlyTraper = new VenusFlyTraper(x, y, vbom, camera, physicsWorld) {
-						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+						/*public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 							if (pSceneTouchEvent.isActionDown()) {
 								final Sprite venusRef = this;
 								this.setVisible(false);
 								destroySprite(venusRef);
 							}
 							return true;
-						};
+						};*/
 					};
 					venusFlyTraper.setAnimation();
 					levelObject = venusFlyTraper;
@@ -549,14 +568,14 @@ public class GameScene extends BaseScene{
 								this.startMoving();
 							}
 						};
-						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+						/*public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 							if (pSceneTouchEvent.isActionDown()) {
 								final Sprite snakeRef = this; 
 								this.setVisible(false);
 								destroySprite(snakeRef);
 							}
 							return true;
-						};
+						};*/
 					};
 					levelObject = snake;
 					GameScene.this.registerTouchArea(levelObject);
@@ -800,6 +819,16 @@ public class GameScene extends BaseScene{
 					reduceHealthBar(25f);
 				}
 				
+				if (x1.getBody().getUserData().equals("snake") && x2.getBody().getUserData().equals("weight")) {
+					Log.e("amazonas", "contact");
+					destroyBody(x1.getBody());
+				}
+				
+				if (x1.getBody().getUserData().equals("venusFlyTraper") && x2.getBody().getUserData().equals("weight")) {
+					Log.e("amazonas", "contact");
+					destroyBody(x1.getBody());
+				}
+				
 				if (x1.getBody().getUserData().equals("spike") && x2.getBody().getUserData().equals("player")) {
 					player.decreaseHP(100f);
 					reduceHealthBar(100f);
@@ -830,6 +859,18 @@ public class GameScene extends BaseScene{
 			public void run() {
 				player.decreaseFootContacts();
 				body.setActive(false);
+			}
+		});
+	}
+	
+	private void destroyBody(final Body body) {
+		engine.runOnUpdateThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				Log.e("amazonas", "touched");
+				body.setActive(false);
+				physicsWorld.destroyBody(body);
 			}
 		});
 	}

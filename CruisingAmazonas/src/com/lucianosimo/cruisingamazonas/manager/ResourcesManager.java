@@ -97,6 +97,7 @@ public class ResourcesManager {
 	public ITextureRegion box_position_region;
 	public ITextureRegion spike_region;
 	public ITextureRegion torch_region;
+	public ITextureRegion weight_region;
 	
 	//Others
 	public ITextureRegion tent_region;
@@ -248,7 +249,7 @@ public class ResourcesManager {
 		backgroundTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 480, TextureOptions.BILINEAR);
 		darkBackgroundTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 2, 2, TextureOptions.REPEATING_BILINEAR);
 		platformsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 500, 400, TextureOptions.DEFAULT);
-		objectsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 128, 200, TextureOptions.BILINEAR);
+		objectsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 200, 200, TextureOptions.BILINEAR);
 		hudTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 300, 200, TextureOptions.BILINEAR);
 		othersTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 512, 750, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		completeWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 512, TextureOptions.BILINEAR);
@@ -298,6 +299,7 @@ public class ResourcesManager {
 		diamondRed_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "diamondRed.png");
 		potion_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "potion.png");
 		antidote_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "antidote.png");
+		weight_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "weight.png");
 		
 		//HUD
 		jumpButton_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudTextureAtlas, activity, "jumpButton.png");

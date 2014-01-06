@@ -98,7 +98,7 @@
     <entity x="8500" y="150" type="venusFlyTraper"/>
     <entity x="8650" y="150" type="venusFlyTraper"/>
 	
-    
+    <entity x="1050" y="110" type="weight"/>
 
     <entity x="15" y="100" type="player"/>
         
