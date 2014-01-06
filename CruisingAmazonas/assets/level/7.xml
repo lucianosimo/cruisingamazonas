@@ -148,7 +148,25 @@
     <entity x="10675" y="175" type="box"/>
     <entity x="10875" y="175" type="box"/>
     <entity x="10975" y="175" type="box"/>
+
+    <entity x="640" y="95" type="venusFlyTraper"/>
+    <entity x="3290" y="170" type="venusFlyTraper"/>
+    <entity x="4040" y="170" type="venusFlyTraper"/>
+    <entity x="5760" y="195" type="venusFlyTraper"/>
+    <entity x="5890" y="195" type="venusFlyTraper"/>
+    <entity x="7090" y="145" type="venusFlyTraper"/>
+    <entity x="9190" y="205" type="venusFlyTraper"/>
+    <entity x="9740" y="205" type="venusFlyTraper"/>
+    <entity x="13340" y="105" type="venusFlyTraper"/>
+    <entity x="13390" y="105" type="venusFlyTraper"/>
     
+    <entity x="1700" y="287" type="snake"/>
+    <entity x="2920" y="115" type="snake"/>
+    <entity x="4450" y="65" type="snake"/>
+    <entity x="4700" y="65" type="snake"/>
+    <entity x="7000" y="115" type="snake"/>
+    <entity x="11550" y="130" type="snake"/>
+    <entity x="14650" y="90" type="snake"/>
     
     <entity x="15" y="450" type="player"/>
         

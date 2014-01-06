@@ -46,6 +46,7 @@ public class ResourcesManager {
 	public ITextureRegion play_region;
 	public ITextureRegion configure_region;
 	public ITextureRegion howtoplay_region;
+	public ITextureRegion rateus_region;
 	public Music menuMusic;
 	private BuildableBitmapTextureAtlas menuTextureAtlas;
 	
@@ -160,6 +161,7 @@ public class ResourcesManager {
 		play_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "play.png");
 		configure_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "configure.png");
 		howtoplay_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "howtoplay.png");
+		rateus_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "rateUs.png");
 		try {
 			this.menuTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.menuTextureAtlas.load();
