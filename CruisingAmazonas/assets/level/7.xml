@@ -168,6 +168,61 @@
     <entity x="11550" y="130" type="snake"/>
     <entity x="14650" y="90" type="snake"/>
     
+    <entity x="530" y="212" type="diamondRed"/>
+    <entity x="580" y="212" type="diamondRed"/>
+    <entity x="630" y="212" type="diamondRed"/>
+    <entity x="934" y="135" type="diamondBlue"/>
+    <entity x="984" y="135" type="diamondBlue"/>
+    <entity x="1032" y="188" type="diamondBlue"/>
+    <entity x="1082" y="188" type="diamondBlue"/>
+    <entity x="1132" y="188" type="diamondBlue"/>
+    <entity x="1182" y="235" type="diamondBlue"/>
+    <entity x="1232" y="235" type="diamondBlue"/>
+    <entity x="1917" y="412" type="diamondYellow"/>
+    <entity x="1967" y="412" type="diamondYellow"/>
+    <entity x="2017" y="412" type="diamondYellow"/>
+    <entity x="3382" y="237" type="diamondRed"/>
+    <entity x="3432" y="237" type="diamondRed"/>
+    <entity x="3482" y="237" type="diamondRed"/>
+    <entity x="3832" y="315" type="diamondBlue"/>
+    <entity x="3882" y="315" type="diamondBlue"/>
+    <entity x="3932" y="315" type="diamondBlue"/>
+    <entity x="5133" y="162" type="diamondRed"/>
+    <entity x="5083" y="162" type="diamondBlue"/>
+    <entity x="5183" y="162" type="diamondBlue"/>
+    <entity x="5133" y="187" type="diamondBlue"/>
+    <entity x="5133" y="137" type="diamondBlue"/>
+    <entity x="6082" y="267" type="diamondYellow"/>
+    <entity x="6132" y="267" type="diamondYellow"/>
+    <entity x="6182" y="267" type="diamondYellow"/>
+    <entity x="6335" y="212" type="diamondRed"/>
+    <entity x="6385" y="212" type="diamondRed"/>
+    <entity x="6435" y="212" type="diamondRed"/>
+    <entity x="7383" y="187" type="diamondRed"/>
+    <entity x="7433" y="187" type="diamondRed"/>
+    <entity x="7483" y="187" type="diamondRed"/>
+    <entity x="7782" y="237" type="diamondBlue"/>
+    <entity x="7832" y="237" type="diamondBlue"/>
+    <entity x="7882" y="237" type="diamondBlue"/>
+    <entity x="9367" y="237" type="diamondYellow"/>
+    <entity x="9417" y="237" type="diamondYellow"/>
+    <entity x="9467" y="237" type="diamondYellow"/>
+    <entity x="11817" y="137" type="diamondBlue"/>
+    <entity x="12017" y="137" type="diamondBlue"/>
+    <entity x="12067" y="137" type="diamondBlue"/>
+    <entity x="12217" y="137" type="diamondRed"/>
+    <entity x="12267" y="137" type="diamondRed"/>
+    <entity x="12317" y="137" type="diamondRed"/>
+    
+    <entity x="2405" y="500" type="rock"/>
+    <entity x="5180" y="500" type="rock"/>
+    <entity x="8085" y="500" type="rock"/>
+    <entity x="10635" y="500" type="rock"/>
+    <entity x="12835" y="500" type="rock"/>
+    
+    <entity x="8078" y="140" type="potion"/>
+    <entity x="8510" y="262" type="antidote"/>
+    
     <entity x="15" y="450" type="player"/>
         
     <entity x="14900" y="100" type="tent"/>

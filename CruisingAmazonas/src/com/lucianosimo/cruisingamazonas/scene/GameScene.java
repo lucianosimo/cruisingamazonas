@@ -547,14 +547,14 @@ public class GameScene extends BaseScene{
 					levelObject.setAlpha(0.2f);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER)) {
 					venusFlyTraper = new VenusFlyTraper(x, y, vbom, camera, physicsWorld) {
-						/*public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 							if (pSceneTouchEvent.isActionDown()) {
 								final Sprite venusRef = this;
 								this.setVisible(false);
 								destroySprite(venusRef);
 							}
 							return true;
-						};*/
+						};
 					};
 					venusFlyTraper.setAnimation();
 					levelObject = venusFlyTraper;
@@ -568,14 +568,14 @@ public class GameScene extends BaseScene{
 								this.startMoving();
 							}
 						};
-						/*public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 							if (pSceneTouchEvent.isActionDown()) {
 								final Sprite snakeRef = this; 
 								this.setVisible(false);
 								destroySprite(snakeRef);
 							}
 							return true;
-						};*/
+						};
 					};
 					levelObject = snake;
 					GameScene.this.registerTouchArea(levelObject);
@@ -819,7 +819,7 @@ public class GameScene extends BaseScene{
 					reduceHealthBar(25f);
 				}
 				
-				if (x1.getBody().getUserData().equals("snake") && x2.getBody().getUserData().equals("weight")) {
+				/*if (x1.getBody().getUserData().equals("snake") && x2.getBody().getUserData().equals("weight")) {
 					Log.e("amazonas", "contact");
 					destroyBody(x1.getBody());
 				}
@@ -827,7 +827,7 @@ public class GameScene extends BaseScene{
 				if (x1.getBody().getUserData().equals("venusFlyTraper") && x2.getBody().getUserData().equals("weight")) {
 					Log.e("amazonas", "contact");
 					destroyBody(x1.getBody());
-				}
+				}*/
 				
 				if (x1.getBody().getUserData().equals("spike") && x2.getBody().getUserData().equals("player")) {
 					player.decreaseHP(100f);
