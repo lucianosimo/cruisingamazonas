@@ -66,11 +66,13 @@ public class GameScene extends BaseScene{
 	private Sprite pauseWindow;
 	private Sprite jumpButton;
 	private Sprite shortJumpButton;
+	private Sprite gameOverWindow;
+	
 	
 	//Texts variables
 	private Text scoreText;
 	private Text statusText;
-	private Text gameOverText;
+	//private Text gameOverText;
 	
 	//Instances
 	private Player player;
@@ -145,7 +147,6 @@ public class GameScene extends BaseScene{
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SPIKE = "spike";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCH = "torch";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCHLIGHTHALO = "torchLightHalo";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_WEIGHT = "weight";
 	
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER = "venusFlyTraper";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SNAKE = "snake";	
@@ -172,9 +173,10 @@ public class GameScene extends BaseScene{
 			this.attachChild(darkBackground);
 			player.attachChild(light);
 		}
-		createGameOverText();
+		//createGameOverText();
 		levelCompleteWindow = new LevelCompleteWindow(vbom);
 		pauseWindow = new Sprite(427, 240, resourcesManager.pause_window_region, vbom);
+		gameOverWindow = new Sprite(427, 240, resourcesManager.game_over_window_region, vbom);
 		loadSavedPreferences();
 	}
 	
@@ -296,16 +298,16 @@ public class GameScene extends BaseScene{
 		levelCompleted = true;
 	}
 	
-	private void createGameOverText() {
+	/*private void createGameOverText() {
 		gameOverText = new Text(0, 0, resourcesManager.font, "Game Over!!!!", vbom);
-	}
+	}*/
 	
-	private void displayGameOverText() {
+	/*private void displayGameOverText() {
 		camera.setChaseEntity(null);
 		gameOverText.setPosition(camera.getCenterX(), camera.getCenterY());
 		attachChild(gameOverText);
 		gameOverDisplayed = true;
-	}
+	}*/
 	
 	//Touch and buttons events	
 	@Override
@@ -520,24 +522,6 @@ public class GameScene extends BaseScene{
 					body.setMassData(massData);
 					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false) {
 					});
-				}  else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_WEIGHT)) {
-					levelObject = new Sprite(x, y, resourcesManager.weight_region, vbom){
-						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-							final Body weight = physicsWorld.getPhysicsConnectorManager().findBodyByShape(this);
-							weight.setTransform(pSceneTouchEvent.getX() / PhysicsConstants.PIXEL_TO_METER_RATIO_DEFAULT, pSceneTouchEvent.getY() / PhysicsConstants.PIXEL_TO_METER_RATIO_DEFAULT, weight.getAngle());
-							return true;
-						};
-					};
-					GameScene.this.registerTouchArea(levelObject);
-					GameScene.this.setTouchAreaBindingOnActionDownEnabled(true);
-					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.DynamicBody, FIXTURE_DEF);
-					body.setUserData("weight");
-					body.setFixedRotation(true);
-					MassData massData = new MassData();
-					massData.mass = 5000;
-					body.setMassData(massData);
-					physicsWorld.registerPhysicsConnector(new PhysicsConnector(levelObject, body, true, false) {
-					});
 				}  else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCH)) {
 					levelObject = new Sprite(x, y, resourcesManager.torch_region, vbom);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCHLIGHTHALO)) {
@@ -549,9 +533,14 @@ public class GameScene extends BaseScene{
 					venusFlyTraper = new VenusFlyTraper(x, y, vbom, camera, physicsWorld) {
 						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 							if (pSceneTouchEvent.isActionDown()) {
-								final Sprite venusRef = this;
-								this.setVisible(false);
-								destroySprite(venusRef);
+								if (venusFlyTraper.getTouchCount() == 2) {
+									final Sprite venusRef = this;
+									this.setVisible(false);
+									destroySprite(venusRef);
+									venusFlyTraper.initializeTouchCount();
+								} else {
+									venusFlyTraper.addTouchCount();
+								}								
 							}
 							return true;
 						};
@@ -570,9 +559,15 @@ public class GameScene extends BaseScene{
 						};
 						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 							if (pSceneTouchEvent.isActionDown()) {
-								final Sprite snakeRef = this; 
-								this.setVisible(false);
-								destroySprite(snakeRef);
+								if (snake.getSecondTouch()) {
+									final Sprite snakeRef = this; 
+									this.setVisible(false);
+									destroySprite(snakeRef);
+									snake.initializeSecondTouch();
+								} else {
+									snake.setSecondTouch();
+								}
+								
 							}
 							return true;
 						};
@@ -741,7 +736,43 @@ public class GameScene extends BaseScene{
 							saveScore("score", 0);
 							//destroySprite(player);
 							if (!gameOverDisplayed && !levelCompleted) {
-								displayGameOverText();
+								//displayGameOverText();
+								engine.runOnUpdateThread(new Runnable() {
+									
+									@Override
+									public void run() {
+										GameScene.this.setIgnoreUpdate(true);
+								        camera.setChaseEntity(null);
+										gameOverWindow.setPosition(camera.getCenterX(), camera.getCenterY());
+										GameScene.this.attachChild(gameOverWindow);
+									    final Sprite retryButton = new Sprite(355, 45, resourcesManager.retry_button_region, vbom){
+									    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+									    		if (pSceneTouchEvent.isActionDown()) {
+									    			player.setPoisonedStatus(false);
+													resourcesManager.gameMusic.stop();
+													myGarbageCollection();
+													SceneManager.getInstance().loadGameScene(engine, GameScene.this);
+												}
+									    		return true;
+									    	};
+									    };
+									    final Sprite quitButton = new Sprite(95, 45, resourcesManager.quit_button_region, vbom){
+									    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+									    		if (pSceneTouchEvent.isActionDown()) {
+									        		player.setPoisonedStatus(false);
+													resourcesManager.gameMusic.stop();
+													myGarbageCollection();
+													SceneManager.getInstance().loadMapScene(engine, GameScene.this);
+									    		}
+									    		return true;
+									    	};
+									    };
+									    GameScene.this.registerTouchArea(retryButton);
+									    GameScene.this.registerTouchArea(quitButton);
+									    gameOverWindow.attachChild(quitButton);
+									    gameOverWindow.attachChild(retryButton);
+									}
+								});								
 							}
 							if (getHP() <= 0 && player.getY() > 0) {
 								player.playerStop();
@@ -815,19 +846,10 @@ public class GameScene extends BaseScene{
 				}
 				
 				if (x1.getBody().getUserData().equals("rock") && x2.getBody().getUserData().equals("player")) {
+					resourcesManager.grunt.play();
 					player.decreaseHP(25f);
 					reduceHealthBar(25f);
 				}
-				
-				/*if (x1.getBody().getUserData().equals("snake") && x2.getBody().getUserData().equals("weight")) {
-					Log.e("amazonas", "contact");
-					destroyBody(x1.getBody());
-				}
-				
-				if (x1.getBody().getUserData().equals("venusFlyTraper") && x2.getBody().getUserData().equals("weight")) {
-					Log.e("amazonas", "contact");
-					destroyBody(x1.getBody());
-				}*/
 				
 				if (x1.getBody().getUserData().equals("spike") && x2.getBody().getUserData().equals("player")) {
 					player.decreaseHP(100f);
@@ -859,18 +881,6 @@ public class GameScene extends BaseScene{
 			public void run() {
 				player.decreaseFootContacts();
 				body.setActive(false);
-			}
-		});
-	}
-	
-	private void destroyBody(final Body body) {
-		engine.runOnUpdateThread(new Runnable() {
-			
-			@Override
-			public void run() {
-				Log.e("amazonas", "touched");
-				body.setActive(false);
-				physicsWorld.destroyBody(body);
 			}
 		});
 	}

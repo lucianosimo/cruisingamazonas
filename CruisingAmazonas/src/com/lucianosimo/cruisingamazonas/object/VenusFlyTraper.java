@@ -14,9 +14,10 @@ import com.lucianosimo.cruisingamazonas.manager.ResourcesManager;
 public class VenusFlyTraper extends AnimatedSprite{
 
 	private Body body;
+	private int touchCount = 0;
 	
 	public VenusFlyTraper(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld) {
-		super(pX, pY, ResourcesManager.getInstance().venusFlyTraper_region, vbom);
+		super(pX, pY, ResourcesManager.getInstance().venusFlyTraper_region.deepCopy(), vbom);
 		createPhysics(camera, physicsWorld);
 	}
 	
@@ -32,4 +33,17 @@ public class VenusFlyTraper extends AnimatedSprite{
 		final long[] VENUSFLYTRAPER_ANIMATE = new long[] {100, 100, 100, 100};
 		animate(VENUSFLYTRAPER_ANIMATE, 0, 3, true);
 	}
+	
+	public void addTouchCount() {
+		touchCount += 1;
+	}
+	
+	public void initializeTouchCount() {
+		touchCount = 0;
+	}
+	
+	public int getTouchCount() {
+		return touchCount;
+	}
+	
 }

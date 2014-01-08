@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 public class Snake extends AnimatedSprite{
 
 	private Body body;
+	private boolean secondTouch = false;
 	
 	public Snake(float pX, float pY, VertexBufferObjectManager vbom, Camera camera, PhysicsWorld physicsWorld, ITiledTextureRegion region) {
 		super(pX, pY, region, vbom);
@@ -40,5 +41,17 @@ public class Snake extends AnimatedSprite{
 	
 	public void setInactiveSnake() {
 		body.setActive(false);
+	}
+	
+	public void setSecondTouch() {
+		secondTouch = true;
+	}
+	
+	public boolean getSecondTouch() {
+		return secondTouch;
+	}
+	
+	public void initializeSecondTouch() {
+		secondTouch = false;
 	}
 }

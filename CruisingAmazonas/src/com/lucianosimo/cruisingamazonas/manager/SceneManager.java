@@ -100,9 +100,21 @@ public class SceneManager {
 		disposeSplashScene();
 	}
 	
-	public void loadGameScene(final Engine mEngine) {
+	public void loadGameScene(final Engine mEngine, final BaseScene scene) {
 		setScene(loadingScene);
+		scene.disposeScene();
 		ResourcesManager.getInstance().unloadMapTextures();
+		switch (scene.getSceneType()) {
+			case SCENE_MAP:
+				ResourcesManager.getInstance().unloadMapTextures();
+				break;
+			case SCENE_GAME:
+				ResourcesManager.getInstance().unloadGameTextures();
+				ResourcesManager.getInstance().unloadGameAudio();
+				break;
+			default:
+				break;
+		}
 		mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
 			
 			@Override

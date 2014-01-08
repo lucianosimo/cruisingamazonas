@@ -135,31 +135,31 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 		switch (pMenuItem.getID()) {
 			case LEVEL_1:
 				nextLevel = LEVEL_1;
-				SceneManager.getInstance().loadGameScene(engine);
+				SceneManager.getInstance().loadGameScene(engine, MapScene.this);
 				return true;
 			case LEVEL_2:
 				nextLevel = LEVEL_2;
-				SceneManager.getInstance().loadGameScene(engine);
+				SceneManager.getInstance().loadGameScene(engine, MapScene.this);
 				return true;
 			case LEVEL_3:
 				nextLevel = LEVEL_3;
-				SceneManager.getInstance().loadGameScene(engine);
+				SceneManager.getInstance().loadGameScene(engine, MapScene.this);
 				return true;
 			case LEVEL_4:
 				nextLevel = LEVEL_4;
-				SceneManager.getInstance().loadGameScene(engine);
+				SceneManager.getInstance().loadGameScene(engine, MapScene.this);
 				return true;
 			case LEVEL_5:
 				nextLevel = LEVEL_5;
-				SceneManager.getInstance().loadGameScene(engine);
+				SceneManager.getInstance().loadGameScene(engine, MapScene.this);
 				return true;
 			case LEVEL_6:
 				nextLevel = LEVEL_6;
-				SceneManager.getInstance().loadGameScene(engine);
+				SceneManager.getInstance().loadGameScene(engine, MapScene.this);
 				return true;
 			case LEVEL_7:
 				nextLevel = LEVEL_7;
-				SceneManager.getInstance().loadGameScene(engine);
+				SceneManager.getInstance().loadGameScene(engine, MapScene.this);
 				return true;
 			default:
 				return false;

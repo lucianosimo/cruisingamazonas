@@ -97,7 +97,6 @@ public class ResourcesManager {
 	public ITextureRegion box_position_region;
 	public ITextureRegion spike_region;
 	public ITextureRegion torch_region;
-	public ITextureRegion weight_region;
 	
 	//Others
 	public ITextureRegion tent_region;
@@ -112,6 +111,8 @@ public class ResourcesManager {
 	public ITextureRegion pause_window_region;
 	public ITextureRegion quit_button_region;
 	public ITextureRegion continue_pause_button_region;
+	public ITextureRegion game_over_window_region;
+	public ITextureRegion retry_button_region;
 	
 	
 	//Animated
@@ -131,6 +132,7 @@ public class ResourcesManager {
 	private BuildableBitmapTextureAtlas objectsTextureAtlas;
 	private BuildableBitmapTextureAtlas hudTextureAtlas;
 	private BuildableBitmapTextureAtlas othersTextureAtlas;
+	private BuildableBitmapTextureAtlas gameOverTextureAtlas;
 	private BuildableBitmapTextureAtlas completeWindowTextureAtlas;
 	private BitmapTextureAtlas darkBackgroundTextureAtlas;	
 	
@@ -237,14 +239,6 @@ public class ResourcesManager {
 	
 	private void loadGameGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
-		/*animatedTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 400, 400, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		backgroundTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 480, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		darkBackgroundTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 2, 2, TextureOptions.REPEATING_BILINEAR_PREMULTIPLYALPHA);
-		platformsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 500, 400, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		objectsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 128, 200, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		hudTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 300, 200, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		othersTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 512, 750, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		completeWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);*/
 		animatedTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 400, 400, TextureOptions.BILINEAR);
 		backgroundTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 480, TextureOptions.BILINEAR);
 		darkBackgroundTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 2, 2, TextureOptions.REPEATING_BILINEAR);
@@ -252,6 +246,7 @@ public class ResourcesManager {
 		objectsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 200, 200, TextureOptions.BILINEAR);
 		hudTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 300, 200, TextureOptions.BILINEAR);
 		othersTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 512, 750, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		gameOverTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 450, 450, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		completeWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 512, TextureOptions.BILINEAR);
 		
 		//Animated Sprites
@@ -299,7 +294,6 @@ public class ResourcesManager {
 		diamondRed_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "diamondRed.png");
 		potion_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "potion.png");
 		antidote_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "antidote.png");
-		weight_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "weight.png");
 		
 		//HUD
 		jumpButton_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudTextureAtlas, activity, "jumpButton.png");
@@ -314,6 +308,8 @@ public class ResourcesManager {
 		pause_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "pauseWindow.png");
 		quit_button_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "quitButton.png");
 		continue_pause_button_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(othersTextureAtlas, activity, "continuePauseButton.png");
+		retry_button_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameOverTextureAtlas, activity, "retry.png");
+		game_over_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameOverTextureAtlas, activity, "gameOverWindow.png");
 		
 		//Complete window
 		complete_level_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(completeWindowTextureAtlas, activity, "levelCompleteWindow.png");
@@ -326,6 +322,7 @@ public class ResourcesManager {
 			this.objectsTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.hudTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.othersTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.gameOverTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.completeWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.animatedTextureAtlas.load();
 			this.backgroundTextureAtlas.load();
@@ -333,6 +330,7 @@ public class ResourcesManager {
 			this.objectsTextureAtlas.load();
 			this.hudTextureAtlas.load();
 			this.othersTextureAtlas.load();
+			this.gameOverTextureAtlas.load();
 			this.completeWindowTextureAtlas.load();
 			this.darkBackgroundTextureAtlas.load();
 		} catch (final TextureAtlasBuilderException e) {
@@ -373,6 +371,7 @@ public class ResourcesManager {
 		this.objectsTextureAtlas.unload();
 		this.hudTextureAtlas.unload();
 		this.othersTextureAtlas.unload();
+		this.gameOverTextureAtlas.unload();
 		this.completeWindowTextureAtlas.unload();
 		this.darkBackgroundTextureAtlas.unload();
 	}
