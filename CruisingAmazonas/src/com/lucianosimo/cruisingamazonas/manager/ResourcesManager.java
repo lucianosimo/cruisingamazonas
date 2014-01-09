@@ -36,6 +36,7 @@ public class ResourcesManager {
 	public VertexBufferObjectManager vbom;
 	public Font font;
 	public Font statusFont;
+	public Font highScorefont;
 	
 	//Splash items
 	public ITextureRegion splash_region;
@@ -63,6 +64,7 @@ public class ResourcesManager {
 	//Game items
 	public Music gameMusic;
 	public Sound grunt;
+	public Sound enemiesDeath;
 	
 	//Platforms
 	public ITextureRegion landPlatformShort_region;
@@ -120,6 +122,7 @@ public class ResourcesManager {
 	public ITiledTextureRegion points100_region;
 	public ITiledTextureRegion points200_region;
 	public ITiledTextureRegion points300_region;
+	public ITiledTextureRegion points500_region;
 	public ITiledTextureRegion antidoteSprite_region;
 	public ITiledTextureRegion potionSprite_region;
 	public ITiledTextureRegion venusFlyTraper_region;
@@ -185,12 +188,15 @@ public class ResourcesManager {
 	
 	private void loadMenuFonts() {
 		FontFactory.setAssetBasePath("font/");
+		final ITexture highScoreTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		final ITexture statusNormalFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "jungle4.ttf", 35, true, Color.GREEN_ARGB_PACKED_INT, 1f, Color.BLACK_ARGB_PACKED_INT);
+		highScorefont = FontFactory.createStrokeFromAsset(activity.getFontManager(), highScoreTexture, activity.getAssets(), "jungle4.ttf", 37, true, Color.GREEN_ARGB_PACKED_INT, 0.1f, Color.BLACK_ARGB_PACKED_INT);
         statusFont = FontFactory.createStrokeFromAsset(activity.getFontManager(), statusNormalFontTexture, activity.getAssets(), "jungle4.ttf", 18, true, Color.WHITE_ARGB_PACKED_INT, 1f, Color.BLACK_ARGB_PACKED_INT);
 		font.load();
 		statusFont.load();
+		highScorefont.load();
 	}
 	
 	public void unloadMenuTextures() {
@@ -256,6 +262,7 @@ public class ResourcesManager {
 		points100_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "100.png", 4, 1);
 		points200_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "200.png", 4, 1);
 		points300_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "300.png", 4, 1);
+		points500_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "500.png", 4, 1);
 		antidoteSprite_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "antidoteSprite.png", 4, 1);
 		potionSprite_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "potionSprite.png", 4, 1);
 		
@@ -345,6 +352,7 @@ public class ResourcesManager {
 			gameMusic = MusicFactory.createMusicFromAsset(activity.getMusicManager(), activity, "gameMusic.mp3");
 			gameMusic.setLooping(true);
 			grunt = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "grunt.mp3");
+			enemiesDeath = SoundFactory.createSoundFromAsset(activity.getSoundManager(), activity, "enemiesDeath.mp3");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -353,10 +361,12 @@ public class ResourcesManager {
 	public void unloadGameAudio() {
 		gameMusic.stop();
 		grunt.stop();
+		enemiesDeath.stop();
 		//gameMusic.release();
 		//grunt.release();
 		activity.getMusicManager().remove(gameMusic);
 		activity.getSoundManager().remove(grunt);
+		activity.getSoundManager().remove(enemiesDeath);
 		System.gc();
 	}
 	

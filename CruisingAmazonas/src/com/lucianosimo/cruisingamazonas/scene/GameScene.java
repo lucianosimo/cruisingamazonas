@@ -196,6 +196,9 @@ public class GameScene extends BaseScene{
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
 		Editor editor = sharedPreferences.edit();
 		editor.putInt(key, score);
+		if (sharedPreferences.getInt("score", 0) < score) {
+			editor.putInt("highScore", score);
+		}		
 		editor.commit();
 	}
 	
@@ -530,13 +533,21 @@ public class GameScene extends BaseScene{
 					levelObject.setBlendFunctionSource(GLES20.GL_DST_COLOR);
 					levelObject.setAlpha(0.2f);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER)) {
+					final AnimatedSprite points = new AnimatedSprite(x, y + 35, resourcesManager.points500_region, vbom);
+					points.setVisible(false);
 					venusFlyTraper = new VenusFlyTraper(x, y, vbom, camera, physicsWorld) {
 						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 							if (pSceneTouchEvent.isActionDown()) {
 								if (venusFlyTraper.getTouchCount() == 2) {
+									resourcesManager.enemiesDeath.play();
 									final Sprite venusRef = this;
 									this.setVisible(false);
 									destroySprite(venusRef);
+									points.setVisible(true);
+									final long[] POINTS_ANIMATE = new long[] {75, 75, 250, 75};
+									points.animate(POINTS_ANIMATE, 0, 3, false);
+									GameScene.this.attachChild(points);
+									addToScore(500);
 									venusFlyTraper.initializeTouchCount();
 								} else {
 									venusFlyTraper.addTouchCount();
@@ -549,6 +560,8 @@ public class GameScene extends BaseScene{
 					levelObject = venusFlyTraper;
 					GameScene.this.registerTouchArea(levelObject);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SNAKE)) {
+					final AnimatedSprite points = new AnimatedSprite(x, y + 35, resourcesManager.points500_region, vbom);
+					points.setVisible(false);
 					snake = new Snake(x, y, vbom, camera, physicsWorld, resourcesManager.snake_region.deepCopy()) {
 						@Override
 						protected void onManagedUpdate(float pSecondsElapsed) {
@@ -560,9 +573,16 @@ public class GameScene extends BaseScene{
 						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 							if (pSceneTouchEvent.isActionDown()) {
 								if (snake.getSecondTouch()) {
+									resourcesManager.enemiesDeath.play();
 									final Sprite snakeRef = this; 
 									this.setVisible(false);
 									destroySprite(snakeRef);
+									points.setPosition(snakeRef.getX(), snakeRef.getY());
+									points.setVisible(true);
+									final long[] POINTS_ANIMATE = new long[] {75, 75, 250, 75};
+									points.animate(POINTS_ANIMATE, 0, 3, false);
+									GameScene.this.attachChild(points);
+									addToScore(500);
 									snake.initializeSecondTouch();
 								} else {
 									snake.setSecondTouch();
