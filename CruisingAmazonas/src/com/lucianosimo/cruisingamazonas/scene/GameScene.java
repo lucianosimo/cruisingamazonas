@@ -67,6 +67,8 @@ public class GameScene extends BaseScene{
 	private Sprite jumpButton;
 	private Sprite shortJumpButton;
 	private Sprite gameOverWindow;
+	private Sprite firstWindowHelp;
+	private Sprite secondWindowHelp;
 	
 	
 	//Texts variables
@@ -147,6 +149,8 @@ public class GameScene extends BaseScene{
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SPIKE = "spike";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCH = "torch";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TORCHLIGHTHALO = "torchLightHalo";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SIGN = "sign";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SIGN2 = "sign2";
 	
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER = "venusFlyTraper";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SNAKE = "snake";	
@@ -177,6 +181,10 @@ public class GameScene extends BaseScene{
 		levelCompleteWindow = new LevelCompleteWindow(vbom);
 		pauseWindow = new Sprite(427, 240, resourcesManager.pause_window_region, vbom);
 		gameOverWindow = new Sprite(427, 240, resourcesManager.game_over_window_region, vbom);
+		if (level == 1 ) {
+			firstWindowHelp = new Sprite(427, 240, resourcesManager.first_help_window_region, vbom);
+			secondWindowHelp = new Sprite(427, 240, resourcesManager.second_help_window_region, vbom);
+		}		
 		loadSavedPreferences();
 	}
 	
@@ -594,6 +602,70 @@ public class GameScene extends BaseScene{
 					};
 					levelObject = snake;
 					GameScene.this.registerTouchArea(levelObject);
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SIGN)) {
+					levelObject = new Sprite(x, y, resourcesManager.sign_region.deepCopy(), vbom) {
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+							if (player.collidesWith(this)) {
+								engine.runOnUpdateThread(new Runnable() {
+									
+									@Override
+									public void run() {
+										GameScene.this.setIgnoreUpdate(true);
+								        camera.setChaseEntity(null);
+								        firstWindowHelp.setPosition(camera.getCenterX(), camera.getCenterY());
+										GameScene.this.attachChild(firstWindowHelp);
+									    final Sprite continueHelpButton = new Sprite(560, 45, resourcesManager.continueButton_region, vbom){
+									    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+									    		if (pSceneTouchEvent.isActionDown()) {
+									    			GameScene.this.detachChild(firstWindowHelp);
+									    			GameScene.this.setIgnoreUpdate(false);
+									    			camera.setChaseEntity(player);
+									    			reloadHud();
+									    		}
+									    		return true;
+									    	};
+									    };
+									    GameScene.this.registerTouchArea(continueHelpButton);
+									    firstWindowHelp.attachChild(continueHelpButton);
+									}
+								});
+								this.setIgnoreUpdate(true);
+							}
+						};
+					};
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SIGN2)) {
+					levelObject = new Sprite(x, y, resourcesManager.sign_region.deepCopy(), vbom) {
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+							if (player.collidesWith(this)) {
+								engine.runOnUpdateThread(new Runnable() {
+									
+									@Override
+									public void run() {
+										GameScene.this.setIgnoreUpdate(true);
+								        camera.setChaseEntity(null);
+								        secondWindowHelp.setPosition(camera.getCenterX(), camera.getCenterY());
+										GameScene.this.attachChild(secondWindowHelp);
+									    final Sprite continueHelpButton = new Sprite(560, 45, resourcesManager.continueButton_region, vbom){
+									    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+									    		if (pSceneTouchEvent.isActionDown()) {
+									    			GameScene.this.detachChild(secondWindowHelp);
+									    			GameScene.this.setIgnoreUpdate(false);
+									    			camera.setChaseEntity(player);
+									    			reloadHud();
+									    		}
+									    		return true;
+									    	};
+									    };
+									    GameScene.this.registerTouchArea(continueHelpButton);
+									    secondWindowHelp.attachChild(continueHelpButton);
+									}
+								});
+								this.setIgnoreUpdate(true);
+							}
+						};
+					};
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DIAMONDBLUE)) {
 					final AnimatedSprite points = new AnimatedSprite(x, y + 35, resourcesManager.points100_region, vbom);
 					points.setVisible(false);

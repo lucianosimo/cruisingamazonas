@@ -97,6 +97,12 @@
     <entity x="8000" y="110" type="venusFlyTraper"/>
     <entity x="8500" y="150" type="venusFlyTraper"/>
     <entity x="8650" y="150" type="venusFlyTraper"/>
+    
+    <entity x="3530" y="435" type="potion"/>
+    <entity x="3975" y="290" type="antidote"/>
+    
+    <entity x="280" y="85" type="sign"/>
+    <entity x="795" y="85" type="sign2"/>
 
     <entity x="15" y="100" type="player"/>
         
