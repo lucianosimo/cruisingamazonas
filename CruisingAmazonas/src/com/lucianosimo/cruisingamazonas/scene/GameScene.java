@@ -100,6 +100,7 @@ public class GameScene extends BaseScene{
 		@Override
 		public void onTimePassed(TimerHandler pTimerHandler) {
 			if (Player.getStatus().equals("poisoned")) {
+				pTimerHandler.reset();
 				player.poisonedDamage(POISON_DAMAGE);
 				reduceHealthBar(POISON_DAMAGE);
 			}
@@ -199,14 +200,20 @@ public class GameScene extends BaseScene{
 			reduceHealthBar((100 - hp));
 		}
 	}
+	
+	private void saveHighScore(String key, int score) {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+		Editor editor = sharedPreferences.edit();
+		if (sharedPreferences.getInt("highScore", 0) < score) {
+			editor.putInt("highScore", score);
+		}		
+		editor.commit();
+	}
 
 	private void saveScore(String key, int score) {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
 		Editor editor = sharedPreferences.edit();
-		editor.putInt(key, score);
-		if (sharedPreferences.getInt("score", 0) < score) {
-			editor.putInt("highScore", score);
-		}		
+		editor.putInt(key, score);	
 		editor.commit();
 	}
 	
@@ -419,12 +426,18 @@ public class GameScene extends BaseScene{
 	}
 	
 	private void setPoisonedTimer() {
-		if (Player.getStatus().equals("poisoned")) {
-			engine.registerUpdateHandler(poisonTimer);
-		} else {
-			engine.unregisterUpdateHandler(poisonTimer);
-		}
-		
+		engine.runOnUpdateThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				if (Player.getStatus().equals("poisoned")) {
+					engine.registerUpdateHandler(poisonTimer);
+				} else {
+					engine.unregisterUpdateHandler(poisonTimer);
+				}
+				
+			}
+		});		
 	}
 	
 	//Parse level from XML file
@@ -800,6 +813,7 @@ public class GameScene extends BaseScene{
 								player.setPoisonedStatus(false);
 								saveHP("hp", player.getHP());
 								saveScore("score", player.getScore());
+								saveHighScore("score", player.getScore());
 								destroySprite(player);
 								levelCompleteWindow.display(countDiamondBlue, countDiamondYellow, countDiamondRed, player.getScore(), GameScene.this, camera);
 							    final Sprite continueButton = new Sprite(530, 40, resourcesManager.continueButton_region, vbom){
@@ -825,6 +839,7 @@ public class GameScene extends BaseScene{
 						public void onDie() {
 							availablePause = false;
 							saveHP("hp", 100);
+							saveHighScore("score", player.getScore());
 							saveScore("score", 0);
 							//destroySprite(player);
 							if (!gameOverDisplayed && !levelCompleted) {
@@ -941,6 +956,7 @@ public class GameScene extends BaseScene{
 					resourcesManager.grunt.play();
 					player.decreaseHP(25f);
 					reduceHealthBar(25f);
+					//setInactiveBody(x1.getBody());
 				}
 				
 				if (x1.getBody().getUserData().equals("spike") && x2.getBody().getUserData().equals("player")) {

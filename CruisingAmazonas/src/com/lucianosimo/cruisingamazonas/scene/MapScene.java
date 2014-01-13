@@ -28,9 +28,10 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	private final int LEVEL_5 = 5;
 	private final int LEVEL_6 = 6;
 	private final int LEVEL_7 = 7;
+	private final int LEVEL_8 = 8;
 	private static int nextLevel;
 	private static int availableLevels = 1;
-	private static int lastLevel = 7;
+	private static int lastLevel = 8;
 	private static ArrayList<Integer> completedLevels = new ArrayList<Integer>();
 	private int buttonX;
 	private int buttonY;
@@ -161,6 +162,10 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 				nextLevel = LEVEL_7;
 				SceneManager.getInstance().loadGameScene(engine, MapScene.this);
 				return true;
+			case LEVEL_8:
+				nextLevel = LEVEL_8;
+				SceneManager.getInstance().loadGameScene(engine, MapScene.this);
+				return true;
 			default:
 				return false;
 		}
@@ -169,8 +174,8 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	private void loadSavedPreferences() {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
 		int available = sharedPreferences.getInt("availableLevels", 1);
-		setAvailableLevels(available);
-		//setAvailableLevels(7);
+		//setAvailableLevels(available);
+		setAvailableLevels(8);
 		for (int i = 1; i < availableLevels; i++) {
 			setCompletedLevels(i);
 		}
