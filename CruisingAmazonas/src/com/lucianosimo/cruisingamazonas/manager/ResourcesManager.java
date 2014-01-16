@@ -84,6 +84,14 @@ public class ResourcesManager {
 	public ITextureRegion water_region;
 	public ITextureRegion waterPlatform_region;
 	
+	//Decoration
+	public ITextureRegion bush_region;
+	public ITextureRegion mushroomBrown_region;
+	public ITextureRegion mushroomRed_region;
+	public ITextureRegion plant_region;
+	public ITextureRegion rockDeco_region;
+	public ITextureRegion tree_region;
+	
 	//Backgrounds
 	public ITextureRegion darkBackground_region;
 	public ITextureRegion background_region;
@@ -126,14 +134,17 @@ public class ResourcesManager {
 	public ITiledTextureRegion points500_region;
 	public ITiledTextureRegion antidoteSprite_region;
 	public ITiledTextureRegion potionSprite_region;
-	public ITiledTextureRegion venusFlyTraper_region;
+	public ITiledTextureRegion bat_region;
+	public ITiledTextureRegion bee_region;
 	public ITiledTextureRegion snake_region;
+	public ITiledTextureRegion spider_region;
 	
 	//Help windows
 	public ITextureRegion first_help_window_region;
 	public ITextureRegion second_help_window_region;
 	
 	//Game Textures
+	private BuildableBitmapTextureAtlas decoTextureAtlas;
 	private BuildableBitmapTextureAtlas animatedTextureAtlas;
 	private BuildableBitmapTextureAtlas backgroundTextureAtlas;
 	private BuildableBitmapTextureAtlas platformsTextureAtlas;
@@ -252,6 +263,7 @@ public class ResourcesManager {
 	
 	private void loadGameGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/game/");
+		decoTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 400, 400, TextureOptions.BILINEAR);
 		animatedTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 400, 400, TextureOptions.BILINEAR);
 		backgroundTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 480, TextureOptions.BILINEAR);
 		darkBackgroundTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 2, 2, TextureOptions.REPEATING_BILINEAR);
@@ -266,8 +278,10 @@ public class ResourcesManager {
 		
 		//Animated Sprites
 		player_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "player.png", 3, 1);
-		venusFlyTraper_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "venusFlyTraperTiled.png", 4, 1);
-		snake_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "snake.png", 4, 1);
+		bat_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "bat.png", 2, 1);
+		bee_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "bee.png", 2, 1);
+		snake_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "snake.png", 2, 1);
+		spider_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "spider.png", 3, 1);
 		points100_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "100.png", 4, 1);
 		points200_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "200.png", 4, 1);
 		points300_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "300.png", 4, 1);
@@ -311,6 +325,14 @@ public class ResourcesManager {
 		potion_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "potion.png");
 		antidote_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(objectsTextureAtlas, activity, "antidote.png");
 		
+		//Decoration
+		bush_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(decoTextureAtlas, activity, "bush.png");
+		mushroomBrown_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(decoTextureAtlas, activity, "mushroomBrown.png");
+		mushroomRed_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(decoTextureAtlas, activity, "mushroomRed.png");
+		plant_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(decoTextureAtlas, activity, "plant.png");
+		rockDeco_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(decoTextureAtlas, activity, "rockDeco.png");
+		tree_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(decoTextureAtlas, activity, "tree.png");
+		
 		//HUD
 		jumpButton_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudTextureAtlas, activity, "jumpButton.png");
 		shortJumpButton_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(hudTextureAtlas, activity, "shortJumpButton.png");
@@ -337,6 +359,7 @@ public class ResourcesManager {
 		continueButton_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(completeWindowTextureAtlas, activity, "continueButton.png");
 		
 		try {
+			this.decoTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.animatedTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.backgroundTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.platformsTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
@@ -347,6 +370,7 @@ public class ResourcesManager {
 			this.completeWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.firstHelpWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.secondHelpWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.decoTextureAtlas.load();
 			this.animatedTextureAtlas.load();
 			this.backgroundTextureAtlas.load();
 			this.platformsTextureAtlas.load();
@@ -393,6 +417,7 @@ public class ResourcesManager {
 	}
 	
 	public void unloadGameTextures() {
+		this.decoTextureAtlas.unload();
 		this.animatedTextureAtlas.unload();
 		this.backgroundTextureAtlas.unload();
 		this.platformsTextureAtlas.unload();

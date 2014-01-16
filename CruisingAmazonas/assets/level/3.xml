@@ -171,24 +171,7 @@
     
     <entity x="14750" y="25" type="earthPlatformLong"/>
     <entity x="14750" y="75" type="landPlatformLong"/>
-    
-    <entity x="940" y="110" type="venusFlyTraper"/>
-    <entity x="1800" y="160" type="venusFlyTraper"/>
-    <entity x="4650" y="160" type="venusFlyTraper"/>
-    <entity x="5540" y="160" type="venusFlyTraper"/>
-    <entity x="6090" y="160" type="venusFlyTraper"/>
-    <entity x="7340" y="110" type="venusFlyTraper"/>
-    <entity x="7640" y="110" type="venusFlyTraper"/>
-    <entity x="8940" y="110" type="venusFlyTraper"/>
-    <entity x="9290" y="110" type="venusFlyTraper"/>
-    <entity x="9740" y="210" type="venusFlyTraper"/>
-    <entity x="9890" y="210" type="venusFlyTraper"/>
-    <entity x="10040" y="210" type="venusFlyTraper"/>
-    <entity x="11090" y="140" type="venusFlyTraper"/>
-    <entity x="12340" y="160" type="venusFlyTraper"/>
-    <entity x="12490" y="160" type="venusFlyTraper"/>
-    <entity x="12640" y="160" type="venusFlyTraper"/>
-    <entity x="13440" y="160" type="venusFlyTraper"/>
+   
     
     <entity x="3550" y="70" type="snake"/>
     <entity x="5850" y="120" type="snake"/>

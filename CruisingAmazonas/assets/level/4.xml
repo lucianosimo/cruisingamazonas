@@ -80,18 +80,7 @@
     <entity x="9075" y="125" type="box"/>
     <entity x="9175" y="125" type="box"/>
     <entity x="9200" y="175" type="boxPosition"/>
-    
-    <entity x="545" y="385" type="venusFlyTraper"/>
-    <entity x="1215" y="275" type="venusFlyTraper"/>
-    <entity x="2440" y="125" type="venusFlyTraper"/>
-    <entity x="3840" y="125" type="venusFlyTraper"/>
-    <entity x="4240" y="125" type="venusFlyTraper"/>
-    <entity x="5185" y="205" type="venusFlyTraper"/>
-    <entity x="6045" y="100" type="venusFlyTraper"/>
-    <entity x="6600" y="100" type="venusFlyTraper"/>
-    <entity x="8060" y="150" type="venusFlyTraper"/>
-    <entity x="8360" y="150" type="venusFlyTraper"/>
-    <entity x="8715" y="150" type="venusFlyTraper"/>
+
     
     <entity x="1800" y="120" type="snake"/>
     <entity x="3300" y="65" type="snake"/>

@@ -120,16 +120,7 @@
     <entity x="1685" y="500" type="rock"/>
     <entity x="5435" y="500" type="rock"/>
     <entity x="9530" y="500" type="rock"/>
-    
-    <entity x="810" y="105" type="venusFlyTraper"/>
-    <entity x="2285" y="205" type="venusFlyTraper"/>
-    <entity x="2435" y="205" type="venusFlyTraper"/>
-    <entity x="4635" y="80" type="venusFlyTraper"/>
-    <entity x="4985" y="130" type="venusFlyTraper"/>
-    <entity x="5090" y="130" type="venusFlyTraper"/>
-    <entity x="7835" y="145" type="venusFlyTraper"/>
-    <entity x="8560" y="145" type="venusFlyTraper"/>
-    <entity x="10240" y="155" type="venusFlyTraper"/>
+
     
     <entity x="1600" y="115" type="snake"/>
     <entity x="2150" y="165" type="snake"/>

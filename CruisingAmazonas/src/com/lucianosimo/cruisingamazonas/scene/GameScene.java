@@ -50,10 +50,12 @@ import com.badlogic.gdx.physics.box2d.MassData;
 import com.lucianosimo.cruisingamazonas.base.BaseScene;
 import com.lucianosimo.cruisingamazonas.manager.SceneManager;
 import com.lucianosimo.cruisingamazonas.manager.SceneManager.SceneType;
+import com.lucianosimo.cruisingamazonas.object.Bat;
+import com.lucianosimo.cruisingamazonas.object.Bee;
 import com.lucianosimo.cruisingamazonas.object.LevelCompleteWindow;
 import com.lucianosimo.cruisingamazonas.object.Player;
 import com.lucianosimo.cruisingamazonas.object.Snake;
-import com.lucianosimo.cruisingamazonas.object.VenusFlyTraper;
+import com.lucianosimo.cruisingamazonas.object.Spider;
 
 public class GameScene extends BaseScene{
 
@@ -78,8 +80,10 @@ public class GameScene extends BaseScene{
 	
 	//Instances
 	private Player player;
-	private VenusFlyTraper venusFlyTraper;
+	private Bat bat;
+	private Bee bee;
 	private Snake snake;
+	private Spider spider;
 	
 	//Booleans
 	private Boolean firstTouch = false;
@@ -153,9 +157,18 @@ public class GameScene extends BaseScene{
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SIGN = "sign";
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SIGN2 = "sign2";
 	
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER = "venusFlyTraper";
-	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SNAKE = "snake";	
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BAT = "bat";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BEE = "bee";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SNAKE = "snake";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SPIDER = "spider";	
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLAYER = "player";
+	
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BUSH= "bush";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_MUSHROOMBROWN = "mushroombrown";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_MUSHROOMRED = "mushroomred";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLANT = "plant";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_ROCKDECO = "rockdeco";
+	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TREE = "tree";
 	
 	private static final Object TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TENT = "tent";
 	
@@ -496,6 +509,18 @@ public class GameScene extends BaseScene{
 					levelObject = new Sprite(x, y, resourcesManager.earthPlatformLong_region, vbom);
 					final Body body = PhysicsFactory.createBoxBody(physicsWorld, levelObject, BodyType.StaticBody, FIXTURE_DEF);
 					body.setUserData("earthPlatformLong");
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BUSH)) {
+					levelObject = new Sprite(x, y, resourcesManager.bush_region, vbom);
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_MUSHROOMBROWN)) {
+					levelObject = new Sprite(x, y, resourcesManager.mushroomBrown_region, vbom);
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_MUSHROOMRED)) {
+					levelObject = new Sprite(x, y, resourcesManager.mushroomRed_region, vbom);
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_PLANT)) {
+					levelObject = new Sprite(x, y, resourcesManager.plant_region, vbom);
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_ROCKDECO)) {
+					levelObject = new Sprite(x, y, resourcesManager.rockDeco_region, vbom);
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_TREE)) {
+					levelObject = new Sprite(x, y, resourcesManager.tree_region, vbom);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DARKEARTHPLATFORMLONG)) {
 					levelObject = new Sprite(x, y, resourcesManager.darkEarthPlatformLong_region, vbom);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_DARKEARTHPLATFORM)) {
@@ -553,33 +578,6 @@ public class GameScene extends BaseScene{
 					levelObject.setBlendingEnabled(true);
 					levelObject.setBlendFunctionSource(GLES20.GL_DST_COLOR);
 					levelObject.setAlpha(0.2f);
-				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_VENUSFLYTRAPER)) {
-					final AnimatedSprite points = new AnimatedSprite(x, y + 35, resourcesManager.points500_region, vbom);
-					points.setVisible(false);
-					venusFlyTraper = new VenusFlyTraper(x, y, vbom, camera, physicsWorld) {
-						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-							if (pSceneTouchEvent.isActionDown()) {
-								if (venusFlyTraper.getTouchCount() == 2) {
-									resourcesManager.enemiesDeath.play();
-									final Sprite venusRef = this;
-									this.setVisible(false);
-									destroySprite(venusRef);
-									points.setVisible(true);
-									final long[] POINTS_ANIMATE = new long[] {75, 75, 250, 75};
-									points.animate(POINTS_ANIMATE, 0, 3, false);
-									GameScene.this.attachChild(points);
-									addToScore(500);
-									venusFlyTraper.initializeTouchCount();
-								} else {
-									venusFlyTraper.addTouchCount();
-								}								
-							}
-							return true;
-						};
-					};
-					venusFlyTraper.setAnimation();
-					levelObject = venusFlyTraper;
-					GameScene.this.registerTouchArea(levelObject);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SNAKE)) {
 					final AnimatedSprite points = new AnimatedSprite(x, y + 35, resourcesManager.points500_region, vbom);
 					points.setVisible(false);
@@ -589,6 +587,9 @@ public class GameScene extends BaseScene{
 							super.onManagedUpdate(pSecondsElapsed);
 							if ((this.getX() - player.getX()) < 854) {
 								this.startMoving();
+							}
+							if ((this.getX() - player.getX()) < 300) {
+								this.increaseSnakeSpeed();
 							}
 						};
 						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -614,6 +615,114 @@ public class GameScene extends BaseScene{
 						};
 					};
 					levelObject = snake;
+					GameScene.this.registerTouchArea(levelObject);
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SPIDER)) {
+					final AnimatedSprite points = new AnimatedSprite(x, y + 35, resourcesManager.points500_region, vbom);
+					points.setVisible(false);
+					spider = new Spider(x, y, vbom, camera, physicsWorld, resourcesManager.spider_region.deepCopy()) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+							if ((this.getX() - player.getX()) < 854) {
+								this.startMoving();
+							}
+						};
+						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+							if (pSceneTouchEvent.isActionDown()) {
+								if (spider.getSecondTouch()) {
+									resourcesManager.enemiesDeath.play();
+									final Sprite spiderRef = this; 
+									this.setVisible(false);
+									destroySprite(spiderRef);
+									points.setPosition(spiderRef.getX(), spiderRef.getY());
+									points.setVisible(true);
+									final long[] POINTS_ANIMATE = new long[] {75, 75, 250, 75};
+									points.animate(POINTS_ANIMATE, 0, 3, false);
+									GameScene.this.attachChild(points);
+									addToScore(500);
+									spider.initializeSecondTouch();
+								} else {
+									spider.setSecondTouch();
+								}
+								
+							}
+							return true;
+						};
+					};
+					levelObject = spider;
+					GameScene.this.registerTouchArea(levelObject);
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BAT)) {
+					final AnimatedSprite points = new AnimatedSprite(x, y + 35, resourcesManager.points500_region, vbom);
+					points.setVisible(false);
+					bat = new Bat(x, y, vbom, camera, physicsWorld, resourcesManager.bat_region.deepCopy()) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+							if ((this.getX() - player.getX()) < 400) {
+								this.startMoving();
+							}
+						};
+						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+							if (pSceneTouchEvent.isActionDown()) {
+								if (bat.getSecondTouch()) {
+									resourcesManager.enemiesDeath.play();
+									final Sprite batRef = this; 
+									this.setVisible(false);
+									destroySprite(batRef);
+									points.setPosition(batRef.getX(), batRef.getY());
+									points.setVisible(true);
+									final long[] POINTS_ANIMATE = new long[] {75, 75, 250, 75};
+									points.animate(POINTS_ANIMATE, 0, 3, false);
+									GameScene.this.attachChild(points);
+									addToScore(500);
+									bat.initializeSecondTouch();
+								} else {
+									bat.setSecondTouch();
+								}
+								
+							}
+							return true;
+						};
+					};
+					levelObject = bat;
+					GameScene.this.registerTouchArea(levelObject);
+				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_BEE)) {
+					final AnimatedSprite points = new AnimatedSprite(x, y + 35, resourcesManager.points500_region, vbom);
+					points.setVisible(false);
+					bee = new Bee(x, y, vbom, camera, physicsWorld, resourcesManager.bee_region.deepCopy()) {
+						@Override
+						protected void onManagedUpdate(float pSecondsElapsed) {
+							super.onManagedUpdate(pSecondsElapsed);
+							if ((this.getX() - player.getX()) < 500) {
+								this.startMoving();
+							}
+							if ((this.getX() - player.getX()) < 250) {
+								this.increaseBeeSpeed();
+							}
+						};
+						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+							if (pSceneTouchEvent.isActionDown()) {
+								if (bee.getSecondTouch()) {
+									resourcesManager.enemiesDeath.play();
+									final Sprite beeRef = this; 
+									this.setVisible(false);
+									destroySprite(beeRef);
+									points.setPosition(beeRef.getX(), beeRef.getY());
+									points.setVisible(true);
+									final long[] POINTS_ANIMATE = new long[] {75, 75, 250, 75};
+									points.animate(POINTS_ANIMATE, 0, 3, false);
+									GameScene.this.attachChild(points);
+									addToScore(500);
+									bee.initializeSecondTouch();
+								} else {
+									bee.setSecondTouch();
+								}
+								
+							}
+							return true;
+						};
+					};
+					levelObject = bee;
 					GameScene.this.registerTouchArea(levelObject);
 				} else if (type.equals(TAG_ENTITY_ATTRIBUTE_TYPE_VALUE_SIGN)) {
 					levelObject = new Sprite(x, y, resourcesManager.sign_region.deepCopy(), vbom) {
@@ -931,7 +1040,15 @@ public class GameScene extends BaseScene{
 					}
 				}
 				
-				if (x1.getBody().getUserData().equals("venusFlyTraper") && x2.getBody().getUserData().equals("player")) { 
+				if (x1.getBody().getUserData().equals("bat") && x2.getBody().getUserData().equals("player")) { 
+					resourcesManager.grunt.play();
+					player.decreaseHP(25f);
+					//1 HP = 2 px
+					reduceHealthBar(25f);
+					setInactiveBody(x1.getBody());
+				}
+				
+				if (x1.getBody().getUserData().equals("bee") && x2.getBody().getUserData().equals("player")) { 
 					resourcesManager.grunt.play();
 					player.decreaseHP(25f);
 					//1 HP = 2 px
@@ -940,6 +1057,19 @@ public class GameScene extends BaseScene{
 				}
 				
 				if (x1.getBody().getUserData().equals("snake") && x2.getBody().getUserData().equals("player")) {
+					resourcesManager.grunt.play();
+					player.decreaseHP(10f);
+					reduceHealthBar(10f);
+					if (Player.getStatus().equals("normal")) {
+						player.setPoisonedStatus(true);
+						setPoisonedTimer();
+						statusText.setText(Player.getStatus());
+						statusText.setColor(Color.RED_ARGB_PACKED_INT);
+					}					
+					setInactiveBody(x1.getBody());
+				}
+				
+				if (x1.getBody().getUserData().equals("spider") && x2.getBody().getUserData().equals("player")) {
 					resourcesManager.grunt.play();
 					player.decreaseHP(10f);
 					reduceHealthBar(10f);

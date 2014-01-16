@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level width="10000" height="600">
+    
+    <entity x="65" y="117" type="tree"/>
+    <entity x="4688" y="117" type="tree"/>
+    <entity x="5935" y="117" type="tree"/>
+    <entity x="8580" y="168" type="tree"/>
+    <entity x="683" y="66" type="plant"/>
+    <entity x="3055" y="417" type="plant"/>
+    <entity x="6245" y="94" type="plant"/>
+    <entity x="1153" y="60" type="bush"/>
+    <entity x="1995" y="113" type="bush"/>
+    <entity x="4553" y="61" type="bush"/>
+    <entity x="6453" y="111" type="bush"/>
+    <entity x="7260" y="161" type="bush"/>
+    <entity x="9015" y="62" type="bush"/>
+    <entity x="1650" y="74" type="rockdeco"/>
+    <entity x="3210" y="422" type="rockdeco"/>
+    <entity x="6050" y="72" type="rockdeco"/>
+    <entity x="6840" y="173" type="rockdeco"/>
+    <entity x="7750" y="72" type="rockdeco"/>
+    <entity x="9170" y="73" type="rockdeco"/>
+    
+    <entity x="2154" y="115" type="mushroomred"/>
+    <entity x="6660" y="139" type="mushroomred"/>
+    <entity x="7380" y="164" type="mushroomred"/>
+    <entity x="3470" y="414" type="mushroombrown"/>
+    <entity x="7895" y="63" type="mushroombrown"/>
 
     <entity x="250" y="25" type="landPlatformLong"/>
     <entity x="775" y="25" type="landPlatform"/>
@@ -80,23 +106,20 @@
     <entity x="8800" y="200" type="diamondBlue"/>
     <entity x="8850" y="200" type="diamondBlue"/>
     
-    <entity x="2325" y="125" type="snake"/>
-    <entity x="6975" y="180" type="snake"/>
-    <entity x="8375" y="110" type="snake"/>
-    <entity x="9300" y="100" type="snake"/>
+    <entity x="2325" y="117" type="snake"/>
+    <entity x="4917" y="63" type="snake"/>
+    <entity x="6980" y="162" type="snake"/>
+    <entity x="7970" y="61" type="snake"/>
+    <entity x="8395" y="92" type="snake"/>
+    <entity x="9317" y="61" type="snake"/>
     
-    <entity x="1175" y="110" type="venusFlyTraper"/>
-    <entity x="1625" y="110" type="venusFlyTraper"/>
-    <entity x="4575" y="110" type="venusFlyTraper"/>
-    <entity x="4750" y="110" type="venusFlyTraper"/>
-    <entity x="6225" y="125" type="venusFlyTraper"/>
-    <entity x="6625" y="175" type="venusFlyTraper"/>
-    <entity x="7275" y="200" type="venusFlyTraper"/>
-    <entity x="7700" y="110" type="venusFlyTraper"/>
-    <entity x="7850" y="110" type="venusFlyTraper"/>
-    <entity x="8000" y="110" type="venusFlyTraper"/>
-    <entity x="8500" y="150" type="venusFlyTraper"/>
-    <entity x="8650" y="150" type="venusFlyTraper"/>
+    <entity x="1313" y="123" type="bee"/>
+    <entity x="3530" y="492" type="bee"/>
+    <entity x="4780" y="115" type="bee"/>
+    <entity x="6315" y="150" type="bee"/>
+    <entity x="6725" y="215" type="bee"/>
+    <entity x="8170" y="125" type="bee"/>
+    <entity x="9015" y="150" type="bee"/>
     
     <entity x="3530" y="435" type="potion"/>
     <entity x="3975" y="290" type="antidote"/>
