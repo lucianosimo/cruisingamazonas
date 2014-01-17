@@ -198,7 +198,10 @@ public class GameScene extends BaseScene{
 		if (level == 1 ) {
 			firstWindowHelp = new Sprite(427, 240, resourcesManager.first_help_window_region, vbom);
 			secondWindowHelp = new Sprite(427, 240, resourcesManager.second_help_window_region, vbom);
-		}		
+		}
+		if (level == 2 ) {
+			firstWindowHelp = new Sprite(427, 240, resourcesManager.third_help_window_region, vbom);
+		}
 		loadSavedPreferences();
 	}
 	
@@ -625,6 +628,10 @@ public class GameScene extends BaseScene{
 							super.onManagedUpdate(pSecondsElapsed);
 							if ((this.getX() - player.getX()) < 854) {
 								this.startMoving();
+							}
+							
+							if ((this.getX() - player.getX()) < 350) {
+								this.increaseSpiderSpeed();
 							}
 						};
 						public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {

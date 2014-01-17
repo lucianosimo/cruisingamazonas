@@ -142,6 +142,7 @@ public class ResourcesManager {
 	//Help windows
 	public ITextureRegion first_help_window_region;
 	public ITextureRegion second_help_window_region;
+	public ITextureRegion third_help_window_region;
 	
 	//Game Textures
 	private BuildableBitmapTextureAtlas decoTextureAtlas;
@@ -155,6 +156,7 @@ public class ResourcesManager {
 	private BuildableBitmapTextureAtlas completeWindowTextureAtlas;
 	private BuildableBitmapTextureAtlas firstHelpWindowTextureAtlas;
 	private BuildableBitmapTextureAtlas secondHelpWindowTextureAtlas;
+	private BuildableBitmapTextureAtlas thirdHelpWindowTextureAtlas;
 	private BitmapTextureAtlas darkBackgroundTextureAtlas;	
 	
 	
@@ -275,6 +277,7 @@ public class ResourcesManager {
 		completeWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 512, TextureOptions.BILINEAR);
 		firstHelpWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 320, TextureOptions.BILINEAR);
 		secondHelpWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 320, TextureOptions.BILINEAR);
+		thirdHelpWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 320, TextureOptions.BILINEAR);
 		
 		//Animated Sprites
 		player_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "player.png", 3, 1);
@@ -352,7 +355,8 @@ public class ResourcesManager {
 		
 		//Help Windows
 		first_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(firstHelpWindowTextureAtlas, activity, "firstHelpWindow.png");
-		second_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(secondHelpWindowTextureAtlas, activity, "secondHelpWindow.png");		
+		second_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(secondHelpWindowTextureAtlas, activity, "secondHelpWindow.png");
+		third_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(thirdHelpWindowTextureAtlas, activity, "thirdHelpWindow.png");
 		
 		//Complete window
 		complete_level_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(completeWindowTextureAtlas, activity, "levelCompleteWindow.png");
@@ -370,6 +374,7 @@ public class ResourcesManager {
 			this.completeWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.firstHelpWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.secondHelpWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.thirdHelpWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.decoTextureAtlas.load();
 			this.animatedTextureAtlas.load();
 			this.backgroundTextureAtlas.load();
@@ -382,6 +387,7 @@ public class ResourcesManager {
 			this.darkBackgroundTextureAtlas.load();
 			this.firstHelpWindowTextureAtlas.load();
 			this.secondHelpWindowTextureAtlas.load();
+			this.thirdHelpWindowTextureAtlas.load();
 		} catch (final TextureAtlasBuilderException e) {
 			Debug.e(e);
 		}
@@ -429,6 +435,7 @@ public class ResourcesManager {
 		this.darkBackgroundTextureAtlas.unload();
 		this.firstHelpWindowTextureAtlas.unload();
 		this.secondHelpWindowTextureAtlas.unload();
+		this.thirdHelpWindowTextureAtlas.unload();
 	}
 	
 	//Manager Methods

@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level width="10000" height="600">
     
+    <entity x="435" y="185" type="bush"/>
+    <entity x="785" y="185" type="bush"/>
+    <entity x="5715" y="112" type="bush"/>
+    <entity x="6115" y="63" type="bush"/>
+    <entity x="6915" y="163" type="bush"/>
+    <entity x="7715" y="163" type="bush"/>
+    <entity x="9130" y="211" type="bush"/>
+    
+    <entity x="1733" y="92" type="plant"/>
+    <entity x="2960" y="116" type="plant"/>
+    <entity x="4384" y="217" type="plant"/>
+    <entity x="5434" y="119" type="plant"/>
+    <entity x="9215" y="217" type="plant"/>
+    
+    <entity x="1878" y="97" type="rockdeco"/>
+    <entity x="2781" y="122" type="rockdeco"/>
+    <entity x="3080" y="123" type="rockdeco"/>
+    <entity x="4275" y="223" type="rockdeco"/>
+    <entity x="8370" y="200" type="rockdeco"/>
+    
+    <entity x="100" y="318" type="tree"/>
+    <entity x="2350" y="168" type="tree"/>
+    <entity x="3850" y="218" type="tree"/>
+    <entity x="3900" y="218" type="tree"/>
+    <entity x="3950" y="218" type="tree"/>
+    <entity x="6230" y="117" type="tree"/>
+    <entity x="7050" y="217" type="tree"/>
+    <entity x="7900" y="217" type="tree"/>
+
+    <entity x="2230" y="113" type="mushroomred"/>
+    <entity x="3705" y="165" type="mushroomred"/>
+    <entity x="7813" y="163" type="mushroomred"/>
+    <entity x="8700" y="214" type="mushroomred"/>
+    
+    <entity x="2465" y="113" type="mushroombrown"/>
+    <entity x="5330" y="114" type="mushroombrown"/>
+    <entity x="8725" y="214" type="mushroombrown"/>
+    
     <entity x="125" y="25" type="earthPlatform"/>
     <entity x="125" y="75" type="earthPlatform"/>
     <entity x="125" y="125" type="earthPlatform"/>
@@ -67,12 +105,25 @@
     <entity x="9475" y="36" type="grassHalfLeft"/>
     <entity x="9750" y="25" type="landPlatformLong"/>
     
-    <entity x="1550" y="116" type="snake"/>
-    <entity x="2950" y="116" type="snake"/>
-    <entity x="3200" y="116" type="snake"/>
-    <entity x="5100" y="67" type="snake"/>
-    <entity x="6400" y="67" type="snake"/>
-    <entity x="8800" y="220" type="snake"/>    
+    <entity x="2580" y="112" type="snake"/>
+    <entity x="3230" y="112" type="snake"/>
+    <entity x="4080" y="162" type="snake"/>
+    <entity x="6430" y="32" type="snake"/>
+    <entity x="7470" y="169" type="snake"/>
+    <entity x="8080" y="162" type="snake"/>
+    
+    <entity x="778" y="250" type="bee"/>
+    <entity x="2075" y="125" type="bee"/>
+    <entity x="2877" y="200" type="bee"/>
+    <entity x="4678" y="250" type="bee"/>
+    <entity x="5528" y="225" type="bee"/>
+    <entity x="6025" y="150" type="bee"/>
+    <entity x="7780" y="275" type="bee"/>
+    <entity x="8820" y="250" type="bee"/>
+    <entity x="9530" y="150" type="bee"/>
+    
+    <entity x="1565" y="72" type="spider"/>
+    <entity x="5115" y="72" type="spider"/>
     
     <entity x="567" y="288" type="diamondBlue"/>
     <entity x="617" y="288" type="diamondBlue"/>
@@ -96,9 +147,9 @@
     <entity x="2965" y="238" type="diamondBlue"/>
     <entity x="3015" y="238" type="diamondBlue"/>
     <entity x="3065" y="238" type="diamondBlue"/>
-    <entity x="3385" y="162" type="diamondRed"/>
-    <entity x="3435" y="162" type="diamondRed"/>
-    <entity x="3485" y="162" type="diamondRed"/>
+    <entity x="3375" y="162" type="diamondRed"/>
+    <entity x="3425" y="162" type="diamondRed"/>
+    <entity x="3475" y="162" type="diamondRed"/>
     <entity x="3765" y="265" type="diamondBlue"/>
     <entity x="3815" y="265" type="diamondBlue"/>
     <entity x="3865" y="265" type="diamondBlue"/>
@@ -133,6 +184,8 @@
     
     <entity x="6265" y="160" type="potion"/>
 	<entity x="4613" y="66" type="antidote"/>
+	
+	<entity x="1010" y="84" type="sign"/>
     
     <entity x="15" y="250" type="player"/>
         

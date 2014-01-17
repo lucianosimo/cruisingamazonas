@@ -39,6 +39,10 @@ public class Spider extends AnimatedSprite{
 		body.setLinearVelocity(new Vector2(-1.2f, body.getLinearVelocity().y));
 	}
 	
+	public void increaseSpiderSpeed() {
+		body.setLinearVelocity(new Vector2(-1.8f, body.getLinearVelocity().y));
+	}
+	
 	public void setInactiveSpider() {
 		body.setActive(false);
 	}

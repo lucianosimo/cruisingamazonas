@@ -47,6 +47,7 @@ public abstract class Player extends AnimatedSprite{
 				camera.onUpdate(0.1f);
 				if (getY() <= 0) {
 					hpCounter = 0;
+					setPoisonedStatus(false);
 					onDie();
 				}
 				if (canRun) {
