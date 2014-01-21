@@ -11,7 +11,9 @@ public class LoadingScene extends BaseScene{
 
 	@Override
 	public void createScene() {
-		setBackground(new Background(Color.WHITE));
+		Color greenBackColor = new Color(0.47f,0.73f,0.07f);
+		//setBackground(new Background(Color.WHITE));
+		setBackground(new Background(greenBackColor));
 		attachChild(new Text(400, 240, resourcesManager.font, "Loading.....", vbom));
 	}
 

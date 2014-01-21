@@ -205,6 +205,7 @@ public class GameScene extends BaseScene{
 			light.setAlpha(0.2f);
 			this.attachChild(darkBackground);
 			player.attachChild(light);
+			break;
 		case 5:
 			firstWindowHelp = new Sprite(427, 240, resourcesManager.fifth_help_window_region, vbom);
 			break;
