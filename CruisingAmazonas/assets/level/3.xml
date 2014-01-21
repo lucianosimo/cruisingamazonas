@@ -1,5 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level width="15000" height="600">
+    
+    <entity x="150" y="168" type="tree"/>
+    <entity x="2500" y="168" type="tree"/>
+    <entity x="4650" y="168" type="tree"/>
+    <entity x="4700" y="168" type="tree"/>
+    <entity x="5605" y="168" type="tree"/>
+    <entity x="7500" y="117" type="tree"/>
+    <entity x="9850" y="217" type="tree"/>
+    <entity x="12050" y="168" type="tree"/>
+    <entity x="12450" y="168" type="tree"/>
+    <entity x="13450" y="168" type="tree"/>
+    
+    <entity x="865" y="62" type="bush"/>
+    <entity x="950" y="62" type="bush"/>
+    <entity x="4122" y="112" type="bush"/>
+    <entity x="5672" y="112" type="bush"/>
+    <entity x="7415" y="62" type="bush"/>
+    <entity x="9115" y="62" type="bush"/>
+    <entity x="11385" y="137" type="bush"/>
+    <entity x="11765" y="137" type="bush"/>
+    <entity x="11815" y="137" type="bush"/>
+    
+    <entity x="2820" y="123" type="rockdeco"/>
+    <entity x="6125" y="123" type="rockdeco"/>
+    <entity x="7585" y="73" type="rockdeco"/>
+    <entity x="10070" y="173" type="rockdeco"/>
+    <entity x="10470" y="223" type="rockdeco"/>
+    <entity x="10770" y="148" type="rockdeco"/>
+    <entity x="14480" y="73" type="rockdeco"/>
+    
+    <entity x="1468" y="119" type="plant"/>
+    <entity x="1765" y="119" type="plant"/>
+    <entity x="3065" y="69" type="plant"/>
+    <entity x="7915" y="69" type="plant"/>
+    <entity x="9225" y="69" type="plant"/>
+    <entity x="9985" y="168" type="plant"/>
+    <entity x="10335" y="219" type="plant"/>
+    <entity x="12965" y="119" type="plant"/>
+    
+    <entity x="1680" y="113" type="mushroomred"/>
+    <entity x="2530" y="113" type="mushroomred"/>
+    <entity x="5537" y="113" type="mushroomred"/>
+    <entity x="6088" y="113" type="mushroomred"/>
+    <entity x="9920" y="163" type="mushroomred"/>
+    <entity x="12550" y="113" type="mushroomred"/>
+    
+    <entity x="1070" y="65" type="mushroombrown"/>
+    <entity x="8977" y="65" type="mushroombrown"/>
+    <entity x="9003" y="65" type="mushroombrown"/>
+    <entity x="12520" y="113" type="mushroombrown"/>
 
     <entity x="125" y="25" type="earthPlatform"/>
     <entity x="125" y="75" type="landPlatform"/>
@@ -173,12 +223,28 @@
     <entity x="14750" y="75" type="landPlatformLong"/>
    
     
-    <entity x="3550" y="70" type="snake"/>
-    <entity x="5850" y="120" type="snake"/>
-    <entity x="6950" y="70" type="snake"/>
-    <entity x="8350" y="217" type="snake"/>
-    <entity x="11450" y="145" type="snake"/>
-    <entity x="11900" y="145" type="snake"/> 
+    <entity x="1145" y="60" type="snake"/>
+    <entity x="4895" y="110" type="snake"/>
+    <entity x="5845" y="110" type="snake"/>
+    <entity x="7700" y="63" type="snake"/>
+    <entity x="9320" y="60" type="snake"/>
+    <entity x="10120" y="163" type="snake"/>
+    <entity x="12725" y="111" type="snake"/>
+    
+    <entity x="727" y="100" type="bee"/>
+    <entity x="1920" y="175" type="bee"/>
+    <entity x="3025" y="175" type="bee"/>
+    <entity x="4625" y="225" type="bee"/>
+    <entity x="8720" y="250" type="bee"/>
+    <entity x="10730" y="250" type="bee"/>
+    <entity x="11230" y="150" type="bee"/>
+    <entity x="11870" y="205" type="bee"/>
+    <entity x="13620" y="225" type="bee"/>
+    <entity x="14075" y="135" type="bee"/>
+    <entity x="14375" y="135" type="bee"/>
+    
+    <entity x="3565" y="77" type="spider"/>
+    <entity x="6915" y="77" type="spider"/>
     
     <entity x="1633" y="314" type="diamondBlue"/>
     <entity x="1683" y="314" type="diamondBlue"/>
@@ -220,9 +286,9 @@
     <entity x="9135" y="63" type="diamondYellow"/>
     <entity x="9135" y="87" type="diamondYellow"/>
     <entity x="9135" y="112" type="diamondYellow"/>
-    <entity x="9485" y="113" type="diamondRed"/>
-    <entity x="9535" y="113" type="diamondRed"/>
-    <entity x="9585" y="113" type="diamondRed"/> 
+    <entity x="9480" y="113" type="diamondRed"/>
+    <entity x="9530" y="113" type="diamondRed"/>
+    <entity x="9580" y="113" type="diamondRed"/> 
     <entity x="10315" y="264" type="diamondRed"/>
     <entity x="10365" y="264" type="diamondRed"/>
     <entity x="10415" y="264" type="diamondRed"/>
@@ -247,6 +313,8 @@
     
     <entity x="7725" y="75" type="potion"/>
     <entity x="8325" y="250" type="antidote"/>
+    
+    <entity x="765" y="83" type="sign"/>
     
     <entity x="15" y="125" type="player"/>
         

@@ -182,7 +182,22 @@ public class GameScene extends BaseScene{
 		createHud();
 		createPhysics();
 		loadLevel(level);
-		if (level == 4) {
+		//createGameOverText();
+		levelCompleteWindow = new LevelCompleteWindow(vbom);
+		pauseWindow = new Sprite(427, 240, resourcesManager.pause_window_region, vbom);
+		gameOverWindow = new Sprite(427, 240, resourcesManager.game_over_window_region, vbom);
+		switch (level) {
+		case 1:
+			firstWindowHelp = new Sprite(427, 240, resourcesManager.first_help_window_region, vbom);
+			secondWindowHelp = new Sprite(427, 240, resourcesManager.second_help_window_region, vbom);
+			break;
+		case 2:
+			firstWindowHelp = new Sprite(427, 240, resourcesManager.third_help_window_region, vbom);
+			break;
+		case 3:
+			firstWindowHelp = new Sprite(427, 240, resourcesManager.fourth_help_window_region, vbom);
+			break;
+		case 4:
 			Sprite darkBackground = new Sprite(5000, 300, resourcesManager.darkBackground_region, vbom);
 			Sprite light = new Sprite(170, 32, resourcesManager.lightHalo_region, vbom);
 			light.setBlendingEnabled(true);
@@ -190,17 +205,11 @@ public class GameScene extends BaseScene{
 			light.setAlpha(0.2f);
 			this.attachChild(darkBackground);
 			player.attachChild(light);
-		}
-		//createGameOverText();
-		levelCompleteWindow = new LevelCompleteWindow(vbom);
-		pauseWindow = new Sprite(427, 240, resourcesManager.pause_window_region, vbom);
-		gameOverWindow = new Sprite(427, 240, resourcesManager.game_over_window_region, vbom);
-		if (level == 1 ) {
-			firstWindowHelp = new Sprite(427, 240, resourcesManager.first_help_window_region, vbom);
-			secondWindowHelp = new Sprite(427, 240, resourcesManager.second_help_window_region, vbom);
-		}
-		if (level == 2 ) {
-			firstWindowHelp = new Sprite(427, 240, resourcesManager.third_help_window_region, vbom);
+		case 5:
+			firstWindowHelp = new Sprite(427, 240, resourcesManager.fifth_help_window_region, vbom);
+			break;
+		default:
+			break;
 		}
 		loadSavedPreferences();
 	}

@@ -25,6 +25,7 @@ import org.andengine.util.adt.color.Color;
 import org.andengine.util.debug.Debug;
 
 import com.lucianosimo.cruisingamazonas.GameActivity;
+import com.lucianosimo.cruisingamazonas.scene.MapScene;
 
 public class ResourcesManager {
 
@@ -143,6 +144,8 @@ public class ResourcesManager {
 	public ITextureRegion first_help_window_region;
 	public ITextureRegion second_help_window_region;
 	public ITextureRegion third_help_window_region;
+	public ITextureRegion fourth_help_window_region;
+	public ITextureRegion fifth_help_window_region;
 	
 	//Game Textures
 	private BuildableBitmapTextureAtlas decoTextureAtlas;
@@ -157,6 +160,8 @@ public class ResourcesManager {
 	private BuildableBitmapTextureAtlas firstHelpWindowTextureAtlas;
 	private BuildableBitmapTextureAtlas secondHelpWindowTextureAtlas;
 	private BuildableBitmapTextureAtlas thirdHelpWindowTextureAtlas;
+	private BuildableBitmapTextureAtlas fourthHelpWindowTextureAtlas;
+	private BuildableBitmapTextureAtlas fifthHelpWindowTextureAtlas;
 	private BitmapTextureAtlas darkBackgroundTextureAtlas;	
 	
 	
@@ -268,17 +273,31 @@ public class ResourcesManager {
 		decoTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 400, 400, TextureOptions.BILINEAR);
 		animatedTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 400, 400, TextureOptions.BILINEAR);
 		backgroundTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 800, 480, TextureOptions.BILINEAR);
-		darkBackgroundTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 2, 2, TextureOptions.REPEATING_BILINEAR);
 		platformsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 500, 400, TextureOptions.DEFAULT);
 		objectsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 200, 200, TextureOptions.BILINEAR);
 		hudTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 300, 200, TextureOptions.BILINEAR);
 		othersTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 512, 750, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		gameOverTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 450, 450, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		completeWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 512, TextureOptions.BILINEAR);
-		firstHelpWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 320, TextureOptions.BILINEAR);
-		secondHelpWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 320, TextureOptions.BILINEAR);
-		thirdHelpWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 320, TextureOptions.BILINEAR);
-		
+		if (MapScene.getNextLevel() == 1) {
+			firstHelpWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 320, TextureOptions.BILINEAR);
+			secondHelpWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 320, TextureOptions.BILINEAR);
+			first_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(firstHelpWindowTextureAtlas, activity, "firstHelpWindow.png");
+			second_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(secondHelpWindowTextureAtlas, activity, "secondHelpWindow.png");
+		}
+		if (MapScene.getNextLevel() == 2) {
+			thirdHelpWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 320, TextureOptions.BILINEAR);
+			third_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(thirdHelpWindowTextureAtlas, activity, "thirdHelpWindow.png");
+		}
+		if (MapScene.getNextLevel() == 3) {
+			fourthHelpWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 320, TextureOptions.BILINEAR);
+			fourth_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fourthHelpWindowTextureAtlas, activity, "fourthHelpWindow.png");
+		}
+		if (MapScene.getNextLevel() == 5) {
+			fifthHelpWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 320, TextureOptions.BILINEAR);
+			fifth_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fifthHelpWindowTextureAtlas, activity, "fifthHelpWindow.png");
+		}
+				
 		//Animated Sprites
 		player_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "player.png", 3, 1);
 		bat_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "bat.png", 2, 1);
@@ -294,9 +313,13 @@ public class ResourcesManager {
 		
 		//Backgrounds
 		background_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(backgroundTextureAtlas, activity, "background.png");
-		darkBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(darkBackgroundTextureAtlas, activity, "darkBackground.png", 0, 0);
-		darkBackground_region.setTextureWidth(10000);
-		darkBackground_region.setTextureHeight(600);
+		if (MapScene.getNextLevel() == 4) {
+			darkBackgroundTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 2, 2, TextureOptions.REPEATING_BILINEAR);
+			darkBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(darkBackgroundTextureAtlas, activity, "darkBackground.png", 0, 0);
+			darkBackground_region.setTextureWidth(10000);
+			darkBackground_region.setTextureHeight(600);
+		}
+		
 		
 		//Platforms
 		landPlatform_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(platformsTextureAtlas, activity, "landPlatform.png");
@@ -354,9 +377,10 @@ public class ResourcesManager {
 		game_over_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameOverTextureAtlas, activity, "gameOverWindow.png");
 		
 		//Help Windows
-		first_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(firstHelpWindowTextureAtlas, activity, "firstHelpWindow.png");
-		second_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(secondHelpWindowTextureAtlas, activity, "secondHelpWindow.png");
-		third_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(thirdHelpWindowTextureAtlas, activity, "thirdHelpWindow.png");
+		//first_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(firstHelpWindowTextureAtlas, activity, "firstHelpWindow.png");
+		//second_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(secondHelpWindowTextureAtlas, activity, "secondHelpWindow.png");
+		//third_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(thirdHelpWindowTextureAtlas, activity, "thirdHelpWindow.png");
+		//fourth_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fourthHelpWindowTextureAtlas, activity, "fourthHelpWindow.png");
 		
 		//Complete window
 		complete_level_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(completeWindowTextureAtlas, activity, "levelCompleteWindow.png");
@@ -372,9 +396,29 @@ public class ResourcesManager {
 			this.othersTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.gameOverTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.completeWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
-			this.firstHelpWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
-			this.secondHelpWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
-			this.thirdHelpWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			if (MapScene.getNextLevel() == 1) {
+				this.firstHelpWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+				this.secondHelpWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+				this.firstHelpWindowTextureAtlas.load();
+				this.secondHelpWindowTextureAtlas.load();
+			}
+			if (MapScene.getNextLevel() == 2) {
+				this.thirdHelpWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+				this.thirdHelpWindowTextureAtlas.load();
+			}
+			if (MapScene.getNextLevel() == 3) {
+				this.fourthHelpWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+				this.fourthHelpWindowTextureAtlas.load();
+				
+			}
+			if (MapScene.getNextLevel() == 4) {
+				this.darkBackgroundTextureAtlas.load();				
+			}
+			if (MapScene.getNextLevel() == 5) {
+				this.fifthHelpWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+				this.fifthHelpWindowTextureAtlas.load();
+				
+			}
 			this.decoTextureAtlas.load();
 			this.animatedTextureAtlas.load();
 			this.backgroundTextureAtlas.load();
@@ -384,10 +428,10 @@ public class ResourcesManager {
 			this.othersTextureAtlas.load();
 			this.gameOverTextureAtlas.load();
 			this.completeWindowTextureAtlas.load();
-			this.darkBackgroundTextureAtlas.load();
-			this.firstHelpWindowTextureAtlas.load();
-			this.secondHelpWindowTextureAtlas.load();
-			this.thirdHelpWindowTextureAtlas.load();
+			
+			
+			
+			
 		} catch (final TextureAtlasBuilderException e) {
 			Debug.e(e);
 		}
@@ -432,10 +476,29 @@ public class ResourcesManager {
 		this.othersTextureAtlas.unload();
 		this.gameOverTextureAtlas.unload();
 		this.completeWindowTextureAtlas.unload();
-		this.darkBackgroundTextureAtlas.unload();
-		this.firstHelpWindowTextureAtlas.unload();
+		//this.darkBackgroundTextureAtlas.unload();
+		if (MapScene.getNextLevel() == 1) {
+			this.firstHelpWindowTextureAtlas.unload();
+			this.secondHelpWindowTextureAtlas.unload();
+		}
+		if (MapScene.getNextLevel() == 2) {
+			this.thirdHelpWindowTextureAtlas.unload();
+		}
+		if (MapScene.getNextLevel() == 3) {
+			this.fourthHelpWindowTextureAtlas.unload();
+			
+		}
+		if (MapScene.getNextLevel() == 4) {
+			this.darkBackgroundTextureAtlas.unload();				
+		}
+		if (MapScene.getNextLevel() == 5) {
+			this.fifthHelpWindowTextureAtlas.unload();
+			
+		}
+		/*this.firstHelpWindowTextureAtlas.unload();
 		this.secondHelpWindowTextureAtlas.unload();
 		this.thirdHelpWindowTextureAtlas.unload();
+		this.fourthHelpWindowTextureAtlas.unload();*/
 	}
 	
 	//Manager Methods

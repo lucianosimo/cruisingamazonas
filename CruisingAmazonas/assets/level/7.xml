@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level width="15000" height="600">
     
+    <entity x="97" y="317" type="tree"/>
+    <entity x="4395" y="117" type="tree"/>
+    <entity x="4600" y="117" type="tree"/>
+    <entity x="5590" y="218" type="tree"/>
+    <entity x="5790" y="218" type="tree"/>
+    <entity x="9900" y="218" type="tree"/>
+    <entity x="13250" y="117" type="tree"/>
+    
+    <entity x="1965" y="262" type="bush"/>
+    <entity x="2035" y="262" type="bush"/>
+    <entity x="3235" y="136" type="bush"/>
+    <entity x="4480" y="62" type="bush"/>
+    <entity x="6885" y="112" type="bush"/>
+    <entity x="6935" y="112" type="bush"/>
+    <entity x="9130" y="162" type="bush"/>
+    <entity x="13375" y="112" type="bush"/>
+    
+    <entity x="4060" y="148" type="rockdeco"/>
+    <entity x="5270" y="123" type="rockdeco"/>
+    <entity x="8340" y="173" type="rockdeco"/>
+    
+    <entity x="3515" y="142" type="plant"/>
+    <entity x="4960" y="118" type="plant"/>
+    <entity x="5360" y="118" type="plant"/>
+    <entity x="6666" y="118" type="plant"/>
+    <entity x="8015" y="116" type="plant"/>    
+    <entity x="8415" y="167" type="plant"/>
+    <entity x="13460" y="68" type="plant"/>
+    
+    <entity x="774" y="62" type="mushroomred"/>
+    <entity x="824" y="62" type="mushroomred"/>
+    <entity x="3130" y="138" type="mushroomred"/>
+    <entity x="9775" y="163" type="mushroomred"/>
+    
+    <entity x="710" y="62" type="mushroombrown"/>
+    <entity x="5925" y="163" type="mushroombrown"/>    
+    
     <entity x="125" y="25" type="earthPlatform"/>
     <entity x="125" y="75" type="earthPlatform"/>
     <entity x="125" y="125" type="earthPlatform"/>
@@ -149,14 +186,6 @@
     <entity x="10875" y="175" type="box"/>
     <entity x="10975" y="175" type="box"/>
     
-    <entity x="1700" y="287" type="snake"/>
-    <entity x="2920" y="115" type="snake"/>
-    <entity x="4450" y="65" type="snake"/>
-    <entity x="4700" y="65" type="snake"/>
-    <entity x="7000" y="115" type="snake"/>
-    <entity x="11550" y="130" type="snake"/>
-    <entity x="14650" y="90" type="snake"/>
-    
     <entity x="530" y="212" type="diamondRed"/>
     <entity x="580" y="212" type="diamondRed"/>
     <entity x="630" y="212" type="diamondRed"/>
@@ -196,6 +225,9 @@
     <entity x="9367" y="237" type="diamondYellow"/>
     <entity x="9417" y="237" type="diamondYellow"/>
     <entity x="9467" y="237" type="diamondYellow"/>
+    <entity x="11265" y="162" type="diamondRed"/>
+    <entity x="11315" y="162" type="diamondRed"/>
+    <entity x="11365" y="162" type="diamondRed"/>
     <entity x="11817" y="137" type="diamondBlue"/>
     <entity x="12017" y="137" type="diamondBlue"/>
     <entity x="12067" y="137" type="diamondBlue"/>
@@ -203,7 +235,37 @@
     <entity x="12267" y="137" type="diamondRed"/>
     <entity x="12317" y="137" type="diamondRed"/>
     
-    <entity x="2405" y="500" type="rock"/>
+    <entity x="13317" y="137" type="diamondRed"/>
+    <entity x="13367" y="137" type="diamondRed"/>
+    <entity x="13417" y="137" type="diamondRed"/>
+    <entity x="14065" y="112" type="diamondBlue"/>
+    <entity x="14115" y="112" type="diamondBlue"/>
+    <entity x="14165" y="112" type="diamondBlue"/>
+    <entity x="14467" y="112" type="diamondRed"/>
+    <entity x="14517" y="112" type="diamondRed"/>
+    <entity x="14567" y="112" type="diamondRed"/>
+    
+    <entity x="1130" y="225" type="bee"/>
+    <entity x="3625" y="200" type="bee"/>
+    <entity x="4375" y="200" type="bee"/>
+    <entity x="6675" y="175" type="bee"/>
+    <entity x="8720" y="250" type="bee"/>
+    <entity x="12475" y="150" type="bee"/>
+    
+    <entity x="1750" y="282" type="snake"/>
+    <entity x="2195" y="263" type="snake"/>
+    <entity x="4745" y="62" type="snake"/>
+    <entity x="6045" y="162" type="snake"/>
+    <entity x="7145" y="113" type="snake"/> 
+    <entity x="9670" y="180" type="snake"/>
+    <entity x="13600" y="63" type="snake"/>
+    
+    <entity x="2930" y="125" type="spider"/>
+    <entity x="11585" y="125" type="spider"/>
+    <entity x="14265" y="73" type="spider"/>
+    <entity x="14715" y="73" type="spider"/>
+    
+    <entity x="2405" y="570" type="rock"/>
     <entity x="5180" y="500" type="rock"/>
     <entity x="8085" y="500" type="rock"/>
     <entity x="10635" y="500" type="rock"/>

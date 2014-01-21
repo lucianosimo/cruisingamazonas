@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level width="10000" height="600">
     
+    <entity x="1600" y="166" type="tree"/>
+    <entity x="5100" y="216" type="tree"/>
+    <entity x="8600" y="166" type="tree"/>
+    
+    <entity x="170" y="448" type="rockdeco"/>
+    <entity x="2428" y="98" type="rockdeco"/>
+    <entity x="4200" y="98" type="rockdeco"/>
+    <entity x="5020" y="173" type="rockdeco"/>
+    
+    <entity x="535" y="337" type="bush"/>
+    <entity x="1215" y="238" type="bush"/>
+    <entity x="2315" y="109" type="bush"/>
+    <entity x="4538" y="136" type="bush"/>
+    <entity x="6370" y="62" type="bush"/>
+    <entity x="6570" y="62" type="bush"/>
+    <entity x="7935" y="111" type="bush"/>
+    
+    <entity x="1684" y="119" type="plant"/>
+    <entity x="3785" y="93" type="plant"/>
+    <entity x="4610" y="143" type="plant"/>
+    <entity x="6265" y="69" type="plant"/>
+    <entity x="8365" y="119" type="plant"/>
+    
+    <entity x="3732" y="90" type="mushroomred"/>
+    <entity x="4135" y="90" type="mushroomred"/>
+    <entity x="7017" y="239" type="mushroomred"/>
+    <entity x="8520" y="113" type="mushroomred"/>
+    
+    <entity x="3865" y="90" type="mushroombrown"/>
+    <entity x="7880" y="113" type="mushroombrown"/>
+    
     <entity x="125" y="412" type="airPlatformLong"/>
     <entity x="525" y="312" type="airPlatform"/>
     <entity x="875" y="262" type="airPlatform"/>
@@ -81,12 +112,25 @@
     <entity x="9175" y="125" type="box"/>
     <entity x="9200" y="175" type="boxPosition"/>
 
+    <entity x="813" y="372" type="bat"/>
+    <entity x="1585" y="272" type="bat"/>
+    <entity x="3313" y="116" type="bat"/>
+    <entity x="4264" y="140" type="bat"/>
+    <entity x="5762" y="167" type="bat"/>
+    <entity x="7385" y="322" type="bat"/>
+    <entity x="8415" y="192" type="bat"/>
+    <entity x="9500" y="220" type="bat"/>
     
-    <entity x="1800" y="120" type="snake"/>
-    <entity x="3300" y="65" type="snake"/>
-    <entity x="5050" y="170" type="snake"/>
-    <entity x="5800" y="70" type="snake"/>
-    <entity x="7950" y="115" type="snake"/>
+    <entity x="1900" y="128" type="snake"/>
+    <entity x="5285" y="160" type="snake"/>
+    <entity x="7200" y="60" type="snake"/>
+    <entity x="8045" y="111" type="snake"/>
+    <entity x="8780" y="111" type="snake"/>
+    <entity x="9630" y="111" type="snake"/>
+    
+    <entity x="2715" y="77" type="spider"/>
+    <entity x="3415" y="77" type="spider"/>
+    <entity x="6015" y="77" type="spider"/>
     
     <entity x="885" y="325" type="torch"/>
     <entity x="885" y="325" type="torchLightHalo"/>
