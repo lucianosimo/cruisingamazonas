@@ -132,24 +132,13 @@
     <entity x="3415" y="77" type="spider"/>
     <entity x="6015" y="77" type="spider"/>
     
-    <entity x="885" y="325" type="torch"/>
-    <entity x="885" y="325" type="torchLightHalo"/>
-    <entity x="1460" y="128" type="torch"/>
-    <entity x="1460" y="128" type="torchLightHalo"/>
-    <entity x="2935" y="78" type="torch"/>
-    <entity x="2935" y="78" type="torchLightHalo"/>
-    <entity x="3485" y="78" type="torch"/>
-    <entity x="3485" y="78" type="torchLightHalo"/>
-    <entity x="4585" y="155" type="torch"/>
-    <entity x="4585" y="155" type="torchLightHalo"/>
-    <entity x="5585" y="80" type="torch"/>
-    <entity x="5585" y="80" type="torchLightHalo"/>
-    <entity x="6965" y="250" type="torch"/>
-    <entity x="6965" y="250" type="torchLightHalo"/>
-    <entity x="7815" y="125" type="torch"/>
-    <entity x="7815" y="125" type="torchLightHalo"/>
-    <entity x="9415" y="125" type="torch"/>
-    <entity x="9415" y="125" type="torchLightHalo"/>
+    <entity x="5485" y="165" type="potion"/>
+    <entity x="6365" y="90" type="antidote"/>
+    
+    <entity x="15" y="450" type="player"/>
+        
+    
+    
     
     <entity x="1035" y="387" type="diamondBlue"/>
     <entity x="1085" y="387" type="diamondBlue"/>
@@ -193,10 +182,32 @@
     <entity x="8185" y="237" type="diamondRed"/>
     <entity x="8235" y="237" type="diamondRed"/>
     
-    <entity x="5485" y="165" type="potion"/>
-    <entity x="6365" y="90" type="antidote"/>
+    <entity x="885" y="325" type="torchLightHalo"/>
+    <entity x="885" y="325" type="torch"/>
     
-    <entity x="15" y="450" type="player"/>
-        
+    <entity x="1460" y="128" type="torchLightHalo"/>
+    <entity x="1460" y="128" type="torch"/>
+    
+    <entity x="2935" y="78" type="torchLightHalo"/>
+    <entity x="2935" y="78" type="torch"/>
+    
+    <entity x="3485" y="78" type="torchLightHalo"/>
+    <entity x="3485" y="78" type="torch"/>
+    
+    <entity x="4585" y="155" type="torchLightHalo"/>
+    <entity x="4585" y="155" type="torch"/>
+    
+    <entity x="5585" y="80" type="torchLightHalo"/>
+    <entity x="5585" y="80" type="torch"/>
+    
+    <entity x="6965" y="250" type="torchLightHalo"/>
+    <entity x="6965" y="250" type="torch"/>
+    
+    <entity x="7815" y="125" type="torchLightHalo"/>
+    <entity x="7815" y="125" type="torch"/>
+    
+    <entity x="9415" y="125" type="torchLightHalo"/>
+    <entity x="9415" y="125" type="torch"/>
+    
     <entity x="9928" y="150" type="tent"/>
 </level>

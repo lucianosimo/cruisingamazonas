@@ -318,6 +318,11 @@ public class ResourcesManager {
 			darkBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(darkBackgroundTextureAtlas, activity, "darkBackground.png", 0, 0);
 			darkBackground_region.setTextureWidth(10000);
 			darkBackground_region.setTextureHeight(600);
+		} else if (MapScene.getNextLevel() == 8) {
+			darkBackgroundTextureAtlas = new BitmapTextureAtlas(activity.getTextureManager(), 2, 2, TextureOptions.REPEATING_BILINEAR);
+			darkBackground_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(darkBackgroundTextureAtlas, activity, "darkBackground.png", 0, 0);
+			darkBackground_region.setTextureWidth(15000);
+			darkBackground_region.setTextureHeight(600);
 		}
 		
 		
@@ -411,7 +416,7 @@ public class ResourcesManager {
 				this.fourthHelpWindowTextureAtlas.load();
 				
 			}
-			if (MapScene.getNextLevel() == 4) {
+			if (MapScene.getNextLevel() == 4 || MapScene.getNextLevel() == 8) {
 				this.darkBackgroundTextureAtlas.load();				
 			}
 			if (MapScene.getNextLevel() == 5) {
@@ -488,7 +493,7 @@ public class ResourcesManager {
 			this.fourthHelpWindowTextureAtlas.unload();
 			
 		}
-		if (MapScene.getNextLevel() == 4) {
+		if (MapScene.getNextLevel() == 4 || MapScene.getNextLevel() == 8) {
 			this.darkBackgroundTextureAtlas.unload();				
 		}
 		if (MapScene.getNextLevel() == 5) {

@@ -35,7 +35,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.opengl.GLES20;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -208,6 +207,15 @@ public class GameScene extends BaseScene{
 			break;
 		case 5:
 			firstWindowHelp = new Sprite(427, 240, resourcesManager.fifth_help_window_region, vbom);
+			break;
+		case 8:
+			Sprite darkBackground8 = new Sprite(7500, 300, resourcesManager.darkBackground_region, vbom);
+			Sprite light8 = new Sprite(170, 32, resourcesManager.lightHalo_region, vbom);
+			light8.setBlendingEnabled(true);
+			light8.setBlendFunctionSource(GLES20.GL_DST_COLOR);
+			light8.setAlpha(0.2f);
+			this.attachChild(darkBackground8);
+			player.attachChild(light8);
 			break;
 		default:
 			break;
@@ -1103,12 +1111,12 @@ public class GameScene extends BaseScene{
 					resourcesManager.grunt.play();
 					player.decreaseHP(25f);
 					reduceHealthBar(25f);
-					//setInactiveBody(x1.getBody());
 				}
 				
 				if (x1.getBody().getUserData().equals("spike") && x2.getBody().getUserData().equals("player")) {
 					player.decreaseHP(100f);
 					reduceHealthBar(100f);
+					setInactiveBody(x1.getBody());
 				}
 				
 				if (x1.getBody().getUserData().equals("waterPlatform") && x2.getBody().getUserData().equals("player")) {
@@ -1116,7 +1124,6 @@ public class GameScene extends BaseScene{
 						
 						@Override
 						public void onTimePassed(TimerHandler pTimerHandler) {
-							Log.e("amazonas", "dynamic");
 							pTimerHandler.reset();
 							engine.unregisterUpdateHandler(pTimerHandler);
 							x1.getBody().setType(BodyType.DynamicBody);
