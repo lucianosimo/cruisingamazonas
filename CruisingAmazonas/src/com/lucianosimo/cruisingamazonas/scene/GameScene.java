@@ -1114,8 +1114,7 @@ public class GameScene extends BaseScene{
 				}
 				
 				if (x1.getBody().getUserData().equals("spike") && x2.getBody().getUserData().equals("player")) {
-					player.decreaseHP(100f);
-					reduceHealthBar(100f);
+					player.killPlayer();
 					setInactiveBody(x1.getBody());
 				}
 				

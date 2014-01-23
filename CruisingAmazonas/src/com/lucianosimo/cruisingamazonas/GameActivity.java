@@ -49,7 +49,21 @@ public class GameActivity extends BaseGameActivity{
         // Notify the beginning of a user session. Must not be dependent on user actions or any prior network requests.
         this.cb.startSession();
 
-    }   
+    } 
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		mEngine.getSoundManager().setMasterVolume(0);
+		mEngine.getMusicManager().setMasterVolume(0);
+	}
+	
+	@Override
+	protected synchronized void onResume() {
+		super.onResume();
+		mEngine.getSoundManager().setMasterVolume(1);
+		mEngine.getMusicManager().setMasterVolume(1);
+	}
 	
 	@Override
 	protected void onStop() {

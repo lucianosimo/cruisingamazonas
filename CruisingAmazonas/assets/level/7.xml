@@ -84,6 +84,8 @@
     <entity x="5800" y="75" type="earthPlatformLong"/>
     <entity x="5800" y="125" type="landPlatformLong"/>
     
+    <entity x="6250" y="86" type="waterPlatform"/>
+    <entity x="6500" y="86" type="waterPlatform"/>
     <entity x="6125" y="12" type="water"/>
     <entity x="6125" y="37" type="water"/>
     <entity x="6125" y="62" type="water"/>
@@ -97,8 +99,7 @@
     <entity x="6575" y="37" type="water"/>
     <entity x="6575" y="62" type="water"/>
     
-    <entity x="6250" y="86" type="waterPlatform"/>
-    <entity x="6500" y="86" type="waterPlatform"/>
+    
     
     <entity x="6900" y="25" type="earthPlatformLong"/>
     <entity x="6900" y="75" type="landPlatformLong"/>
@@ -137,6 +138,13 @@
     <entity x="11350" y="175" type="darkEarthPlatformLong"/>
     <entity x="11350" y="225" type="landPlatformLong"/>
     
+    <entity x="11750" y="36" type="waterPlatform"/>
+    <entity x="11900" y="36" type="waterPlatform"/>
+    <entity x="12150" y="36" type="waterPlatform"/>
+    <entity x="12400" y="36" type="waterPlatform"/>
+    <entity x="12550" y="36" type="waterPlatform"/>
+    <entity x="12700" y="36" type="waterPlatform"/>
+    <entity x="12950" y="36" type="waterPlatform"/>
     <entity x="11675" y="12" type="water"/>
     <entity x="11825" y="12" type="water"/>
     <entity x="11975" y="12" type="water"/>
@@ -147,13 +155,7 @@
     <entity x="12725" y="12" type="water"/>
     <entity x="12875" y="12" type="water"/>
     <entity x="13025" y="12" type="water"/>
-    <entity x="11750" y="36" type="waterPlatform"/>
-    <entity x="11900" y="36" type="waterPlatform"/>
-    <entity x="12150" y="36" type="waterPlatform"/>
-    <entity x="12400" y="36" type="waterPlatform"/>
-    <entity x="12550" y="36" type="waterPlatform"/>
-    <entity x="12700" y="36" type="waterPlatform"/>
-    <entity x="12950" y="36" type="waterPlatform"/>
+    
     
     <entity x="13350" y="25" type="landPlatformLong"/>
     

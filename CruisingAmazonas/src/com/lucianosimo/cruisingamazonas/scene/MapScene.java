@@ -174,8 +174,8 @@ public class MapScene extends BaseScene implements IOnMenuItemClickListener{
 	private void loadSavedPreferences() {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
 		int available = sharedPreferences.getInt("availableLevels", 1);
-		setAvailableLevels(available);
-		//setAvailableLevels(8);
+		//setAvailableLevels(available);
+		setAvailableLevels(8);
 		for (int i = 1; i < availableLevels; i++) {
 			setCompletedLevels(i);
 		}

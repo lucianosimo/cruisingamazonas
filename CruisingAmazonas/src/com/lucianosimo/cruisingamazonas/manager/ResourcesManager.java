@@ -49,8 +49,12 @@ public class ResourcesManager {
 	public ITextureRegion configure_region;
 	public ITextureRegion howtoplay_region;
 	public ITextureRegion rateus_region;
+	public ITextureRegion credits_region;
+	public ITextureRegion creditsWindow_region;
+	public ITextureRegion continueButtonMenu_region;
 	public Music menuMusic;
 	private BuildableBitmapTextureAtlas menuTextureAtlas;
+	private BuildableBitmapTextureAtlas creditsTextureAtlas;
 	
 	//Configure items
 	public ITextureRegion configure_background_region;
@@ -188,14 +192,20 @@ public class ResourcesManager {
 	private void loadMenuGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
 		menuTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
+		creditsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 320, TextureOptions.BILINEAR);
 		menu_background_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "menu_background.png");
 		play_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "play.png");
 		configure_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "configure.png");
 		howtoplay_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "howtoplay.png");
 		rateus_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "rateUs.png");
+		credits_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "credits.png");
+		creditsWindow_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(creditsTextureAtlas, activity, "creditsWindow.png");
+		continueButtonMenu_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "continueButton.png");
 		try {
 			this.menuTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+			this.creditsTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.menuTextureAtlas.load();
+			this.creditsTextureAtlas.load();
 		} catch (final TextureAtlasBuilderException e) {
 			org.andengine.util.debug.Debug.e(e);
 		}
@@ -226,6 +236,7 @@ public class ResourcesManager {
 	
 	public void unloadMenuTextures() {
 		menuTextureAtlas.unload();
+		this.creditsTextureAtlas.unload();
 	}
 	
 	public void loadMenuTextures() {

@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level width="15000" height="600">
     
+    <entity x="3500" y="167" type="tree"/>
+    
+    <entity x="3270" y="123" type="rockdeco"/>
+    <entity x="9485" y="123" type="rockdeco"/>
+    <entity x="10960" y="373" type="rockdeco"/>
+    <entity x="14135" y="123" type="rockdeco"/>
+    
+    <entity x="3410" y="118" type="plant"/>
+    <entity x="10010" y="193" type="plant"/>
+    <entity x="10810" y="367" type="plant"/>
+    <entity x="14460" y="192" type="plant"/>
+    
+    <entity x="4865" y="112" type="bush"/>
+    <entity x="9260" y="62" type="bush"/>
+    <entity x="10345" y="287" type="bush"/>
+    <entity x="14630" y="263" type="bush"/>
+    <entity x="14680" y="263" type="bush"/>
+    
+    <entity x="9610" y="112" type="mushroomred"/>
+    <entity x="9910" y="187" type="mushroomred"/>
+    <entity x="14220" y="112" type="mushroomred"/>
+    
+    <entity x="1125" y="75" type="darkEarthPlatformLong"/>
+	<entity x="1125" y="125" type="darkEarthPlatformLong"/>
+	<entity x="1125" y="175" type="darkEarthPlatformLong"/>
+	<entity x="1125" y="225" type="darkEarthPlatformLong"/>
+	
+	<entity x="1875" y="125" type="darkEarthPlatformLong"/>
+	<entity x="1875" y="175" type="darkEarthPlatformLong"/>
+	<entity x="1875" y="225" type="darkEarthPlatformLong"/>
+	<entity x="1875" y="275" type="darkEarthPlatformLong"/>
+    
     <entity x="6300" y="50" type="darkEarthPlatformLong"/>
 	<entity x="6300" y="100" type="darkEarthPlatformLong"/>
 	<entity x="6300" y="150" type="darkEarthPlatformLong"/>
@@ -11,17 +43,52 @@
 	<entity x="7300" y="100" type="darkEarthPlatformLong"/>
 	<entity x="7300" y="150" type="darkEarthPlatformLong"/>
 	
+	<entity x="7675" y="75" type="darkEarthPlatformLong"/>
+	<entity x="7675" y="125" type="darkEarthPlatformLong"/>
+	<entity x="7675" y="175" type="darkEarthPlatformLong"/>
+	
+	<entity x="7925" y="125" type="darkEarthPlatformLong"/>
+	<entity x="7925" y="175" type="darkEarthPlatformLong"/>
+	<entity x="7925" y="225" type="darkEarthPlatformLong"/>
+	
+	<entity x="8175" y="75" type="darkEarthPlatformLong"/>
+	
+	<entity x="12850" y="75" type="darkEarthPlatformLong"/>
 	<entity x="12850" y="125" type="darkEarthPlatformLong"/>
 	<entity x="12850" y="175" type="darkEarthPlatformLong"/>
     <entity x="12850" y="225" type="darkEarthPlatformLong"/>
 	<entity x="12850" y="275" type="darkEarthPlatformLong"/>
 	<entity x="12850" y="325" type="darkEarthPlatformLong"/>
 	
-	<entity x="13225" y="125" type="darkEarthPlatform"/>
-	<entity x="13225" y="175" type="darkEarthPlatform"/>
-    <entity x="13225" y="225" type="darkEarthPlatform"/>
-	<entity x="13225" y="275" type="darkEarthPlatform"/>
-	<entity x="13225" y="325" type="darkEarthPlatform"/>
+	<entity x="11450" y="225" type="darkEarthPlatformLong"/>
+	<entity x="11450" y="275" type="darkEarthPlatformLong"/>
+	<entity x="11450" y="325" type="darkEarthPlatformLong"/>
+	
+	<entity x="11900" y="125" type="darkEarthPlatformLong"/>
+	<entity x="11900" y="175" type="darkEarthPlatformLong"/>
+	<entity x="11900" y="225" type="darkEarthPlatformLong"/>
+	<entity x="11900" y="275" type="darkEarthPlatformLong"/>
+	<entity x="11900" y="325" type="darkEarthPlatformLong"/>
+	
+	<entity x="12350" y="175" type="darkEarthPlatformLong"/>
+	<entity x="12350" y="225" type="darkEarthPlatformLong"/>
+	<entity x="12350" y="275" type="darkEarthPlatformLong"/>
+	<entity x="12350" y="325" type="darkEarthPlatformLong"/>
+	
+	<entity x="13300" y="75" type="darkEarthPlatformLong"/>
+    <entity x="13300" y="125" type="darkEarthPlatformLong"/>    
+	<entity x="13300" y="175" type="darkEarthPlatformLong"/>
+	<entity x="13300" y="225" type="darkEarthPlatformLong"/>
+	<entity x="13300" y="275" type="darkEarthPlatformLong"/>
+	<entity x="13300" y="325" type="darkEarthPlatformLong"/>
+	
+	<entity x="13750" y="75" type="darkEarthPlatformLong"/>
+    <entity x="13750" y="125" type="darkEarthPlatformLong"/>    
+	<entity x="13750" y="175" type="darkEarthPlatformLong"/>
+	<entity x="13750" y="225" type="darkEarthPlatformLong"/>
+	<entity x="13750" y="275" type="darkEarthPlatformLong"/>
+	
+	
 
     <entity x="250" y="25" type="earthPlatformLong"/>
 	<entity x="250" y="75" type="darkEarthPlatformLong"/>
@@ -33,10 +100,7 @@
 	<entity x="750" y="175" type="darkEarthPlatformLong"/>
     <entity x="750" y="225" type="landPlatformLong"/>
     <entity x="1125" y="25" type="earthPlatform"/>
-    <entity x="1125" y="75" type="darkEarthPlatform"/>
-	<entity x="1125" y="125" type="darkEarthPlatform"/>
-	<entity x="1125" y="175" type="darkEarthPlatform"/>
-	<entity x="1125" y="225" type="darkEarthPlatform"/>
+    
     <entity x="1125" y="275" type="landPlatform"/>
     <entity x="1500" y="25" type="earthPlatformLong"/>
 	<entity x="1500" y="75" type="darkEarthPlatformLong"/>
@@ -47,10 +111,7 @@
     <entity x="1500" y="325" type="landPlatformLong"/>
     <entity x="1875" y="25" type="earthPlatform"/>
 	<entity x="1875" y="75" type="earthPlatform"/>
-	<entity x="1875" y="125" type="darkEarthPlatform"/>
-	<entity x="1875" y="175" type="darkEarthPlatform"/>
-	<entity x="1875" y="225" type="darkEarthPlatform"/>
-	<entity x="1875" y="275" type="darkEarthPlatform"/>
+	
     <entity x="1875" y="325" type="landPlatform"/>
     <entity x="2250" y="25" type="earthPlatformLong"/>
 	<entity x="2250" y="75" type="earthPlatformLong"/>
@@ -60,63 +121,58 @@
 	<entity x="2250" y="275" type="darkEarthPlatformLong"/>
     <entity x="2250" y="325" type="landPlatformLong"/>
     
-    <entity x="2575" y="12" type="water"/>
-    <entity x="2575" y="37" type="water"/>
-    <entity x="2725" y="12" type="water"/>
-    <entity x="2725" y="37" type="water"/>
-    <entity x="2875" y="12" type="water"/>
-    <entity x="2875" y="37" type="water"/>
-    <entity x="3025" y="12" type="water"/>
-    <entity x="3025" y="37" type="water"/>
+    <entity x="2700" y="33" type="waterPlatform"/>
+    <entity x="2950" y="33" type="waterPlatform"/>
     
-    <entity x="2700" y="60" type="waterPlatform"/>
-    <entity x="2950" y="60" type="waterPlatform"/>
+    <entity x="2575" y="12" type="water"/>
+    <entity x="2725" y="12" type="water"/>
+    <entity x="2875" y="12" type="water"/>
+    <entity x="3025" y="12" type="water"/>
+    
+    
     
     <entity x="3350" y="25" type="earthPlatformLong"/>
 	<entity x="3350" y="75" type="landPlatformLong"/>
     
+	<entity x="3800" y="33" type="waterPlatform"/>
+    <entity x="3950" y="33" type="waterPlatform"/>
+    <entity x="4200" y="33" type="waterPlatform"/>
+    <entity x="4450" y="33" type="waterPlatform"/>
+    <entity x="4700" y="33" type="waterPlatform"/>
+	
     <entity x="3675" y="12" type="water"/>
-    <entity x="3675" y="37" type="water"/>
     <entity x="3825" y="12" type="water"/>
-    <entity x="3825" y="37" type="water"/>
     <entity x="3975" y="12" type="water"/>
-    <entity x="3975" y="37" type="water"/>
     <entity x="4125" y="12" type="water"/>
-    <entity x="4125" y="37" type="water"/>
     <entity x="4275" y="12" type="water"/>
-    <entity x="4275" y="37" type="water"/>
     <entity x="4425" y="12" type="water"/>
-    <entity x="4425" y="37" type="water"/>
     <entity x="4575" y="12" type="water"/>
-    <entity x="4575" y="37" type="water"/>
     <entity x="4725" y="12" type="water"/>
-    <entity x="4725" y="37" type="water"/>
-    
-    <entity x="3800" y="60" type="waterPlatform"/>
-    <entity x="3950" y="60" type="waterPlatform"/>
-    <entity x="4200" y="60" type="waterPlatform"/>
-    <entity x="4450" y="60" type="waterPlatform"/>
-    <entity x="4700" y="60" type="waterPlatform"/>
     
     <entity x="4875" y="25" type="earthPlatformShort"/>
 	<entity x="4875" y="75" type="landPlatformShort"/>
     
+	<entity x="5150" y="33" type="waterPlatform"/>
+    <entity x="5400" y="33" type="waterPlatform"/>
+	
     <entity x="5025" y="12" type="water"/>
-    <entity x="5025" y="37" type="water"/>
     <entity x="5175" y="12" type="water"/>
-    <entity x="5175" y="37" type="water"/>
     <entity x="5325" y="12" type="water"/>
-    <entity x="5325" y="37" type="water"/>
     <entity x="5475" y="12" type="water"/>
-    <entity x="5475" y="37" type="water"/>
-    
-    <entity x="5150" y="60" type="waterPlatform"/>
-    <entity x="5400" y="60" type="waterPlatform"/>
-    
+
     <entity x="5800" y="25" type="earthPlatformLong"/>
 	<entity x="5800" y="75" type="darkEarthPlatformLong"/>
 	<entity x="5800" y="125" type="darkEarthPlatformLong"/>
     <entity x="5800" y="175" type="landPlatformLong"/>
+    
+    <entity x="6200" y="36" type="waterPlatform"/>
+    <entity x="6400" y="36" type="waterPlatform"/>
+    <entity x="6550" y="36" type="waterPlatform"/>
+    <entity x="6750" y="36" type="waterPlatform"/>
+    <entity x="6950" y="36" type="waterPlatform"/>
+    <entity x="7150" y="36" type="waterPlatform"/>
+    <entity x="7300" y="36" type="waterPlatform"/>
+    <entity x="7480" y="36" type="waterPlatform"/>
     
     <entity x="6125" y="12" type="water"/>
     <entity x="6275" y="12" type="water"/>
@@ -129,33 +185,20 @@
     <entity x="7325" y="12" type="water"/>
     <entity x="7475" y="12" type="water"/>
     
-    <entity x="6200" y="36" type="waterPlatform"/>
-    <entity x="6400" y="36" type="waterPlatform"/>
-    <entity x="6550" y="36" type="waterPlatform"/>
-    <entity x="6750" y="36" type="waterPlatform"/>
-    <entity x="6950" y="36" type="waterPlatform"/>
-    <entity x="7150" y="36" type="waterPlatform"/>
-    <entity x="7300" y="36" type="waterPlatform"/>
-    <entity x="7500" y="36" type="waterPlatform"/>
-    
     <entity x="6300" y="200" type="landPlatformLong"/>
     
     <entity x="6800" y="200" type="landPlatformLong"/>
     
     <entity x="7300" y="200" type="landPlatformLong"/>
     <entity x="7675" y="25" type="earthPlatform"/>
-	<entity x="7675" y="75" type="darkEarthPlatform"/>
-	<entity x="7675" y="125" type="darkEarthPlatform"/>
-	<entity x="7675" y="175" type="darkEarthPlatform"/>
+	
     <entity x="7675" y="225" type="landPlatform"/>
     <entity x="7925" y="25" type="earthPlatform"/>
     <entity x="7925" y="75" type="earthPlatform"/>
-	<entity x="7925" y="125" type="darkEarthPlatform"/>
-	<entity x="7925" y="175" type="darkEarthPlatform"/>
-	<entity x="7925" y="225" type="darkEarthPlatform"/>
+	
     <entity x="7925" y="275" type="landPlatform"/>
     <entity x="8300" y="25" type="earthPlatformLong"/>
-    <entity x="8175" y="75" type="darkEarthPlatform"/>
+    
     <entity x="8425" y="75" type="earthPlatform"/>	    
 	<entity x="8300" y="125" type="darkEarthPlatformLong"/>
 	<entity x="8300" y="175" type="darkEarthPlatformLong"/>
@@ -167,17 +210,13 @@
     <entity x="8172" y="67" type="spike"/>
     <entity x="8265" y="67" type="spike"/>
     
-    <entity x="8625" y="12" type="water"/>
-    <entity x="8625" y="37" type="water"/>
-    <entity x="8775" y="12" type="water"/>
-    <entity x="8775" y="37" type="water"/>
-    <entity x="8925" y="12" type="water"/>
-    <entity x="8925" y="37" type="water"/>
-    <entity x="9075" y="12" type="water"/>
-    <entity x="9075" y="37" type="water"/>
+    <entity x="8750" y="33" type="waterPlatform"/>
+    <entity x="9000" y="33" type="waterPlatform"/>
     
-    <entity x="8750" y="60" type="waterPlatform"/>
-    <entity x="9000" y="60" type="waterPlatform"/>
+    <entity x="8625" y="12" type="water"/>
+    <entity x="8775" y="12" type="water"/>
+    <entity x="8925" y="12" type="water"/>
+    <entity x="9075" y="12" type="water"/>
     
     <entity x="9225" y="25" type="landPlatformShort"/>
     
@@ -186,15 +225,28 @@
     <entity x="10425" y="263" type="airPlatformLong"/>
     <entity x="10875" y="337" type="airPlatformLong"/>
     
-    <entity x="11450" y="187" type="grassHalfLeft"/>
+    <entity x="9375" y="12" type="water"/>
+    <entity x="9525" y="12" type="water"/>
+    <entity x="9675" y="12" type="water"/>
+    <entity x="9825" y="12" type="water"/>
+    <entity x="9975" y="12" type="water"/>
+    <entity x="10125" y="12" type="water"/>
+    <entity x="10275" y="12" type="water"/>
+    <entity x="10425" y="12" type="water"/>
+    <entity x="10575" y="12" type="water"/>
+    <entity x="10725" y="12" type="water"/>
+    <entity x="10875" y="12" type="water"/>
+    <entity x="11025" y="12" type="water"/>
+    <entity x="11175" y="12" type="water"/>    
+    
     <entity x="11450" y="25" type="earthPlatformLong"/>
     <entity x="11450" y="75" type="earthPlatformLong"/>
     <entity x="11450" y="125" type="earthPlatformLong"/>    
 	<entity x="11450" y="175" type="earthPlatformLong"/>
-	<entity x="11450" y="225" type="darkEarthPlatformLong"/>
-	<entity x="11450" y="275" type="darkEarthPlatformLong"/>
-	<entity x="11450" y="325" type="darkEarthPlatformLong"/>
+	
     <entity x="11450" y="375" type="landPlatformLong"/>
+    
+    <entity x="11900" y="110" type="waterPlatform"/>
     
     <entity x="11775" y="12" type="water"/>
     <entity x="11775" y="37" type="water"/>
@@ -207,81 +259,47 @@
     <entity x="12075" y="12" type="water"/>
     <entity x="12075" y="37" type="water"/>
     <entity x="12075" y="62" type="water"/>
-    <entity x="12075" y="87" type="water"/>
-    <entity x="11900" y="110" type="waterPlatform"/>
+    <entity x="12075" y="87" type="water"/>    
     
-    <entity x="11825" y="125" type="darkEarthPlatform"/>
-	<entity x="11825" y="175" type="darkEarthPlatform"/>
-    <entity x="11825" y="225" type="darkEarthPlatform"/>
-	<entity x="11825" y="275" type="darkEarthPlatform"/>
-	<entity x="11825" y="325" type="darkEarthPlatform"/>
     <entity x="11825" y="375" type="landPlatform"/>
-    <entity x="12025" y="125" type="darkEarthPlatformShort"/>
-	<entity x="12025" y="175" type="darkEarthPlatformShort"/>
-    <entity x="12025" y="225" type="darkEarthPlatformShort"/>
-	<entity x="12025" y="275" type="darkEarthPlatformShort"/>
-	<entity x="12025" y="325" type="darkEarthPlatformShort"/>
+    
     <entity x="12025" y="375" type="landPlatformShort"/>
 
     <entity x="12350" y="25" type="earthPlatformLong"/>
     <entity x="12350" y="75" type="earthPlatformLong"/>
     <entity x="12350" y="125" type="earthPlatformLong"/>    
-	<entity x="12350" y="175" type="darkEarthPlatformLong"/>
-	<entity x="12350" y="225" type="darkEarthPlatformLong"/>
-	<entity x="12350" y="275" type="darkEarthPlatformLong"/>
-	<entity x="12350" y="325" type="darkEarthPlatformLong"/>
+	
     <entity x="12350" y="375" type="landPlatformLong"/>
+    
+    <entity x="12850" y="83" type="waterPlatform"/>
+    <entity x="13000" y="83" type="waterPlatform"/>
+    <entity x="13250" y="83" type="waterPlatform"/>
     
     <entity x="12675" y="12" type="water"/>
     <entity x="12675" y="37" type="water"/>
     <entity x="12675" y="62" type="water"/>
-    <entity x="12675" y="87" type="water"/>
-    
     <entity x="12825" y="12" type="water"/>
     <entity x="12825" y="37" type="water"/>
     <entity x="12825" y="62" type="water"/>
-    <entity x="12825" y="87" type="water"/>
-    
     <entity x="12975" y="12" type="water"/>
     <entity x="12975" y="37" type="water"/>
     <entity x="12975" y="62" type="water"/>
-    <entity x="12975" y="87" type="water"/>
-    
     <entity x="13125" y="12" type="water"/>
     <entity x="13125" y="37" type="water"/>
     <entity x="13125" y="62" type="water"/>
-    <entity x="13125" y="87" type="water"/>
-    
     <entity x="13275" y="12" type="water"/>
     <entity x="13275" y="37" type="water"/>
     <entity x="13275" y="62" type="water"/>
-    <entity x="13275" y="87" type="water"/>
-    
-    <entity x="12850" y="110" type="waterPlatform"/>
-    <entity x="13000" y="110" type="waterPlatform"/>
-    <entity x="13250" y="110" type="waterPlatform"/>
-    
-    
+
     <entity x="12850" y="375" type="landPlatformLong"/>
-    
-    
     <entity x="13225" y="375" type="landPlatform"/>
     
-    <entity x="13225" y="25" type="earthPlatformShort"/>
-	<entity x="13225" y="75" type="earthPlatformShort"/>
-    <entity x="13225" y="125" type="darkEarthPlatformShort"/>
-	<entity x="13225" y="175" type="darkEarthPlatformShort"/>
-    <entity x="13225" y="225" type="darkEarthPlatformShort"/>
-	<entity x="13225" y="275" type="darkEarthPlatformShort"/>
-	<entity x="13225" y="325" type="darkEarthPlatformShort"/>
-    <entity x="13225" y="375" type="landPlatformShort"/>
+    <entity x="13425" y="25" type="earthPlatformShort"/>
+	<entity x="13425" y="75" type="earthPlatformShort"/>
+    <entity x="13425" y="375" type="landPlatformShort"/>
     
     <entity x="13750" y="25" type="earthPlatformLong"/>
-    <entity x="13750" y="75" type="darkEarthPlatformLong"/>
-    <entity x="13750" y="125" type="darkEarthPlatformLong"/>    
-	<entity x="13750" y="175" type="darkEarthPlatformLong"/>
-	<entity x="13750" y="225" type="darkEarthPlatformLong"/>
-	<entity x="13750" y="275" type="darkEarthPlatformLong"/>
+    
     <entity x="13750" y="325" type="landPlatformLong"/>
     
     <entity x="13535" y="67" type="spike"/>
@@ -295,6 +313,13 @@
     <entity x="14175" y="87" type="airPlatform"/>
     <entity x="14425" y="162" type="airPlatform"/>
     <entity x="14675" y="237" type="airPlatformLong"/>
+    
+    <entity x="14075" y="12" type="water"/>
+    <entity x="14225" y="12" type="water"/>
+    <entity x="14375" y="12" type="water"/>
+    <entity x="14525" y="12" type="water"/>
+    <entity x="14675" y="12" type="water"/>
+    <entity x="14825" y="12" type="water"/>
     
     <entity x="14925" y="25" type="earthPlatformShort"/>
 	<entity x="14925" y="75" type="earthPlatformShort"/>
@@ -337,8 +362,6 @@
     <entity x="8888" y="187" type="antidote"/>
     
     <entity x="15" y="125" type="player"/>
-    
-    
     
     <entity x="670" y="137" type="diamondRed"/>
     <entity x="720" y="137" type="diamondRed"/>
@@ -419,8 +442,8 @@
     <entity x="4880" y="135" type="torchLightHalo"/>
     <entity x="4880" y="135" type="torch"/>
     
-    <entity x="5570" y="78" type="torchLightHalo"/>
-    <entity x="5570" y="78" type="torch"/>
+    <entity x="5570" y="95" type="torchLightHalo"/>
+    <entity x="5570" y="95" type="torch"/>
     
     <entity x="6385" y="110" type="torchLightHalo"/>
     <entity x="6385" y="110" type="torch"/>
@@ -458,5 +481,5 @@
     <entity x="14385" y="210" type="torchLightHalo"/>
     <entity x="14385" y="210" type="torch"/>  
         
-    <entity x="14900" y="100" type="tent"/>
+    <entity x="14922" y="350" type="tent"/>
 </level>

@@ -9,6 +9,7 @@ import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
+import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.util.GLState;
 import org.andengine.util.adt.align.HorizontalAlign;
 
@@ -28,6 +29,8 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	private final int MENU_PLAY = 0;
 	private final int MENU_CONFIGURE = 1;
 	private final int MENU_RATEUS = 2;
+	private final int MENU_CREDITS = 3;
+	private Sprite creditsWindow;
 
 	@Override
 	public void createScene() {
@@ -76,17 +79,20 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 		final IMenuItem playMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_PLAY, resourcesManager.play_region, vbom), 1.2f, 1);
 		final IMenuItem configureMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_CONFIGURE, resourcesManager.configure_region, vbom), 1.2f, 1);
 		final IMenuItem rateusMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_RATEUS, resourcesManager.rateus_region,vbom), 1, 1);
+		final IMenuItem creditsMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_CREDITS, resourcesManager.credits_region,vbom), 1, 1);
 		
 		menuChildScene.addMenuItem(playMenuItem);
 		menuChildScene.addMenuItem(configureMenuItem);
 		menuChildScene.addMenuItem(rateusMenuItem);
+		menuChildScene.addMenuItem(creditsMenuItem);
 		menuChildScene.attachChild(highScoreText);
 		menuChildScene.buildAnimations();
 		menuChildScene.setBackgroundEnabled(false);
 		
 		playMenuItem.setPosition(0, 80);
 		configureMenuItem.setPosition(0, -30);
-		rateusMenuItem.setPosition(-325, -120);
+		rateusMenuItem.setPosition(-325, -122);
+		creditsMenuItem.setPosition(325, -122);
 		highScoreText.setPosition(0, -145);
 		
 		menuChildScene.setOnMenuItemClickListener(this);
@@ -109,8 +115,30 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 				SceneManager.getInstance().loadConfigureScene(engine);
 				return true;
 			case MENU_RATEUS:
-				activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + "com.lucianosimo.dolar")));
+				activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + "com.lucianosimo.cruisingamazonas")));
 				return true;
+			case MENU_CREDITS:
+				engine.runOnUpdateThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						MainMenuScene.this.setIgnoreUpdate(true);
+						creditsWindow = new Sprite(427, 240, resourcesManager.creditsWindow_region, vbom);
+						creditsWindow.setPosition(camera.getCenterX(), camera.getCenterY());
+						MainMenuScene.this.attachChild(creditsWindow);
+					    final Sprite continueButtonMenu = new Sprite(560, 45, resourcesManager.continueButtonMenu_region, vbom){
+					    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+					    		if (pSceneTouchEvent.isActionDown()) {
+					    			MainMenuScene.this.detachChild(creditsWindow);
+					    			MainMenuScene.this.setIgnoreUpdate(false);
+					    		}
+					    		return true;
+					    	};
+					    };
+					    MainMenuScene.this.registerTouchArea(continueButtonMenu);
+					    creditsWindow.attachChild(continueButtonMenu);
+					}
+				});
 			default:
 				return false;
 		}
