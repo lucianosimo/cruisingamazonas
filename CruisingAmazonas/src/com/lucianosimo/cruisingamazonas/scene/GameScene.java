@@ -70,6 +70,7 @@ public class GameScene extends BaseScene{
 	private Sprite gameOverWindow;
 	private Sprite firstWindowHelp;
 	private Sprite secondWindowHelp;
+	private Sprite creditsWindow;
 	
 	
 	//Texts variables
@@ -198,24 +199,15 @@ public class GameScene extends BaseScene{
 			break;
 		case 4:
 			Sprite darkBackground = new Sprite(5000, 300, resourcesManager.darkBackground_region, vbom);
-			Sprite light = new Sprite(170, 32, resourcesManager.lightHalo_region, vbom);
-			light.setBlendingEnabled(true);
-			light.setBlendFunctionSource(GLES20.GL_DST_COLOR);
-			light.setAlpha(0.2f);
 			this.attachChild(darkBackground);
-			player.attachChild(light);
 			break;
 		case 5:
 			firstWindowHelp = new Sprite(427, 240, resourcesManager.fifth_help_window_region, vbom);
 			break;
 		case 8:
 			Sprite darkBackground8 = new Sprite(7500, 300, resourcesManager.darkBackground_region, vbom);
-			Sprite light8 = new Sprite(170, 32, resourcesManager.lightHalo_region, vbom);
-			light8.setBlendingEnabled(true);
-			light8.setBlendFunctionSource(GLES20.GL_DST_COLOR);
-			light8.setAlpha(0.2f);
+			creditsWindow = new Sprite(427, 240, resourcesManager.creditsWindow_region, vbom);
 			this.attachChild(darkBackground8);
-			player.attachChild(light8);
 			break;
 		default:
 			break;
@@ -256,6 +248,10 @@ public class GameScene extends BaseScene{
 		Editor editor = sharedPreferences.edit();
 		editor.putFloat(key, hp);
 		editor.commit();
+	}
+	
+	public int getLevel() {
+		return level;
 	}
 	
 	private void saveAvailableLevels(String key, int availableLevels) {
@@ -949,20 +945,45 @@ public class GameScene extends BaseScene{
 								saveScore("score", player.getScore());
 								saveHighScore("score", player.getScore());
 								destroySprite(player);
-								levelCompleteWindow.display(countDiamondBlue, countDiamondYellow, countDiamondRed, player.getScore(), GameScene.this, camera);
-							    final Sprite continueButton = new Sprite(530, 40, resourcesManager.continueButton_region, vbom){
-							    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-							    		if (pSceneTouchEvent.isActionDown()) {
-							    			saveHP("hp", player.getHP());
-							        		saveScore("score", player.getScore());
-								    		goToNextLevel();
-							    		}
-							    		return true;
-							    	};
-							    };
-							    GameScene.this.registerTouchArea(continueButton);
-							    levelCompleteWindow.attachChild(continueButton);
-				                this.setIgnoreUpdate(true);
+								if (getLevel() == 8) {
+									engine.runOnUpdateThread(new Runnable() {
+										
+										@Override
+										public void run() {
+											GameScene.this.setIgnoreUpdate(true);
+									        camera.setChaseEntity(null);
+											creditsWindow.setPosition(camera.getCenterX(), camera.getCenterY());
+											GameScene.this.attachChild(creditsWindow);
+											final Sprite continueButton = new Sprite(530, 40, resourcesManager.continueButton_region, vbom){
+										    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+										    		if (pSceneTouchEvent.isActionDown()) {
+										    			saveHP("hp", player.getHP());
+										        		saveScore("score", player.getScore());
+											    		goToNextLevel();
+										    		}
+										    		return true;
+										    	};
+										    };
+										    GameScene.this.registerTouchArea(continueButton);
+										    creditsWindow.attachChild(continueButton);
+										}
+									});
+								} else {
+									levelCompleteWindow.display(countDiamondBlue, countDiamondYellow, countDiamondRed, player.getScore(), GameScene.this, camera);
+								    final Sprite continueButton = new Sprite(530, 40, resourcesManager.continueButton_region, vbom){
+								    	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+								    		if (pSceneTouchEvent.isActionDown()) {
+								    			saveHP("hp", player.getHP());
+								        		saveScore("score", player.getScore());
+									    		goToNextLevel();
+								    		}
+								    		return true;
+								    	};
+								    };
+								    GameScene.this.registerTouchArea(continueButton);
+								    levelCompleteWindow.attachChild(continueButton);
+					                this.setIgnoreUpdate(true);									
+								}															    
 							}
 						};
 					};
@@ -975,6 +996,9 @@ public class GameScene extends BaseScene{
 							saveHP("hp", 100);
 							saveHighScore("score", player.getScore());
 							saveScore("score", 0);
+							player.setHP(0);
+							player.setPoisonedStatus(false);
+							setPoisonedTimer();
 							//destroySprite(player);
 							if (!gameOverDisplayed && !levelCompleted) {
 								//displayGameOverText();

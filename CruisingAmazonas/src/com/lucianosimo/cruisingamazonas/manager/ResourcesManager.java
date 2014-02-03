@@ -49,12 +49,9 @@ public class ResourcesManager {
 	public ITextureRegion configure_region;
 	public ITextureRegion howtoplay_region;
 	public ITextureRegion rateus_region;
-	public ITextureRegion credits_region;
-	public ITextureRegion creditsWindow_region;
 	public ITextureRegion continueButtonMenu_region;
 	public Music menuMusic;
 	private BuildableBitmapTextureAtlas menuTextureAtlas;
-	private BuildableBitmapTextureAtlas creditsTextureAtlas;
 	
 	//Configure items
 	public ITextureRegion configure_background_region;
@@ -150,6 +147,7 @@ public class ResourcesManager {
 	public ITextureRegion third_help_window_region;
 	public ITextureRegion fourth_help_window_region;
 	public ITextureRegion fifth_help_window_region;
+	public ITextureRegion creditsWindow_region;
 	
 	//Game Textures
 	private BuildableBitmapTextureAtlas decoTextureAtlas;
@@ -166,7 +164,8 @@ public class ResourcesManager {
 	private BuildableBitmapTextureAtlas thirdHelpWindowTextureAtlas;
 	private BuildableBitmapTextureAtlas fourthHelpWindowTextureAtlas;
 	private BuildableBitmapTextureAtlas fifthHelpWindowTextureAtlas;
-	private BitmapTextureAtlas darkBackgroundTextureAtlas;	
+	private BitmapTextureAtlas darkBackgroundTextureAtlas;
+	private BuildableBitmapTextureAtlas creditsTextureAtlas;
 	
 	
 	//Splash Methods
@@ -192,20 +191,15 @@ public class ResourcesManager {
 	private void loadMenuGraphics() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
 		menuTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 1024, 1024, TextureOptions.BILINEAR);
-		creditsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 320, TextureOptions.BILINEAR);
 		menu_background_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "menu_background.png");
 		play_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "play.png");
 		configure_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "configure.png");
 		howtoplay_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "howtoplay.png");
 		rateus_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "rateUs.png");
-		credits_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "credits.png");
-		creditsWindow_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(creditsTextureAtlas, activity, "creditsWindow.png");
 		continueButtonMenu_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "continueButton.png");
 		try {
 			this.menuTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
-			this.creditsTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
 			this.menuTextureAtlas.load();
-			this.creditsTextureAtlas.load();
 		} catch (final TextureAtlasBuilderException e) {
 			org.andengine.util.debug.Debug.e(e);
 		}
@@ -236,7 +230,6 @@ public class ResourcesManager {
 	
 	public void unloadMenuTextures() {
 		menuTextureAtlas.unload();
-		this.creditsTextureAtlas.unload();
 	}
 	
 	public void loadMenuTextures() {
@@ -308,6 +301,11 @@ public class ResourcesManager {
 			fifthHelpWindowTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 320, TextureOptions.BILINEAR);
 			fifth_help_window_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(fifthHelpWindowTextureAtlas, activity, "fifthHelpWindow.png");
 		}
+		if (MapScene.getNextLevel() == 8) {
+			creditsTextureAtlas = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 600, 320, TextureOptions.BILINEAR);
+			creditsWindow_region = BitmapTextureAtlasTextureRegionFactory.createFromAsset(creditsTextureAtlas, activity, "creditsWindow.png");
+		}
+		
 				
 		//Animated Sprites
 		player_region = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(animatedTextureAtlas, activity, "player.png", 6, 1);
@@ -427,8 +425,13 @@ public class ResourcesManager {
 				this.fourthHelpWindowTextureAtlas.load();
 				
 			}
-			if (MapScene.getNextLevel() == 4 || MapScene.getNextLevel() == 8) {
-				this.darkBackgroundTextureAtlas.load();				
+			if (MapScene.getNextLevel() == 4) {
+				this.darkBackgroundTextureAtlas.load();	
+			}
+			if (MapScene.getNextLevel() == 8) {
+				this.creditsTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
+				this.creditsTextureAtlas.load();
+				this.darkBackgroundTextureAtlas.load();	
 			}
 			if (MapScene.getNextLevel() == 5) {
 				this.fifthHelpWindowTextureAtlas.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 1, 0));
@@ -504,8 +507,12 @@ public class ResourcesManager {
 			this.fourthHelpWindowTextureAtlas.unload();
 			
 		}
-		if (MapScene.getNextLevel() == 4 || MapScene.getNextLevel() == 8) {
-			this.darkBackgroundTextureAtlas.unload();				
+		if (MapScene.getNextLevel() == 4) {
+			this.darkBackgroundTextureAtlas.unload();
+		}
+		if (MapScene.getNextLevel() == 8) {
+			this.darkBackgroundTextureAtlas.unload();
+			this.creditsTextureAtlas.unload();
 		}
 		if (MapScene.getNextLevel() == 5) {
 			this.fifthHelpWindowTextureAtlas.unload();

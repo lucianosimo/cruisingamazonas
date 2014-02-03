@@ -68,7 +68,7 @@
     <entity x="5150" y="125" type="landPlatformLong"/>
     <entity x="5475" y="25" type="earthPlatformShort"/>
     <entity x="5435" y="67" type="spike"/>
-    <entity x="5515" y="67" type="spike"/>
+    <entity x="5500" y="67" type="spike"/>
     <entity x="5800" y="25" type="earthPlatformLong"/>
     <entity x="5800" y="75" type="darkEarthPlatformLong"/>
     <entity x="5800" y="125" type="darkEarthPlatformLong"/>
